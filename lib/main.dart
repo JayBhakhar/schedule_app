@@ -98,7 +98,9 @@ List fmit = [
   'АР21',
   'МИ21',
   'МПМИ21',
-  'МФ21ПИ21ПМИ21',
+  'МФ21',
+  'ПИ21',
+  'ПМИ21',
   'ПМИ22',
   'АИС31',
   'АР31',
@@ -485,7 +487,7 @@ class _HomeState extends State<Home> {
         body: Column(
           children: [
             Expanded(
-              flex: 3,
+              flex: 2,
               child: ListView.builder(
                   itemCount: faculty.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -515,8 +517,9 @@ class _HomeState extends State<Home> {
                     itemCount: philology.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -545,8 +548,9 @@ class _HomeState extends State<Home> {
                     itemCount: Bashkir.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -575,8 +579,9 @@ class _HomeState extends State<Home> {
                     itemCount: history.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -605,8 +610,9 @@ class _HomeState extends State<Home> {
                     itemCount: fmit.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -635,8 +641,9 @@ class _HomeState extends State<Home> {
                     itemCount: science.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -665,8 +672,9 @@ class _HomeState extends State<Home> {
                     itemCount: pip.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -695,8 +703,9 @@ class _HomeState extends State<Home> {
                     itemCount: ecomony.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -725,8 +734,9 @@ class _HomeState extends State<Home> {
                     itemCount: law.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -755,8 +765,9 @@ class _HomeState extends State<Home> {
                     itemCount: collage.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 80.0,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
+                      mainAxisExtent: 40,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
                     ),
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
