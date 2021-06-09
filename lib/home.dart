@@ -15,6 +15,7 @@ class _HomeState extends State<Home> {
   int faculty_id;
   int facultyIndex;
   int groupIndex;
+  int groupListLength = 0;
   List<String> groupList = [];
   final Xml2Json xml2Json = Xml2Json();
 
@@ -110,12 +111,14 @@ class _HomeState extends State<Home> {
                     for(var ullist in ul){
                       var alist = ullist.getElementsByTagName('a');
                       for(var atext in alist){
-                        if(groupList.length == 0) {
+                        if(groupListLength == 0) {
                           groupList.add(atext.innerHtml);
                         }
                       }
                     }
-                    print(groupList.length);
+                    setState(() {
+                      groupListLength = groupList.length;
+                    });
                   },
                   // onTap: () async {
                   //   final url =
