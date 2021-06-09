@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                     // int statusCode = response.statusCode;
                     var document = parse(response.body);
                     var ul = document.getElementsByTagName('ul');
-                    if(groupListLength != 0){
+                    if(groupList.isNotEmpty){
                       setState(() {
                         groupList = [];
                       });
@@ -126,9 +126,6 @@ class _HomeState extends State<Home> {
                     }
                     print(groupList);
                     print('second group list len ${groupList.length}');
-                    setState(() {
-                      groupListLength = groupList.length;
-                    });
                   },
                   // onTap: () async {
                   //   final url =
