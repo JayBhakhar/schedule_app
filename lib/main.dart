@@ -1,3 +1,4 @@
+import 'package:schedule_app/home.dart';
 import 'package:schedule_app/test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _AppState extends State<App> {
         appBar: AppBar(
           title: Center(child: Text('Расписание СФ БашГУ')),
         ),
-        body: Test()
+        body: Home()
       ),
     );
   }

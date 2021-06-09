@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule_app/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
 import 'package:xml2json/xml2json.dart';
-
 
 
 class Home extends StatefulWidget {
@@ -15,6 +15,7 @@ class _HomeState extends State<Home> {
   int faculty_id;
   int facultyIndex;
   int groupIndex;
+  List<String> groupList = [];
   final Xml2Json xml2Json = Xml2Json();
 
   @override
@@ -103,27 +104,18 @@ class _HomeState extends State<Home> {
                     };
                     Response response =
                     await get(url, headers: headers);
-                    // check the status code for the result
-                    int statusCode = response.statusCode;
+                    // int statusCode = response.statusCode;
                     var document = parse(response.body);
-                    var body = response.body;
-                    // print(body);
                     var ul = document.getElementsByTagName('ul');
-                    // print(ul);
-                    var a0 = ul[0].getElementsByTagName('a');
-                    var texta = a0[0].innerHtml;
-                    var a = document.getElementsByTagName('a');
-                    var lena = document.getElementsByTagName('a').length;
-                    // print(a0);
-                    print(a);
-                    print(lena);
-                    print(texta);
-                    for(var b in a0){
-                      print('loop print $b');
+                    for(var ullist in ul){
+                      var alist = ullist.getElementsByTagName('a');
+                      for(var atext in alist){
+                        if(groupList.length == 0) {
+                          groupList.add(atext.innerHtml);
+                        }
+                      }
                     }
-                    // print(a0[0].innerHtml);
-                    // print(a0[0].attributes['onclick']);
-                    print(statusCode);
+                    print(groupList.length);
                   },
                   // onTap: () async {
                   //   final url =
@@ -147,7 +139,7 @@ class _HomeState extends State<Home> {
               return GridView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: philology.length,
+                itemCount: groupList.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 80.0,
                   mainAxisExtent: 40,
@@ -168,7 +160,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: Center(
                           child: Text(
-                            philology[index],
+                            groupList[index],
                             style: TextStyle(
                               fontSize: 12,
                             ),

@@ -25,8 +25,7 @@ class _TestState extends State<Test> {
                 Uri.parse('http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
             Map<String, String> headers = {"Content-type": "application/json"};
             Response response = await get(url, headers: headers);
-            // check the status code for the result
-            int statusCode = response.statusCode;
+            // int statusCode = response.statusCode;
             var document = parse(response.body);
             setState(() {
               body = response.body;
@@ -34,8 +33,9 @@ class _TestState extends State<Test> {
             var ul = document.getElementsByTagName('ul');
             for(var ullist in ul){
               var alist = ullist.getElementsByTagName('a');
-              for(var atag in alist){
-                groupList.add(atag.innerHtml);
+              for(var atext in alist){
+                groupList.add(atext.innerHtml);
+                print(atext.attributes['onclick']);
               }
             }
             print(groupList);
@@ -59,7 +59,7 @@ class _TestState extends State<Test> {
         TextButton(
           onPressed: () async {
             final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-            var json = {'type': '2', 'id': '10173', 'week': '0'};
+            var json = {'type': '2', 'id': '10173', 'week': '-1'};
             Response response = await post(url, body: json);
             // check the status code for the result
             int statusCode = response.statusCode;
