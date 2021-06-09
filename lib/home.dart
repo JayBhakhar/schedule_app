@@ -4,6 +4,7 @@ import 'package:schedule_app/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
 import 'package:xml2json/xml2json.dart';
+import 'groups_list.dart';
 
 
 class Home extends StatefulWidget {
@@ -15,7 +16,6 @@ class _HomeState extends State<Home> {
   int faculty_id;
   int facultyIndex;
   int groupIndex;
-  int groupListLength = 0;
   List<String> groupList = [];
   final Xml2Json xml2Json = Xml2Json();
 
@@ -97,7 +97,6 @@ class _HomeState extends State<Home> {
                           faculty_id = 127;
                         });
                       }
-                      print(facultyIndex);
                     });
                     final url =
                     Uri.parse('http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
@@ -114,18 +113,12 @@ class _HomeState extends State<Home> {
                         groupList = [];
                       });
                     }
-                    print(groupList);
-                    print('group list len ${groupList.length}');
                     for(var ullist in ul){
                       var alist = ullist.getElementsByTagName('a');
                       for(var atext in alist){
-                        if(groupListLength == 0) {
                           groupList.add(atext.innerHtml);
-                        }
                       }
                     }
-                    print(groupList);
-                    print('second group list len ${groupList.length}');
                   },
                   // onTap: () async {
                   //   final url =
@@ -146,323 +139,27 @@ class _HomeState extends State<Home> {
               }),
           Builder(builder: (context) {
             if (facultyIndex == 0)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: groupList.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                        setState(() {
-                          groupIndex = index;
-                        });
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            groupList[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 1)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: groupList.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            groupList[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 2)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: groupList.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                        setState(() {
-                          groupIndex = index;
-                        });
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            groupList[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 3)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: fmit.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            fmit[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 4)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: science.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                        setState(() {
-                          groupIndex = index;
-                        });
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            science[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 5)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: pip.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                        setState(() {
-                          groupIndex = index;
-                        });
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            pip[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 6)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: ecomony.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                        setState(() {
-                          groupIndex = index;
-                        });
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            ecomony[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 7)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: law.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                        setState(() {
-                          groupIndex = index;
-                        });
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            law[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
             else if (facultyIndex == 8)
-              return GridView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: collage.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 80.0,
-                  mainAxisExtent: 40,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                ),
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // go to next sceen for schdule
-                        print('group' + '$index');
-                        setState(() {
-                          groupIndex = index;
-                        });
-                      },
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            collage[index],
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              return GroupsList(groupList: groupList);
+            else if (facultyIndex == 9)
+              return GroupsList(groupList: groupList);
+            else if (facultyIndex == 10)
+              return GroupsList(groupList: groupList);
             else
               return Container(
                 width: 0,
