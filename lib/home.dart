@@ -97,6 +97,7 @@ class _HomeState extends State<Home> {
                           faculty_id = 127;
                         });
                       }
+                      print(facultyIndex);
                     });
                     final url =
                     Uri.parse('http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
@@ -108,6 +109,13 @@ class _HomeState extends State<Home> {
                     // int statusCode = response.statusCode;
                     var document = parse(response.body);
                     var ul = document.getElementsByTagName('ul');
+                    if(groupListLength != 0){
+                      setState(() {
+                        groupList = [];
+                      });
+                    }
+                    print(groupList);
+                    print('group list len ${groupList.length}');
                     for(var ullist in ul){
                       var alist = ullist.getElementsByTagName('a');
                       for(var atext in alist){
@@ -116,6 +124,8 @@ class _HomeState extends State<Home> {
                         }
                       }
                     }
+                    print(groupList);
+                    print('second group list len ${groupList.length}');
                     setState(() {
                       groupListLength = groupList.length;
                     });
@@ -178,7 +188,7 @@ class _HomeState extends State<Home> {
               return GridView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: bashkir.length,
+                itemCount: groupList.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 80.0,
                   mainAxisExtent: 40,
@@ -196,7 +206,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: Center(
                           child: Text(
-                            bashkir[index],
+                            groupList[index],
                             style: TextStyle(
                               fontSize: 12,
                             ),
@@ -211,7 +221,7 @@ class _HomeState extends State<Home> {
               return GridView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: history.length,
+                itemCount: groupList.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 80.0,
                   mainAxisExtent: 40,
@@ -232,7 +242,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: Center(
                           child: Text(
-                            history[index],
+                            groupList[index],
                             style: TextStyle(
                               fontSize: 12,
                             ),

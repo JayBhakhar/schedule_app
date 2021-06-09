@@ -3,7 +3,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
-import 'package:schedule_app/lists.dart';
 
 class Test extends StatefulWidget {
   @override
