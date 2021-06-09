@@ -38,8 +38,66 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   onTap: () async {
+                    setState(() {
+                      facultyIndex = index;
+                      if(facultyIndex == 0){
+                        setState(() {
+                          faculty_id = 4;
+                        });
+                      }
+                      else if(facultyIndex == 1){
+                        setState(() {
+                          faculty_id = 5;
+                        });
+                      }
+                      else if(facultyIndex == 2){
+                        setState(() {
+                          faculty_id = 6;
+                        });
+                      }
+                      else if(facultyIndex == 3){
+                        setState(() {
+                          faculty_id = 7;
+                        });
+                      }
+                      else if(facultyIndex == 4){
+                        setState(() {
+                          faculty_id = 8;
+                        });
+                      }
+                      else if(facultyIndex == 5){
+                        setState(() {
+                          faculty_id = 9;
+                        });
+                      }
+                      else if(facultyIndex == 6){
+                        setState(() {
+                          faculty_id = 10;
+                        });
+                      }
+                      else if(facultyIndex == 7){
+                        setState(() {
+                          faculty_id = 18;
+                        });
+                      }
+                      else if(facultyIndex == 8){
+                        setState(() {
+                          faculty_id = 26;
+                        });
+                      }
+                      else if(facultyIndex == 9){
+                        setState(() {
+                          faculty_id = 27;
+                        });
+                      }
+                      else if(facultyIndex == 10){
+                        setState(() {
+                          faculty_id = 127;
+                        });
+                      }
+                    });
                     final url =
-                    Uri.parse('http://edu.strbsu.ru/php/getList.php?faculty=4');
+                    Uri.parse('http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
                     Map<String, String> headers = {
                       "Content-type": "application/json"
                     };
@@ -66,14 +124,6 @@ class _HomeState extends State<Home> {
                     // print(a0[0].innerHtml);
                     // print(a0[0].attributes['onclick']);
                     print(statusCode);
-                    setState(() {
-                      facultyIndex = index;
-                      if(facultyIndex == 0){
-                        setState(() {
-                          faculty_id = 4;
-                        });
-                      }
-                    });
                   },
                   // onTap: () async {
                   //   final url =

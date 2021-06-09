@@ -11,8 +11,9 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-  int faculty_id = 9;
+  int faculty_id = 7;
   var body = '';
+  List<String> groupList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +31,28 @@ class _TestState extends State<Test> {
             setState(() {
               body = response.body;
             });
-            // print(body);
             var ul = document.getElementsByTagName('ul');
-            // print(ul);
+            for(var ullist in ul){
+              var alist = ullist.getElementsByTagName('a');
+              for(var atag in alist){
+                groupList.add(atag.innerHtml);
+              }
+            }
+            print(groupList);
             var a0 = ul[0].getElementsByTagName('a');
+            var a0len = ul[0].getElementsByTagName('a').length;
             var texta = a0[0].innerHtml;
             var a = document.getElementsByTagName('a');
             var lena = document.getElementsByTagName('a').length;
             // print(a0);
+            // print(a0len);
             // print(a);
             // print(lena);
             // print(texta);
-            // for (var b in a0) {
-            //   print('loop print $b');
-            // }
-            // print(a0[0].innerHtml);
             // print(a0[0].attributes['onclick']);
-            print(statusCode);
-            print(body);
+            // print(a[2].attributes['onclick']);
+            // print(statusCode);
+            // print(body);
           },
           child: Text('Test'),
         ),
@@ -66,7 +71,14 @@ class _TestState extends State<Test> {
             });
           },
           child: Text('Test 2'),),
-        Html(data: body)
+        Html(
+          data: body,
+          style: {
+            "a": Style(
+              color: Colors.green
+            )
+          },
+        )
       ],
     );
   }
