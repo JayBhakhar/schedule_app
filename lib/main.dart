@@ -24,7 +24,7 @@ class _AppState extends State<App> {
         appBar: AppBar(
           title: Center(child: Text('Расписание СФ БашГУ')),
         ),
-        body: Test()
+        body: Home()
       ),
     );
   }

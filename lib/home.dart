@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:schedule_app/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
@@ -16,7 +17,10 @@ class _HomeState extends State<Home> {
   int faculty_id;
   int facultyIndex;
   int groupIndex;
+  var body = '';
   List<String> groupList = [];
+  List<String> group_id = [];
+  Map<String, String> groupMap = Map();
   final Xml2Json xml2Json = Xml2Json();
 
   @override
@@ -110,8 +114,16 @@ class _HomeState extends State<Home> {
                     var ul = document.getElementsByTagName('ul');
                     if(groupList.isNotEmpty){
                       setState(() {
+                        group_id = [];
                         groupList = [];
+                        groupMap = Map();
                       });
+                    }
+                    for (var ullist in ul) {
+                      var divlist = ullist.getElementsByTagName('div');
+                      for (var atext in divlist) {
+                        group_id.add(atext.innerHtml);
+                      }
                     }
                     for(var ullist in ul){
                       var alist = ullist.getElementsByTagName('a');
@@ -119,94 +131,38 @@ class _HomeState extends State<Home> {
                           groupList.add(atext.innerHtml);
                       }
                     }
+                    groupMap = Map.fromIterables(group_id, groupList);
                   },
-                  // onTap: () async {
-                  //   final url =
-                  //       Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-                  //   var json = {'type': '2','id': '26','week': '0'};
-                  //   Response response =
-                  //       await post(url, body:json);
-                  //   // check the status code for the result
-                  //   int statusCode = response.statusCode;
-                  //   var body = response.body;
-                  //   print(body);
-                  //   print(statusCode);
-                  //   setState(() {
-                  //     facultyIndex = index;
-                  //   });
-                  // },
                 );
               }),
-          // Builder(builder: (context) {
-          //   if (facultyIndex == 0)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 1)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 2)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 3)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 4)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 5)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 6)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 7)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 8)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 9)
-          //     return GroupsList(groupList: groupList);
-          //   else if (facultyIndex == 10)
-          //     return GroupsList(groupList: groupList);
-          //   else
-          //     return Container(
-          //       width: 0,
-          //       height: 0,
-          //     );
-          // }),
           Builder(builder: (context) {
-            if (facultyIndex == 0 && groupIndex == 0) {
-              return Table(
-                border: TableBorder.all(),
-                children: [
-                  TableRow(
-                    decoration: BoxDecoration(color: Colors.green),
-                    children: [
-                      Center(
-                        child: Text(
-                          'Понедельник  date......',
-                          style: TextStyle(
-                            backgroundColor: Colors.green,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  TableRow(children: [
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('data'), // №. пара комната №
-                            Text('data'), // время
-                          ],
-                        ),
-                        Text('data'), // subject name
-                        Text('data'), // teacher name
-                      ],
-                    )
-                  ])
-                ],
-              );
-            } else {
+            if (facultyIndex == 0)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 1)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 2)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 3)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 4)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 5)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 6)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 7)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 8)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 9)
+              return GroupsList(groupMap: groupMap);
+            else if (facultyIndex == 10)
+              return GroupsList(groupMap: groupMap);
+            else
               return Container(
                 width: 0,
                 height: 0,
               );
-            }
           }),
         ],
       ),
