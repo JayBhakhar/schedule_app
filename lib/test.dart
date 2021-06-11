@@ -13,9 +13,9 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
   int faculty_id = 7;
   var body = '';
-  List<String> groupList = [];
-  List<String> group_id = [];
-  Map<String, String> groupMap = Map();
+  List<String> dayList = [];
+  List<String> LecNoList = [];
+  List<String> LecTypeList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,74 +23,78 @@ class _TestState extends State<Test> {
       children: [
         TextButton(
           onPressed: () async {
-            final url = Uri.parse(
-                'http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
-            Map<String, String> headers = {"Content-type": "application/json"};
-            Response response = await get(url, headers: headers);
-            // int statusCode = response.statusCode;
-            var document = parse(response.body);
-            var ul = document.getElementsByTagName('ul');
-            for (var ullist in ul) {
-              var alist = ullist.getElementsByTagName('a');
-              for (var atext in alist) {
-                groupList.add(atext.innerHtml);
-                // print(atext.attributes['onclick']);
-              }
-            }
-            for (var ullist in ul) {
-              var divlist = ullist.getElementsByTagName('div');
-              for (var atext in divlist) {
-                group_id.add(atext.innerHtml);
-              }
-            }
-            setState(() {
-              body = response.body;
-              groupMap =
-                  Map.fromIterables(group_id, groupList);
-            });
-            // print(group_id);
-            // print(groupList);
-            // print(groupMap);
-            var a0 = ul[0].getElementsByTagName('a');
-            var a0len = ul[0].getElementsByTagName('a').length;
-            var texta = a0[0].innerHtml;
-            var a = document.getElementsByTagName('a');
-            var lena = document.getElementsByTagName('a').length;
-            // print(a0);
-            // print(a0len);
-            // print(a);
-            // print(lena);
-            // print(texta);
-            // print(a0[0].attributes['onclick']);
-            // print(a[2].attributes['onclick']);
-            // print(statusCode);
-            // print(body);
-          },
-          child: Text('Test'),
-        ),
-        TextButton(
-          onPressed: () async {
             final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-            var json = {'type': '2', 'id': '10173', 'week': '-1'};
+            var json = {'type': '2', 'id': '10173', 'week': '0'};
             Response response = await post(url, body: json);
             // check the status code for the result
             int statusCode = response.statusCode;
+            var document = parse(response.body);
             setState(() {
-              body = response.body;
+              dayList = [];
+              LecNoList = [];
+              LecTypeList = [];
             });
-            setState(() {
-              // facultyIndex = index;
-            });
+            // start for loop day and date
+            var getDay = document.getElementsByClassName('day');
+            for (var days in getDay) {
+              var daylist = days.getElementsByTagName('h2');
+              for (var day in daylist) {
+                dayList.add(day.innerHtml);
+              }
+            } // end for loop for day
+            // start loop for lecture number
+            var getLecNo = document.getElementsByClassName('number');
+            for (var number in getLecNo) {
+              LecNoList.add(number.innerHtml);
+            } // end loop for lecture number
+            // start loop for lecture number
+            var getLecType = document.getElementsByClassName('type');
+            for (var div1 in getLecType) {
+              var div = div1.getElementsByTagName('div');
+              for (var type in div) {
+                LecTypeList.add(type.innerHtml);
+              }
+            } // end loop for lecture number
+            print(response.body);
+            print(LecTypeList);
+            print(LecTypeList.length);
           },
-          child: Text('Test 2'),
+          child: Text('Test'),
         ),
-        // Html(
-        //   data: body,
-        //   style: {"a": Style(color: Colors.green)},
-        // ),
-        GroupsList(
-          groupMap: groupMap,
+        Column(
+          children: [
+            ListView.builder(
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemCount: dayList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Center(
+                    child: Text(
+                      '${dayList[index]}',
+                      style: TextStyle(
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
+                  );
+                }),
+          ],
         ),
+        Row(children: [
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('data'), // №. пара комната №
+                  Text('data'), // время
+                ],
+              ),
+              Text('data'), // subject name
+              Text('data'), // teacher name
+            ],
+          )
+        ])
       ],
     );
   }

@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:schedule_app/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
 import 'package:xml2json/xml2json.dart';
 import 'groups_list.dart';
-
 
 class Home extends StatefulWidget {
   @override
@@ -46,73 +44,62 @@ class _HomeState extends State<Home> {
                   onTap: () async {
                     setState(() {
                       facultyIndex = index;
-                      if(facultyIndex == 0){
+                      if (facultyIndex == 0) {
                         setState(() {
                           faculty_id = 4;
                         });
-                      }
-                      else if(facultyIndex == 1){
+                      } else if (facultyIndex == 1) {
                         setState(() {
                           faculty_id = 5;
                         });
-                      }
-                      else if(facultyIndex == 2){
+                      } else if (facultyIndex == 2) {
                         setState(() {
                           faculty_id = 6;
                         });
-                      }
-                      else if(facultyIndex == 3){
+                      } else if (facultyIndex == 3) {
                         setState(() {
                           faculty_id = 7;
                         });
-                      }
-                      else if(facultyIndex == 4){
+                      } else if (facultyIndex == 4) {
                         setState(() {
                           faculty_id = 8;
                         });
-                      }
-                      else if(facultyIndex == 5){
+                      } else if (facultyIndex == 5) {
                         setState(() {
                           faculty_id = 9;
                         });
-                      }
-                      else if(facultyIndex == 6){
+                      } else if (facultyIndex == 6) {
                         setState(() {
                           faculty_id = 10;
                         });
-                      }
-                      else if(facultyIndex == 7){
+                      } else if (facultyIndex == 7) {
                         setState(() {
                           faculty_id = 18;
                         });
-                      }
-                      else if(facultyIndex == 8){
+                      } else if (facultyIndex == 8) {
                         setState(() {
                           faculty_id = 26;
                         });
-                      }
-                      else if(facultyIndex == 9){
+                      } else if (facultyIndex == 9) {
                         setState(() {
                           faculty_id = 27;
                         });
-                      }
-                      else if(facultyIndex == 10){
+                      } else if (facultyIndex == 10) {
                         setState(() {
                           faculty_id = 127;
                         });
                       }
                     });
-                    final url =
-                    Uri.parse('http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
+                    final url = Uri.parse(
+                        'http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
                     Map<String, String> headers = {
                       "Content-type": "application/json"
                     };
-                    Response response =
-                    await get(url, headers: headers);
+                    Response response = await get(url, headers: headers);
                     // int statusCode = response.statusCode;
                     var document = parse(response.body);
                     var ul = document.getElementsByTagName('ul');
-                    if(groupList.isNotEmpty){
+                    if (groupList.isNotEmpty) {
                       setState(() {
                         group_id = [];
                         groupList = [];
@@ -125,10 +112,10 @@ class _HomeState extends State<Home> {
                         group_id.add(atext.innerHtml);
                       }
                     }
-                    for(var ullist in ul){
+                    for (var ullist in ul) {
                       var alist = ullist.getElementsByTagName('a');
-                      for(var atext in alist){
-                          groupList.add(atext.innerHtml);
+                      for (var atext in alist) {
+                        groupList.add(atext.innerHtml);
                       }
                     }
                     groupMap = Map.fromIterables(group_id, groupList);

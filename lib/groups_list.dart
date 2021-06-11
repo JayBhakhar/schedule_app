@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:schedule_app/schedule_table.dart';
+import 'package:html/parser.dart';
 
 class GroupsList extends StatefulWidget {
   Map<String, String> groupMap = Map();
@@ -28,14 +30,32 @@ class _GroupsListState extends State<GroupsList> {
           child: GestureDetector(
             onTap: () async {
               final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-              var json = {'type': '2', 'id': widget.groupMap.keys.toList()[index], 'week': '-1'};
+              var json = {'type': '2', 'id': widget.groupMap.keys.toList()[index], 'week': '0'};
+              // type = 1 for teacher
+              // type = 2 for student
+              // type = 3 for room no
               Response response = await post(url, body: json);
               // check the status code for the result
               int statusCode = response.statusCode;
+              var document = parse(response.body);
               setState(() {
                 body = response.body;
               });
               print(body);
+              print(widget.groupMap.keys.toList()[index]);
+              print(widget.groupMap.values.toList()[index]);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ScheduleTable(
+                          group_id : widget.groupMap.keys.toList()[index],
+                          group_name : widget.groupMap.values.toList()[index],
+                          body : document,
+                    );
+                  },
+                ),
+              );
             },
             child: Container(
               child: Center(

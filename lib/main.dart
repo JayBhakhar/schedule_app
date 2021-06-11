@@ -1,7 +1,8 @@
 import 'package:schedule_app/home.dart';
-import 'package:schedule_app/test.dart';
+import 'package:schedule_app/schedule_table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:schedule_app/test.dart';
 
 void main() {
   runApp(App());
@@ -24,8 +25,11 @@ class _AppState extends State<App> {
         appBar: AppBar(
           title: Center(child: Text('Расписание СФ БашГУ')),
         ),
-        body: Home()
+        body: Test(),
       ),
+      routes: {
+        ScheduleTable.id: (context) => ScheduleTable()
+      },
     );
   }
 }
