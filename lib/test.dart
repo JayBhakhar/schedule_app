@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
+import 'groups_list.dart';
 
 class Test extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class _TestState extends State<Test> {
   int faculty_id = 7;
   var body = '';
   List<String> groupList = [];
+  List<String> group_id = [];
+  Map<String, String> groupMap = Map();
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +23,34 @@ class _TestState extends State<Test> {
       children: [
         TextButton(
           onPressed: () async {
-            final url =
-                Uri.parse('http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
+            final url = Uri.parse(
+                'http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
             Map<String, String> headers = {"Content-type": "application/json"};
             Response response = await get(url, headers: headers);
             // int statusCode = response.statusCode;
             var document = parse(response.body);
-            setState(() {
-              body = response.body;
-            });
             var ul = document.getElementsByTagName('ul');
-            for(var ullist in ul){
+            for (var ullist in ul) {
               var alist = ullist.getElementsByTagName('a');
-              for(var atext in alist){
+              for (var atext in alist) {
                 groupList.add(atext.innerHtml);
-                print(atext.attributes['onclick']);
+                // print(atext.attributes['onclick']);
               }
             }
-            print(groupList);
+            for (var ullist in ul) {
+              var divlist = ullist.getElementsByTagName('div');
+              for (var atext in divlist) {
+                group_id.add(atext.innerHtml);
+              }
+            }
+            setState(() {
+              body = response.body;
+              groupMap =
+                  Map.fromIterables(group_id, groupList);
+            });
+            // print(group_id);
+            // print(groupList);
+            // print(groupMap);
             var a0 = ul[0].getElementsByTagName('a');
             var a0len = ul[0].getElementsByTagName('a').length;
             var texta = a0[0].innerHtml;
@@ -69,15 +82,15 @@ class _TestState extends State<Test> {
               // facultyIndex = index;
             });
           },
-          child: Text('Test 2'),),
-        Html(
-          data: body,
-          style: {
-            "a": Style(
-              color: Colors.green
-            )
-          },
-        )
+          child: Text('Test 2'),
+        ),
+        // Html(
+        //   data: body,
+        //   style: {"a": Style(color: Colors.green)},
+        // ),
+        GroupsList(
+          groupMap: groupMap,
+        ),
       ],
     );
   }

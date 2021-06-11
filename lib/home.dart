@@ -137,35 +137,35 @@ class _HomeState extends State<Home> {
                   // },
                 );
               }),
-          Builder(builder: (context) {
-            if (facultyIndex == 0)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 1)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 2)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 3)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 4)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 5)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 6)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 7)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 8)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 9)
-              return GroupsList(groupList: groupList);
-            else if (facultyIndex == 10)
-              return GroupsList(groupList: groupList);
-            else
-              return Container(
-                width: 0,
-                height: 0,
-              );
-          }),
+          // Builder(builder: (context) {
+          //   if (facultyIndex == 0)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 1)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 2)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 3)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 4)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 5)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 6)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 7)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 8)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 9)
+          //     return GroupsList(groupList: groupList);
+          //   else if (facultyIndex == 10)
+          //     return GroupsList(groupList: groupList);
+          //   else
+          //     return Container(
+          //       width: 0,
+          //       height: 0,
+          //     );
+          // }),
           Builder(builder: (context) {
             if (facultyIndex == 0 && groupIndex == 0) {
               return Table(
