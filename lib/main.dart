@@ -1,4 +1,5 @@
 import 'package:schedule_app/home.dart';
+import 'package:schedule_app/loading_screen.dart';
 import 'package:schedule_app/schedule_table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,7 @@ class _AppState extends State<App> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Center(child: Text('Расписание СФ БашГУ')),
-        ),
-        body: Home(),
-      ),
+      home: LoadingScreen(),
       routes: {
         ScheduleTable.id: (context) => ScheduleTable()
       },

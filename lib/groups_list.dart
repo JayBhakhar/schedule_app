@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:schedule_app/schedule_table.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GroupsList extends StatefulWidget {
   Map<String, String> groupMap = Map();
@@ -10,7 +11,17 @@ class GroupsList extends StatefulWidget {
 }
 
 class _GroupsListState extends State<GroupsList> {
-  var body = '';
+  String body = '';
+  String group_id;
+  String group_name;
+
+  Future<void> _saveGroupID() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('body', body);
+    await prefs.setString('groupID', group_id);
+    await prefs.setString('groupName', group_name);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -42,7 +53,10 @@ class _GroupsListState extends State<GroupsList> {
                 // int statusCode = response.statusCode;
                 setState(() {
                   body = response.body;
+                  group_id = widget.groupMap.keys.toList()[index];
+                  group_name = widget.groupMap.values.toList()[index];
                 });
+                _saveGroupID();
                 // print(widget.groupMap.keys.toList()[index]);
                 // print(widget.groupMap.values.toList()[index]);
                 Navigator.push(

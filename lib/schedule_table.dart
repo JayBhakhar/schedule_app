@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:schedule_app/home.dart';
+import 'package:schedule_app/loading_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScheduleTable extends StatefulWidget {
   static String id = 'schedule_table';
@@ -41,6 +44,12 @@ class _ScheduleTableState extends State<ScheduleTable> {
     _getSchedule();
   }
 
+  Future<void> _cleanData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('groupID');
+    await prefs.remove('body');
+    await prefs.remove('groupName');
+  }
 
   void _getSchedule() async {
     final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
@@ -163,6 +172,18 @@ class _ScheduleTableState extends State<ScheduleTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+            _cleanData();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoadingScreen(),
+              ),
+            );
+          },
+        ),
         title: Text(
           widget.group_name,
         ),
