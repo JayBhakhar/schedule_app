@@ -41,7 +41,6 @@ class _GroupsListState extends State<GroupsList> {
               setState(() {
                 body = response.body;
               });
-              print(body);
               print(widget.groupMap.keys.toList()[index]);
               print(widget.groupMap.values.toList()[index]);
               Navigator.push(
@@ -51,7 +50,7 @@ class _GroupsListState extends State<GroupsList> {
                     return ScheduleTable(
                           group_id : widget.groupMap.keys.toList()[index],
                           group_name : widget.groupMap.values.toList()[index],
-                          body : document,
+                          body : body,
                     );
                   },
                 ),

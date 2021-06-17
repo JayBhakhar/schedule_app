@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class ScheduleTable extends StatefulWidget {
   static String id = 'schedule_table';
@@ -19,37 +20,31 @@ class _ScheduleTableState extends State<ScheduleTable> {
       appBar: AppBar(
         title: Text(widget.group_name),
       ),
-      body: Table(
-        border: TableBorder.all(),
+      body: ListView(
         children: [
-          TableRow(
-            decoration: BoxDecoration(color: Colors.green),
+          Html(
+              data: widget.body
+          ),
+          Table(
+            border: TableBorder.all(),
             children: [
-              Center(
-                child: Text(
-                  'Понедельник  date......',
-                  style: TextStyle(
-                    backgroundColor: Colors.green,
+              TableRow(
+                decoration: BoxDecoration(color: Colors.green),
+                children: [
+                  Center(
+                    child: Text(
+                      'Понедельник  date......',
+                      style: TextStyle(
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
+              TableRow(children: [
+              ])
             ],
           ),
-          TableRow(children: [
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('data'), // №. пара комната №
-                    Text('data'), // время
-                  ],
-                ),
-                Text('data'), // subject name
-                Text('data'), // teacher name
-              ],
-            )
-          ])
         ],
       ),
     );
