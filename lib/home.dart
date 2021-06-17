@@ -12,12 +12,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int faculty_id;
+  int facultyId;
   int facultyIndex;
   int groupIndex;
   var body = '';
   List<String> groupList = [];
-  List<String> group_id = [];
+  List<String> groupId = [];
   Map<String, String> groupMap = Map();
   final Xml2Json xml2Json = Xml2Json();
 
@@ -46,52 +46,52 @@ class _HomeState extends State<Home> {
                       facultyIndex = index;
                       if (facultyIndex == 0) {
                         setState(() {
-                          faculty_id = 4;
+                          facultyId = 4;
                         });
                       } else if (facultyIndex == 1) {
                         setState(() {
-                          faculty_id = 5;
+                          facultyId = 5;
                         });
                       } else if (facultyIndex == 2) {
                         setState(() {
-                          faculty_id = 6;
+                          facultyId = 6;
                         });
                       } else if (facultyIndex == 3) {
                         setState(() {
-                          faculty_id = 7;
+                          facultyId = 7;
                         });
                       } else if (facultyIndex == 4) {
                         setState(() {
-                          faculty_id = 8;
+                          facultyId = 8;
                         });
                       } else if (facultyIndex == 5) {
                         setState(() {
-                          faculty_id = 9;
+                          facultyId = 9;
                         });
                       } else if (facultyIndex == 6) {
                         setState(() {
-                          faculty_id = 10;
+                          facultyId = 10;
                         });
                       } else if (facultyIndex == 7) {
                         setState(() {
-                          faculty_id = 18;
+                          facultyId = 18;
                         });
                       } else if (facultyIndex == 8) {
                         setState(() {
-                          faculty_id = 26;
+                          facultyId = 26;
                         });
                       } else if (facultyIndex == 9) {
                         setState(() {
-                          faculty_id = 27;
+                          facultyId = 27;
                         });
                       } else if (facultyIndex == 10) {
                         setState(() {
-                          faculty_id = 127;
+                          facultyId = 127;
                         });
                       }
                     });
                     final url = Uri.parse(
-                        'http://edu.strbsu.ru/php/getList.php?faculty=$faculty_id');
+                        'http://edu.strbsu.ru/php/getList.php?faculty=$facultyId');
                     Map<String, String> headers = {
                       "Content-type": "application/json"
                     };
@@ -101,7 +101,7 @@ class _HomeState extends State<Home> {
                     var ul = document.getElementsByTagName('ul');
                     if (groupList.isNotEmpty) {
                       setState(() {
-                        group_id = [];
+                        groupId = [];
                         groupList = [];
                         groupMap = Map();
                       });
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                     for (var ullist in ul) {
                       var divlist = ullist.getElementsByTagName('div');
                       for (var atext in divlist) {
-                        group_id.add(atext.innerHtml);
+                        groupId.add(atext.innerHtml);
                       }
                     }
                     for (var ullist in ul) {
@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
                         groupList.add(atext.innerHtml);
                       }
                     }
-                    groupMap = Map.fromIterables(group_id, groupList);
+                    groupMap = Map.fromIterables(groupId, groupList);
                   },
                 );
               }),

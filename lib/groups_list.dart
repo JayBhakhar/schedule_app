@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:schedule_app/schedule_table.dart';
-import 'package:html/parser.dart';
 
 class GroupsList extends StatefulWidget {
   Map<String, String> groupMap = Map();
@@ -26,42 +25,46 @@ class _GroupsListState extends State<GroupsList> {
       ),
       itemBuilder: (BuildContext context, index) {
         return Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: GestureDetector(
-            onTap: () async {
-              final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-              var json = {'type': '2', 'id': widget.groupMap.keys.toList()[index], 'week': '0'};
-              // type = 1 for teacher
-              // type = 2 for student
-              // type = 3 for room no
-              Response response = await post(url, body: json);
-              // check the status code for the result
-              int statusCode = response.statusCode;
-              var document = parse(response.body);
-              setState(() {
-                body = response.body;
-              });
-              print(widget.groupMap.keys.toList()[index]);
-              print(widget.groupMap.values.toList()[index]);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ScheduleTable(
-                          group_id : widget.groupMap.keys.toList()[index],
-                          group_name : widget.groupMap.values.toList()[index],
-                          body : body,
-                    );
-                  },
-                ),
-              );
-            },
-            child: Container(
-              child: Center(
-                child: Text(
-                  widget.groupMap.values.toList()[index],
-                  style: TextStyle(
-                    fontSize: 12,
+          padding: const EdgeInsets.all(0.4),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black)
+            ),
+            child: GestureDetector(
+              onTap: () async {
+                final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
+                var json = {'type': '2', 'id': widget.groupMap.keys.toList()[index], 'week': '0'};
+                // type = 1 for teacher
+                // type = 2 for student
+                // type = 3 for room no
+                Response response = await post(url, body: json);
+                // check the status code for the result
+                // int statusCode = response.statusCode;
+                setState(() {
+                  body = response.body;
+                });
+                // print(widget.groupMap.keys.toList()[index]);
+                // print(widget.groupMap.values.toList()[index]);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ScheduleTable(
+                            groupId : widget.groupMap.keys.toList()[index],
+                            group_name : widget.groupMap.values.toList()[index],
+                            body : body,
+                      );
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                child: Center(
+                  child: Text(
+                    widget.groupMap.values.toList()[index],
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ),

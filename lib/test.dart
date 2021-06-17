@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
-import 'groups_list.dart';
 
 class Test extends StatefulWidget {
   @override
@@ -20,6 +17,7 @@ class _TestState extends State<Test> {
   List<String> LecTimeList = [];
   List<String> LecNameList = [];
   List<String> TeacherNameList = [];
+  List<String> MondayLec = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class _TestState extends State<Test> {
             var json = {'type': '2', 'id': '10173', 'week': '-1'};
             Response response = await post(url, body: json);
             // check the status code for the result
-            int statusCode = response.statusCode;
+            // int statusCode = response.statusCode;
             var document = parse(response.body);
             setState(() {
               dayList = [];
@@ -41,6 +39,7 @@ class _TestState extends State<Test> {
               LecTimeList = [];
               LecNameList = [];
               TeacherNameList = [];
+              MondayLec = [];
             });
             // start for loop day and date
             var getDay = document.getElementsByClassName('day');
@@ -58,6 +57,15 @@ class _TestState extends State<Test> {
               // }
               LecNoList.add(number.text);
             }
+            print(LecNoList);
+            var a = LecNoList.getRange(0, 8);
+            print(a.length);
+            for (var i in a){
+              if(i != ' '){
+                MondayLec.add(i);
+              }
+            }
+            print(MondayLec.length);
             // end loop for lecture number
             // start loop for lecture type
             var getLecType = document.getElementsByClassName('type');
@@ -97,65 +105,6 @@ class _TestState extends State<Test> {
         ),
         Column(
           children: [
-            Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    border: Border.all(color: Colors.black),
-                  ),
-                  child: Center(
-                    child: Text(
-                      // '${dayList[0]}',
-                      'monday',
-                    ),
-                  ),
-                ),
-                ListView.builder(
-                    physics: ScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 8,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Builder(builder: (context) {
-                        print(LecNoList.getRange(0, 7).toList());
-                        if (LecNoList[index] != ' ')
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Colors.black),
-                            ),
-                            width: 10,
-                            height: 70,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                        '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
-                                    // №. пара комната №
-                                    Text('${LecTimeList[index]}'),
-                                    // время
-                                  ],
-                                ),
-                                Text('${LecNameList[index]}'),
-                                // subject name
-                                Text('${TeacherNameList[index]}'),
-                                // teacher name
-                              ],
-                            ),
-                          );
-                        else
-                          return Container(
-                            width: 0,
-                            height: 0,
-                          );
-                      });
-                    }),
-              ],
-            ),
             ListView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
