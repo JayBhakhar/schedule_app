@@ -1,0 +1,124 @@
+import 'package:flutter/material.dart';
+
+class AppColors {
+
+  static const Color PrimaryColorDark = Color(0xFF8595B6);
+  static const Color PrimaryColorLight = Colors.blueGrey;
+  static const Color Primarygreen1= Color(0xFFDEEDCE);
+  static const Color Primarygreen2= Color(0x80DEEDCE);
+  static const Color DIVIDER_COLOR = Color(0xFF243253);
+  static const Color HINT_TEXT_COLOR = Color(0xFF68728C);
+  static const Color BUTTON_TEXT_COLOR = Color(0xFFB4BDD4);
+  static const Color TITLE_TEXT_COLOR = Color(0xFFFFFFFF);
+  static const Color ACTION_BUTTON_DIVIDER_COLOR = Color(0xFF1E2A46);
+  static const Color DISABLED_BUTTON_COLOR = Color(0xFF6A6A6A);
+  static const Color DROPDOWN_BUTTON_COLOR = Color(0xFF19A2B8);
+  static const Color PARTICALES_COLOR = Color(0xFF008aa0);
+  static const Color SEARCHVIEW_BORDER_COLOR = Color(0xFF3F558A);
+  static const Color TAB_INDICATOR_COLOR = Color(0xFF7A41D8);
+  static const Color YELLOW = Color(0xFFECB403);
+  static const Color GREEN = Color(0xFF34CD89);
+  static const Color AppGREEN = Color(0xFF34CD89);
+  static const Color PINK = Color(0xFFF43C63);
+  static const Color LIGHT_BLUE = Color(0xFF42BEE5);
+  static const Color LIGHT_BLUE50 = Color(0x5031E3FF);
+  static const Color BLUETEXT_COLOR = Color(0xFF1171EF);
+  static const Color NAVIGATION_DRAWER_ITEM_COLOR = Color(0xFFBDCCE5);
+  static const Color DROPDOWN_BORDER_COLOR = Color(0xFF3F558A);
+  static const Color TWEETER_COLOR = Color(0xFF45AAF2);
+  static const Color COIN_COLOR = Color(0xFFF5365C);
+  static const Color LINKCOLOR = Color(0xFFECB403);
+  static const Color CHATCOLOR = Color(0xFFFC7303);
+  static const Color SELECTED_HOUR = Color(0xFFA479EC);
+  static const Color UNSELECTED_HOUR = Color(0xFF7A41D8);
+  static const Color BOX_BLUE = Color(0xFF28343F);
+  static const Color BOX_LIGHTBLUE = Color(0xFF4AD9FF);
+  static const Color BOX_GRAY = Color(0xFF4E5E6C);
+  static const Color FONT_GREEN = Color(0xFF28F380);
+  static const Color PROFILE_GRAY = Color(0xFF3D5369);
+  static const Color BOX_GRAY1 = Color(0xFF3A5369);
+  static const Color BOX_GRAY2 = Color(0xFF33495E);
+  static const Color BOX_GRAY50 = Color(0x8A33495E);
+  static const Color BOX_GRAYDark = Color(0xff2B3844);
+  static const Color BOX_GRAYDark2 = Color(0xff192633);
+
+  // static const charts.Color UNSELECTED_HOURe =  charts.Color(a: 0xEF, r: 0xEF, g: 0x9A, b: 0x9A);
+
+  //Night Color
+  static const Color BLACKCOLOR = Color(0xFF000000);
+  static const Color PRIMARYCOLOR = Color(0xFFF3F4F5);
+  static const Color WHITECOLOR = Color(0xFFFFFFFF);
+  static const Color WHITE50 = Color(0x80FFFFFF);
+  static const Color LINECOLOR = Color(0xFFf7f7f7);
+  static const Color LIGHTGRAY = Color(0xFFfcfcfc);
+  static const Color SEARCHICONCOLOR = Color(0xFF68728C);
+  static const Color DAYICONCOLOR = Color(0xFFBDCCE5);
+  static const Color NIGHTICON = Color(0xFF6A6A6A);
+  static const Color TEXTCOLOR = Color(0xFF233152);
+  static const Color CARD_LIGHT = Color(0xFF394D7D);
+  static const Color DROP_DOWN_BG_LIGHT = Color(0xFFffffff);
+  static const Color DARK_BG = Color(0xFF15293D);
+  static const Color DROP_DOWN_BG_DARK = Color(0xFF394D7D);
+  static const Color LIGHTBLACK = Color(0xFF4a4a4a);
+  static const Color APPBLUE = Color(0xFF4175a8);
+  static const Color TransWhite = Color(0x50ffffff);
+  static const Color DARK_BG1 = Color(0xFF00080F);
+  static const Color DARK_BG2 = Color(0xFF061A2D);
+  static const Color FONT_BLUE = Color(0xFF4AD5FF);
+  static const Color APP_RED = Color(0xFFFF6E87);
+  static const Color APP_GREEN = Color(0xFF01FDB3);
+  static const Color TAB_BLACK = Color(0xFF101E2B);
+  static const Color listGary1 = Color(0xFF485662);
+  static const Color listGary2 = Color(0xFF34414D);
+  static const Color adcolor = Color(0xFF01F6EF);
+
+  //App new colors
+
+  static const Color appBlue = const Color(0xFF005BAB);
+  static const Color appGreen = const Color(0xFF28A784);
+  static const Color appLightBlue1 = const Color(0xFF17A2B8);
+  static const Color appLightBlue2 = const Color(0xFF007BFF);
+  static const Color appLightGray = const Color(0xFF6C575D);
+  static const Color secondary = const Color(0xFF000931);
+  static const Color primary = const Color(0xFFEE105E);
+  static const Color titleBarColor = const Color(0xFF121A3E);
+  static const Color accent = const Color(0xFFBC5147);
+  static const Color ButtonColor = const Color(0xFF341E2F);
+  static const Color textColor = const Color(0xFFffffff);
+  static const Color whiteTransperentColor = const Color(0xB3ffffff);
+  static const Color hintTextColor = const Color(0xFF949494);
+  static const Color textFieldBorderColor = const Color(0xFF666666);
+  static const Color shadowColor = const Color(0xFFEE105E);
+  static const Color introGradientBottom = const Color(0xFF121A3E);
+  static const Color introGradientTop = const Color(0xFFEE105E);
+  static const Color drawerGradientTop = const Color(0xFF35499F);
+  static const Color drawerGradientBottom = const Color(0xFF121A3E);
+  static const Color listGradientTop = const Color(0xFFE866B0);
+  static const Color listGradientBottom = const Color(0xFF1C5AC5);
+  static const Color cardDividerColor = const Color(0xFFEB9DEE);
+  static const Color comingSoonCardDividerColor = const Color(0xFFAED2EA);
+  static const Color progressPathColor = const Color(0xFFe6f2fe);
+  static const Color progressPathShadowColor = const Color(0xFFFFFFFF);
+  static const Color dateBgColor = const Color(0xFF2E8AC9);
+  static const Color drawGradientLeft = const Color(0xFFFF9653);
+  static const Color drawGradientRight = const Color(0xFFF51C21);
+  static const Color drawBorderColor = const Color(0xFFFF4039);
+  static const Color subTitleTextColor = const Color(0xFF2B3C84);
+  static const Color lightPinkTextColor = const Color(0xFFD735B0);
+  static const Color progressColor = const Color(0xFFDE7112);
+  static const Color darkred = const Color(0xFF810E17);
+  static const Color skyblue = const Color(0xFF0097FF);
+  static const Color darkPinkTextColor = const Color(0xFF9B0832);
+  static const Color lightGreyColor = const Color(0xFFC1C1C1);
+  static const Color transparentWhite = const Color(0x1FFFFFFF);
+  static const Color transparentblack = const Color(0x4D000000);
+  static const Color yellowButtonBg = const Color(0xFFFFC105);
+  static const Color lightYellowButtonBg = const Color(0xFFFFDA1A);
+  static const Color redButtonBg = const Color(0xFFFF1A1A);
+  static const Color greenButtonBg = const Color(0xFF28A745);
+  static const Color redButtonBorder = const Color(0xFFD30000);
+  static const Color greenButtonBorder = const Color(0xFF007A1C);
+  static const Color darkBlueTop = const Color(0xFF1C5AC5);
+  static const Color lightBlueBottom = const Color(0xFF2E8AC9);
+
+}

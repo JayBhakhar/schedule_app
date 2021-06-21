@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
 import 'package:schedule_app/home.dart';
 import 'package:schedule_app/loading_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'ProgressIndicatorLoader.dart';
 
 class ScheduleTable extends StatefulWidget {
   static String id = 'schedule_table';
@@ -18,7 +21,7 @@ class ScheduleTable extends StatefulWidget {
 }
 
 class _ScheduleTableState extends State<ScheduleTable> {
-  List<String> dayList = ['','','','','',''];
+  List<String> dayList = ['', '', '', '', '', ''];
   List<String> LecNoList = [];
   List<String> LecNoList2 = []; // for to set range of lecture
   List<String> LecTypeList = [];
@@ -38,6 +41,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
   int forday5;
   int forday6;
   int week = 0;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -52,11 +56,18 @@ class _ScheduleTableState extends State<ScheduleTable> {
   }
 
   void _getSchedule() async {
+    setState(() {
+      isLoading = true;
+    });
     final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
     var json = {'type': '2', 'id': widget.groupId, 'week': '$week'};
     Response response = await post(url, body: json);
+    setState(() {
+      isLoading = false;
+    });
     // check the status code for the result
     // int statusCode = response.statusCode;
+    print("response--"+response.body);
     var document = parse(response.body);
     setState(() {
       dayList = [];
@@ -170,382 +181,451 @@ class _ScheduleTableState extends State<ScheduleTable> {
   }
 
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: (){
+          onPressed: () {
             _cleanData();
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LoadingScreen(),
-              ),
-            );
+            // Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => LoadingScreen(),
+            //   ),
+            // );
+            Navigator.of(context).pop();
           },
         ),
         title: Text(
           widget.group_name,
         ),
       ),
-      body: ListView(
+      body: Stack(
         children: [
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.blue),
-                child: TextButton(
-                    child: Container(
-                      child: Text(
-                        'Пред. неделя',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        week--;
-                        _getSchedule();
-                      });
-                    }),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.blue),
-                child: TextButton(
-                    child: Text(
-                      'След. неделя',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        week++;
-                        _getSchedule();
-                      });
-                    }),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
           Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: Text(
-                    '${dayList[0]}',
-                  ),
-                ),
+              SizedBox(
+                height: 5,
               ),
-              ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: Day1Lec.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Builder(builder: (context) {
-                      if (LecNoList[index] != ' ')
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.black),
-                          ),
-                          width: 10,
-                          height: 70,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                      '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
-                                  // №. пара комната №
-                                  Text('${LecTimeList[index]}'),
-                                  // время
-                                ],
+              Padding(
+                padding:  EdgeInsets.only(left:8.0,right:8.0,top: 4.0,bottom: 4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          color: theme.primaryColor),
+                      child: TextButton(
+                          child: Container(
+                            child: Text(
+                              'Пред. неделя',
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
-                              Text('${LecNameList[index]}'),
-                              // subject name
-                              Text('${TeacherNameList[index]}'),
-                              // teacher name
-                            ],
+                            ),
                           ),
-                        );
-                      else
-                        return Container(
-                          width: 0,
-                          height: 0,
-                        );
-                    });
-                  }),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: Text(
-                    '${dayList[1]}',
-                  ),
+                          onPressed: () {
+                            setState(() {
+                              week--;
+                              _getSchedule();
+                            });
+                          }),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          color: theme.primaryColor),
+                      child: TextButton(
+                          child: Text(
+                            'След. неделя',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              week++;
+                              _getSchedule();
+                            });
+                          }),
+                    ),
+                  ],
                 ),
               ),
-              ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: Day2Lec.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Builder(builder: (context) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        width: 10,
-                        height: 70,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}'),
-                                // №. пара комната №
-                                Text('${LecTimeList[forday2 + index]}'),
-                                // время
-                              ],
+              SizedBox(
+                height: 5,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.primaryColor,
+                              border: Border.all(color: Colors.black,width: 0.6),
                             ),
-                            Text('${LecNameList[forday2 + index]}'),
-                            // subject name
-                            Text('${TeacherNameList[forday2 + index]}'),
-                            // teacher name
-                          ],
-                        ),
-                      );
-                    });
-                  }),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: Text(
-                    '${dayList[2]}',
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  '${dayList[0]}',
+                                   style: TextStyle(
+                                     fontSize: 15,
+                                     fontWeight: FontWeight.w600
+                                   ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ListView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: Day1Lec.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Builder(builder: (context) {
+                                  if (LecNoList[index] != ' ')
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(color: theme.primaryColor,width: 0.6),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(5.0),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                    '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
+                                                // №. пара комната №
+                                                Text('${LecTimeList[index]}'),
+                                                // время
+                                              ],
+                                            ),
+                                            Text('${LecNameList[index]}'),
+                                            // subject name
+                                            Text('${TeacherNameList[index]}'),
+                                            // teacher name
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  else
+                                    return Container(
+                                      width: 0,
+                                      height: 0,
+                                    );
+                                });
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.primaryColor,
+                              border: Border.all(color: Colors.black,width: 0.6),
+                            ),
+                            child:  Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  '${dayList[1]}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ListView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: Day2Lec.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Builder(builder: (context) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                    //  border: Border.all(color: Colors.black),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}'),
+                                              // №. пара комната №
+                                              Text('${LecTimeList[forday2 + index]}'),
+                                              // время
+                                            ],
+                                          ),
+                                          Text('${LecNameList[forday2 + index]}'),
+                                          // subject name
+                                          Text('${TeacherNameList[forday2 + index]}'),
+                                          // teacher name
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.primaryColor,
+                              border: Border.all(color: Colors.black,width: 0.6),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  '${dayList[2]}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ListView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: Day3Lec.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Builder(builder: (context) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.black,width: 0.6),
+                                    ),
+                                    width: 10,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}'),
+                                              // №. пара комната №
+                                              Text('${LecTimeList[forday3 + index]}'),
+                                              // время
+                                            ],
+                                          ),
+                                          Text('${LecNameList[forday3 + index]}'),
+                                          // subject name
+                                          Text('${TeacherNameList[forday3 + index]}'),
+                                          // teacher name
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.primaryColor,
+                              border: Border.all(color: Colors.black,width: 0.6),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  '${dayList[3]}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ListView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: Day4Lec.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Builder(builder: (context) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.blue,width: 0.6),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}'),
+                                              // №. пара комната №
+                                              Text('${LecTimeList[forday4 + index]}'),
+                                              // время
+                                            ],
+                                          ),
+                                          Text('${LecNameList[forday4 + index]}'),
+                                          // subject name
+                                          Text('${TeacherNameList[forday4 + index]}'),
+                                          // teacher name
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.primaryColor,
+                              border: Border.all(color: Colors.black,width: 0.6),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  '${dayList[4]}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ListView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: Day5Lec.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Builder(builder: (context) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: theme.primaryColor,width: 0.6),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}'),
+                                              // №. пара комната №
+                                              Text('${LecTimeList[forday5 + index]}'),
+                                              // время
+                                            ],
+                                          ),
+                                          Text('${LecNameList[forday5 + index]}'),
+                                          // subject name
+                                          Text('${TeacherNameList[forday5 + index]}'),
+                                          // teacher name
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                              }),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.primaryColor,
+                              border: Border.all(color: Colors.black,width: 0.6),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  '${dayList[5]}',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ListView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: Day6Lec.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Builder(builder: (context) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: theme.primaryColor,width: 0.6),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}'),
+                                              // №. пара комната №
+                                              Text('${LecTimeList[forday6 + index]}'),
+                                              // время
+                                            ],
+                                          ),
+                                          Text('${LecNameList[forday6 + index]}'),
+                                          // subject name
+                                          Text('${TeacherNameList[forday6 + index]}'),
+                                          // teacher name
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                              }),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: Day3Lec.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Builder(builder: (context) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        width: 10,
-                        height: 70,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}'),
-                                // №. пара комната №
-                                Text('${LecTimeList[forday3 + index]}'),
-                                // время
-                              ],
-                            ),
-                            Text('${LecNameList[forday3 + index]}'),
-                            // subject name
-                            Text('${TeacherNameList[forday3 + index]}'),
-                            // teacher name
-                          ],
-                        ),
-                      );
-                    });
-                  }),
+              )
             ],
           ),
-          Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: Text(
-                    '${dayList[3]}',
-                  ),
-                ),
-              ),
-              ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: Day4Lec.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Builder(builder: (context) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        width: 10,
-                        height: 70,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}'),
-                                // №. пара комната №
-                                Text('${LecTimeList[forday4 + index]}'),
-                                // время
-                              ],
-                            ),
-                            Text('${LecNameList[forday4 + index]}'),
-                            // subject name
-                            Text('${TeacherNameList[forday4 + index]}'),
-                            // teacher name
-                          ],
-                        ),
-                      );
-                    });
-                  }),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: Text(
-                    '${dayList[4]}',
-                  ),
-                ),
-              ),
-              ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: Day5Lec.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Builder(builder: (context) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        width: 10,
-                        height: 70,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}'),
-                                // №. пара комната №
-                                Text('${LecTimeList[forday5 + index]}'),
-                                // время
-                              ],
-                            ),
-                            Text('${LecNameList[forday5 + index]}'),
-                            // subject name
-                            Text('${TeacherNameList[forday5 + index]}'),
-                            // teacher name
-                          ],
-                        ),
-                      );
-                    });
-                  }),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: Text(
-                    '${dayList[5]}',
-                  ),
-                ),
-              ),
-              ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: Day6Lec.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Builder(builder: (context) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        width: 10,
-                        height: 70,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}'),
-                                // №. пара комната №
-                                Text('${LecTimeList[forday6 + index]}'),
-                                // время
-                              ],
-                            ),
-                            Text('${LecNameList[forday6 + index]}'),
-                            // subject name
-                            Text('${TeacherNameList[forday6 + index]}'),
-                            // teacher name
-                          ],
-                        ),
-                      );
-                    });
-                  }),
-            ],
-          ),
+          ProgressIndicatorLoader(Colors.white, isLoading)
+
         ],
       ),
     );

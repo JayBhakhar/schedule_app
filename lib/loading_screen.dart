@@ -45,12 +45,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Center(
-        child: SpinKitFadingCircle(
-          color: Colors.blueAccent,
-          size: 100.0,
-        ),
+        child: Image.asset("assets/images/logo.png",
+            height: 64.0, fit: BoxFit.fitHeight),
       ),
     );
   }
