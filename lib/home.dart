@@ -8,6 +8,7 @@ import 'package:html/parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'groups_list.dart';
+import 'schedule_table.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,29 +28,37 @@ class _HomeState extends State<Home> {
   SharedPreferences prefs;
 
   @override
-  initState()  {
+  initState() {
     getSharedPreferenceObject();
-    super.initState();
   }
 
   Future<void> getSharedPreferenceObject() async {
     prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('groupID') == null) {
+      print('no data');
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScheduleTable(
+            groupId: prefs.getString('groupID'),
+            group_name: prefs.getString('groupName'),
+            body: prefs.getString('body'),
+          ),
+        ),
+      );
+    }
     setState(() {
       isDark = prefs.getBool("isDark");
     });
   }
 
-
   Future<void> changeTheme() async {
-    await DynamicTheme.of(context).setBrightness(!isDark?Brightness.dark:Brightness.light);
+    await DynamicTheme.of(context)
+        .setBrightness(!isDark ? Brightness.dark : Brightness.light);
     isDark = !isDark;
-    prefs.setBool("isDark",isDark);
+    prefs.setBool("isDark", isDark);
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +66,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Расписание СФ БашГУ')),
-        leading:  Padding(
+        leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
-            onTap: ()  {
+            onTap: () {
               changeTheme();
             },
             child: Container(
@@ -79,7 +88,7 @@ class _HomeState extends State<Home> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onTap: (){
+              onTap: () {
                 _launchInBrowser("https://strbsu.ru/");
               },
               child: Icon(
@@ -187,11 +196,11 @@ class _HomeState extends State<Home> {
                           groupMap = Map.fromIterables(groupId, groupList);
                         },
                         child: Container(
-                          margin: EdgeInsets.only(top:1.5),
-                          // color: index%2==0?theme.:Colors.black12,
+                          margin: EdgeInsets.only(top: 1.5),
+                          // color: index%2==0?theme.cardColor:Colors.black12,
                           color: theme.cardColor,
                           child: Padding(
-                            padding: EdgeInsets.only(top:15.0,bottom: 15.0),
+                            padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                             child: Text(
                               faculty[index],
                               textAlign: TextAlign.center,
@@ -244,7 +253,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
 
   Future<void> _launchInBrowser(String url) async {
     if (await canLaunch(url)) {

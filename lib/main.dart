@@ -1,11 +1,9 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:schedule_app/Appcolors.dart';
-import 'package:schedule_app/home.dart';
-import 'package:schedule_app/loading_screen.dart';
-import 'package:schedule_app/schedule_table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:schedule_app/test.dart';
+import 'package:schedule_app/Appcolors.dart';
+import 'package:schedule_app/loading_screen.dart';
+import 'package:schedule_app/schedule_table.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -18,8 +16,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
-   bool isDark = false;
+  bool isDark = false;
 
   @override
   initState() {
@@ -27,16 +24,14 @@ class _AppState extends State<App> {
     super.initState();
   }
 
-   Future<void> getSharedPreferenceObject() async {
-     final prefs = await SharedPreferences.getInstance();
-     setState(() {
-       isDark = prefs.getBool("isDark");
-     });
-   }
+  Future<void> getSharedPreferenceObject() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDark = prefs.getBool("isDark");
+    });
+  }
 
-
-
-   @override
+  @override
   Widget build(BuildContext context) {
     // return MaterialApp(
     //   title: 'Time Table',
@@ -49,13 +44,16 @@ class _AppState extends State<App> {
     //   },
     // );
     return DynamicTheme(
-      defaultBrightness: isDark?Brightness.dark:Brightness.light,
+      defaultBrightness: isDark ? Brightness.dark : Brightness.light,
       data: (brightness) => _buildTheme(brightness),
       themedWidgetBuilder: (context, theme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: theme,
         home: LoadingScreen(),
-        routes: {ScheduleTable.id: (context) => ScheduleTable()},
+        routes: {
+          ScheduleTable.id: (context) => ScheduleTable(),
+          LoadingScreen.id: (context) => LoadingScreen(),
+        },
         // home: SyncLinkDashView(),
       ),
     );

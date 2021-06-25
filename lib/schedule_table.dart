@@ -5,7 +5,6 @@ import 'package:http/http.dart';
 import 'package:schedule_app/home.dart';
 import 'package:schedule_app/loading_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'ProgressIndicatorLoader.dart';
 
 class ScheduleTable extends StatefulWidget {
@@ -67,7 +66,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
     });
     // check the status code for the result
     // int statusCode = response.statusCode;
-    print("response--"+response.body);
     var document = parse(response.body);
     setState(() {
       dayList = [];
@@ -189,12 +187,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             _cleanData();
-            // Navigator.pushReplacement(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => LoadingScreen(),
-            //   ),
-            // );
             Navigator.of(context).pop();
           },
         ),
@@ -210,14 +202,17 @@ class _ScheduleTableState extends State<ScheduleTable> {
                 height: 5,
               ),
               Padding(
-                padding:  EdgeInsets.only(left:8.0,right:8.0,top: 4.0,bottom: 4.0),
+                padding: EdgeInsets.only(
+                    left: 8.0, right: 8.0, top: 4.0, bottom: 4.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          color: theme.primaryColor),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        color: theme.primaryColor,
+                        // color: Colors.red,
+                      ),
                       child: TextButton(
                           child: Container(
                             child: Text(
@@ -236,8 +231,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          color: theme.primaryColor),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        color: theme.primaryColor,
+                      ),
                       child: TextButton(
                           child: Text(
                             'След. неделя',
@@ -266,18 +262,18 @@ class _ScheduleTableState extends State<ScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.primaryColor,
-                              border: Border.all(color: Colors.black,width: 0.6),
+                              color: theme.cardColor,
+                              border: Border.all(
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[0]}',
-                                   style: TextStyle(
-                                     fontSize: 15,
-                                     fontWeight: FontWeight.w600
-                                   ),
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -293,7 +289,10 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                     return Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        border: Border.all(color: theme.primaryColor,width: 0.6),
+                                        border: Border.all(
+                                          color: theme.primaryColor,
+                                          width: 0.6,
+                                        ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(5.0),
@@ -301,7 +300,8 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                           children: [
                                             Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                     '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
@@ -331,18 +331,18 @@ class _ScheduleTableState extends State<ScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.primaryColor,
-                              border: Border.all(color: Colors.black,width: 0.6),
+                              color: theme.cardColor,
+                              border: Border.all(
+                                  color: theme.primaryColor, width: 0.6),
                             ),
-                            child:  Center(
+                            child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[1]}',
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -357,25 +357,32 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                    //  border: Border.all(color: Colors.black),
+                                      border: Border.all(
+                                        color: theme.primaryColor,
+                                        width: 0.6,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(5.0),
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}'),
                                               // №. пара комната №
-                                              Text('${LecTimeList[forday2 + index]}'),
+                                              Text(
+                                                  '${LecTimeList[forday2 + index]}'),
                                               // время
                                             ],
                                           ),
-                                          Text('${LecNameList[forday2 + index]}'),
+                                          Text(
+                                              '${LecNameList[forday2 + index]}'),
                                           // subject name
-                                          Text('${TeacherNameList[forday2 + index]}'),
+                                          Text(
+                                              '${TeacherNameList[forday2 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -389,8 +396,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.primaryColor,
-                              border: Border.all(color: Colors.black,width: 0.6),
+                              color: theme.cardColor,
+                              border: Border.all(
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -399,8 +407,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   '${dayList[2]}',
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -415,7 +422,10 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: Colors.black,width: 0.6),
+                                      border: Border.all(
+                                        color: theme.primaryColor,
+                                        width: 0.6,
+                                      ),
                                     ),
                                     width: 10,
                                     child: Padding(
@@ -423,18 +433,22 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}'),
                                               // №. пара комната №
-                                              Text('${LecTimeList[forday3 + index]}'),
+                                              Text(
+                                                  '${LecTimeList[forday3 + index]}'),
                                               // время
                                             ],
                                           ),
-                                          Text('${LecNameList[forday3 + index]}'),
+                                          Text(
+                                              '${LecNameList[forday3 + index]}'),
                                           // subject name
-                                          Text('${TeacherNameList[forday3 + index]}'),
+                                          Text(
+                                              '${TeacherNameList[forday3 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -448,8 +462,11 @@ class _ScheduleTableState extends State<ScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.primaryColor,
-                              border: Border.all(color: Colors.black,width: 0.6),
+                              color: theme.cardColor,
+                              border: Border.all(
+                                color: theme.primaryColor,
+                                width: 0.6,
+                              ),
                             ),
                             child: Center(
                               child: Padding(
@@ -458,8 +475,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   '${dayList[3]}',
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -474,25 +490,32 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: Colors.blue,width: 0.6),
+                                      border: Border.all(
+                                        color: theme.primaryColor,
+                                        width: 0.6,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(5.0),
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}'),
                                               // №. пара комната №
-                                              Text('${LecTimeList[forday4 + index]}'),
+                                              Text(
+                                                  '${LecTimeList[forday4 + index]}'),
                                               // время
                                             ],
                                           ),
-                                          Text('${LecNameList[forday4 + index]}'),
+                                          Text(
+                                              '${LecNameList[forday4 + index]}'),
                                           // subject name
-                                          Text('${TeacherNameList[forday4 + index]}'),
+                                          Text(
+                                              '${TeacherNameList[forday4 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -506,8 +529,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.primaryColor,
-                              border: Border.all(color: Colors.black,width: 0.6),
+                              color: theme.cardColor,
+                              border: Border.all(
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -516,8 +540,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   '${dayList[4]}',
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -532,25 +555,32 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: theme.primaryColor,width: 0.6),
+                                      border: Border.all(
+                                        color: theme.primaryColor,
+                                        width: 0.6,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(5.0),
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}'),
                                               // №. пара комната №
-                                              Text('${LecTimeList[forday5 + index]}'),
+                                              Text(
+                                                  '${LecTimeList[forday5 + index]}'),
                                               // время
                                             ],
                                           ),
-                                          Text('${LecNameList[forday5 + index]}'),
+                                          Text(
+                                              '${LecNameList[forday5 + index]}'),
                                           // subject name
-                                          Text('${TeacherNameList[forday5 + index]}'),
+                                          Text(
+                                              '${TeacherNameList[forday5 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -564,8 +594,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.primaryColor,
-                              border: Border.all(color: Colors.black,width: 0.6),
+                              color: theme.cardColor,
+                              border: Border.all(
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -574,8 +605,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   '${dayList[5]}',
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
@@ -590,25 +620,32 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: theme.primaryColor,width: 0.6),
+                                      border: Border.all(
+                                        color: theme.primaryColor,
+                                        width: 0.6,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(5.0),
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}'),
                                               // №. пара комната №
-                                              Text('${LecTimeList[forday6 + index]}'),
+                                              Text(
+                                                  '${LecTimeList[forday6 + index]}'),
                                               // время
                                             ],
                                           ),
-                                          Text('${LecNameList[forday6 + index]}'),
+                                          Text(
+                                              '${LecNameList[forday6 + index]}'),
                                           // subject name
-                                          Text('${TeacherNameList[forday6 + index]}'),
+                                          Text(
+                                              '${TeacherNameList[forday6 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -625,7 +662,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
             ],
           ),
           ProgressIndicatorLoader(Colors.white, isLoading)
-
         ],
       ),
     );

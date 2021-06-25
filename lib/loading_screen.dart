@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:schedule_app/home.dart';
-import 'package:schedule_app/schedule_table.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LoadingScreen extends StatefulWidget {
+  static String id = 'loading_screen';
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -15,33 +14,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   void initState() {
-    super.initState();
     _makePath();
   }
 
   void _makePath() async {
     final prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('groupID'));
-    if (prefs.getString('groupID') == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Home(),
-          ),
-        );
-      });
-    } else {
-      Navigator.pushReplacement(context,
-        MaterialPageRoute(
-          builder: (context) => ScheduleTable(
-            groupId: prefs.getString('groupID'),
-            group_name: prefs.getString('groupName'),
-            body: prefs.getString('body'),
-          ),
-        ),
-      );
-    }
+    prefs.setBool("isDark", false);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Home(),
+      ),
+    );
   }
 
   Widget build(BuildContext context) {
