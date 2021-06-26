@@ -74,6 +74,7 @@ class _GroupsListState extends State<GroupsList> {
                       },
                     ),
                   );
+                  print(body);
                 },
                 child: Container(
                   child: Center(
