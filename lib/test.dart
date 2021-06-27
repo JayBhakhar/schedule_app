@@ -19,6 +19,8 @@ class _TestState extends State<Test> {
   String group_id;
   String group_name;
 
+  List<String> numberList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +76,7 @@ class _TestState extends State<Test> {
                         // int statusCode = response.statusCode;
                         var document = parse(response.body);
                         setState(() {
+                          numberList = [];
                           teacherNameList = [];
                           teacherNameID = [];
                           teacherNameMap = Map();
@@ -138,12 +141,19 @@ class _TestState extends State<Test> {
                       Response response = await post(url, body: json);
                       // check the status code for the result
                       // int statusCode = response.statusCode;
-                      print(body);
                       setState(() {
                         body = response.body;
                         group_id = teacherNameMap.keys.toList()[index];
                         group_name = teacherNameMap.values.toList()[index];
                       });
+                      var document = parse(body);
+                      var getLecNo = document.getElementsByClassName('number');
+                      for (var number in getLecNo) {
+                          numberList.add(number.text);
+                          // LecNoList.add(number.text);
+                      }
+                      print('test $numberList' );
+                      print(numberList.length);
                       // _saveGroupID();
                       Navigator.push(
                         context,
@@ -157,7 +167,6 @@ class _TestState extends State<Test> {
                           },
                         ),
                       );
-                      print(body);
                     },
                     child: Container(
                       decoration: BoxDecoration(

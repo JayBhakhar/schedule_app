@@ -42,6 +42,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
   int week = 0;
   bool isLoading = false;
 
+
+  List<String> abc = [];
+
   @override
   void initState() {
     _getSchedule();
@@ -82,6 +85,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
       Day4Lec = [];
       Day5Lec = [];
       Day6Lec = [];
+      abc = [];
     });
     // start for loop day and date
     var getDay = document.getElementsByClassName('day');
@@ -90,15 +94,24 @@ class _ScheduleTableState extends State<ScheduleTable> {
       for (var day in daylist) {
         dayList.add(day.innerHtml);
       }
-    } // end for loop for day
+    }
+    // print(dayList);
+    // end for loop for day
     // start loop for lecture number
+    // var getLecNo = document.getElementsByClassName('number');
+    // for (var number in getLecNo) {
+    //   if (number.text != ' ') {
+    //     LecNoList.add(number.text);
+    //   }
+    //   LecNoList2.add(number.text);
+    // }
     var getLecNo = document.getElementsByClassName('number');
     for (var number in getLecNo) {
-      if (number.text != ' ') {
-        LecNoList.add(number.text);
-      }
-      LecNoList2.add(number.text);
+      abc.add(number.text);
+      // LecNoList.add(number.text);
     }
+    print('schdule $abc');
+    print(abc.length);
     var day1 = LecNoList2.getRange(0, 8);
     for (var i in day1) {
       if (i != ' ') {
