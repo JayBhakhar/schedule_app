@@ -3,17 +3,18 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
 import 'package:schedule_app/home.dart';
-import 'package:schedule_app/loading_screen.dart';
+import 'package:schedule_app/utility/loading_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'ProgressIndicatorLoader.dart';
+import 'utility/ProgressIndicatorLoader.dart';
 
 class ScheduleTable extends StatefulWidget {
   static String id = 'schedule_table';
-  final String groupId;
-  final String group_name;
+  final String Id;
+  final String Name;
+  final int type;
   var body;
 
-  ScheduleTable({this.groupId, this.group_name, this.body});
+  ScheduleTable({this.Id, this.Name, this.body, this.type});
 
   @override
   _ScheduleTableState createState() => _ScheduleTableState();
@@ -43,8 +44,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
   bool isLoading = false;
 
 
-  List<String> abc = [];
-
   @override
   void initState() {
     _getSchedule();
@@ -52,9 +51,10 @@ class _ScheduleTableState extends State<ScheduleTable> {
 
   Future<void> _cleanData() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('groupID');
-    await prefs.remove('body');
-    await prefs.remove('groupName');
+    await prefs.remove('Type');
+    await prefs.remove('ID');
+    await prefs.remove('Name');
+    await prefs.remove('Body');
   }
 
   void _getSchedule() async {
@@ -62,7 +62,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
       isLoading = true;
     });
     final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-    var json = {'type': '2', 'id': widget.groupId, 'week': '$week'};
+    var json = {'type': '${widget.type}', 'id': widget.Id, 'week': '$week'};
     Response response = await post(url, body: json);
     setState(() {
       isLoading = false;
@@ -85,7 +85,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
       Day4Lec = [];
       Day5Lec = [];
       Day6Lec = [];
-      abc = [];
     });
     // start for loop day and date
     var getDay = document.getElementsByClassName('day');
@@ -95,23 +94,15 @@ class _ScheduleTableState extends State<ScheduleTable> {
         dayList.add(day.innerHtml);
       }
     }
-    // print(dayList);
     // end for loop for day
     // start loop for lecture number
-    // var getLecNo = document.getElementsByClassName('number');
-    // for (var number in getLecNo) {
-    //   if (number.text != ' ') {
-    //     LecNoList.add(number.text);
-    //   }
-    //   LecNoList2.add(number.text);
-    // }
     var getLecNo = document.getElementsByClassName('number');
     for (var number in getLecNo) {
-      abc.add(number.text);
-      // LecNoList.add(number.text);
+      if (number.text != ' ') {
+        LecNoList.add(number.text);
+      }
+      LecNoList2.add(number.text);
     }
-    print('schdule $abc');
-    print(abc.length);
     var day1 = LecNoList2.getRange(0, 8);
     for (var i in day1) {
       if (i != ' ') {
@@ -177,8 +168,11 @@ class _ScheduleTableState extends State<ScheduleTable> {
     // end loop for lecture name
     // start loop for techer name
     var getTeacherName = document.getElementsByClassName('prep');
-    for (var teacher in getTeacherName) {
-      TeacherNameList.add(teacher.text);
+    for (var teacherdiv in getTeacherName) {
+      var teacherli = teacherdiv.getElementsByTagName('li');
+        for(var teacher in teacherli){
+          TeacherNameList.add(teacher.text);
+        }
     }
     forday2 = Day1Lec.length;
     forday3 = Day1Lec.length + Day2Lec.length;
@@ -193,7 +187,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
 
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -204,7 +197,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
           },
         ),
         title: Text(
-          widget.group_name,
+          widget.Name,
         ),
       ),
       body: Stack(

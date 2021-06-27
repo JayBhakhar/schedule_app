@@ -1,13 +1,16 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:schedule_app/ProgressIndicatorLoader.dart';
-import 'package:schedule_app/lists.dart';
+import 'package:schedule_app/room/rooms_list.dart';
+import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
+import 'package:schedule_app/utility/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
+import 'package:schedule_app/teacher/teachers_list.dart';
+import 'package:schedule_app/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'groups_list.dart';
+import 'student/groups_list.dart';
 import 'schedule_table.dart';
 
 class Home extends StatefulWidget {
@@ -34,16 +37,17 @@ class _HomeState extends State<Home> {
 
   Future<void> getSharedPreferenceObject() async {
     prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('groupID') == null) {
+    if (prefs.getString('ID') == null) {
       print('no data');
     } else {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ScheduleTable(
-            groupId: prefs.getString('groupID'),
-            group_name: prefs.getString('groupName'),
-            body: prefs.getString('body'),
+            type: prefs.getInt('Type'),
+            Id: prefs.getString('ID'),
+            Name: prefs.getString('Name'),
+            body: prefs.getString('Body'),
           ),
         ),
       );
@@ -161,7 +165,6 @@ class _HomeState extends State<Home> {
                               });
                             }
                           });
-
                           final url = Uri.parse(
                               'http://edu.strbsu.ru/php/getList.php?faculty=$facultyId');
                           Map<String, String> headers = {
@@ -239,6 +242,10 @@ class _HomeState extends State<Home> {
                     return GroupsList(groupMap: groupMap);
                   else if (facultyIndex == 10)
                     return GroupsList(groupMap: groupMap);
+                  else if (facultyIndex == 11)
+                    return TeachersList();
+                  else if (facultyIndex == 12)
+                    return RoomsList();
                   else
                     return Container(
                       width: 0,

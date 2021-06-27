@@ -11,8 +11,6 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
-
-  @override
   void initState() {
     _makePath();
   }

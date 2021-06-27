@@ -15,11 +15,12 @@ class _GroupsListState extends State<GroupsList> {
   String group_id;
   String group_name;
 
-  Future<void> _saveGroupID() async {
+  Future<void> _saveGroupData() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('body', body);
-    await prefs.setString('groupID', group_id);
-    await prefs.setString('groupName', group_name);
+    await prefs.setInt('Type', 2);
+    await prefs.setString('ID', group_id);
+    await prefs.setString('Name', group_name);
+    await prefs.setString('Body', body);
   }
 
   @override
@@ -59,7 +60,7 @@ class _GroupsListState extends State<GroupsList> {
                     group_id = widget.groupMap.keys.toList()[index];
                     group_name = widget.groupMap.values.toList()[index];
                   });
-                  _saveGroupID();
+                  _saveGroupData();
                   // print(widget.groupMap.keys.toList()[index]);
                   // print(widget.groupMap.values.toList()[index]);
                   Navigator.push(
@@ -67,14 +68,14 @@ class _GroupsListState extends State<GroupsList> {
                     MaterialPageRoute(
                       builder: (context) {
                         return ScheduleTable(
-                          groupId : widget.groupMap.keys.toList()[index],
-                          group_name : widget.groupMap.values.toList()[index],
+                          type: 2,
+                          Id : widget.groupMap.keys.toList()[index],
+                          Name : widget.groupMap.values.toList()[index],
                           body : body,
                         );
                       },
                     ),
                   );
-                  print(body);
                 },
                 child: Container(
                   child: Center(

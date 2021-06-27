@@ -1,8 +1,8 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:schedule_app/Appcolors.dart';
-import 'package:schedule_app/loading_screen.dart';
+import 'package:schedule_app/utility/Appcolors.dart';
+import 'package:schedule_app/utility/loading_screen.dart';
 import 'package:schedule_app/schedule_table.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'test.dart';
@@ -50,7 +50,7 @@ class _AppState extends State<App> {
       themedWidgetBuilder: (context, theme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: theme,
-        home: Test(),
+        home: LoadingScreen(),
         routes: {
           ScheduleTable.id: (context) => ScheduleTable(),
           LoadingScreen.id: (context) => LoadingScreen(),
