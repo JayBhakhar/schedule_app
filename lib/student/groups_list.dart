@@ -61,8 +61,6 @@ class _GroupsListState extends State<GroupsList> {
                     group_name = widget.groupMap.values.toList()[index];
                   });
                   _saveGroupData();
-                  // print(widget.groupMap.keys.toList()[index]);
-                  // print(widget.groupMap.values.toList()[index]);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

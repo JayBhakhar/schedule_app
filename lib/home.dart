@@ -1,13 +1,13 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/room/rooms_list.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:schedule_app/utility/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/teacher/teachers_list.dart';
-import 'package:schedule_app/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'student/groups_list.dart';
@@ -37,8 +37,20 @@ class _HomeState extends State<Home> {
 
   Future<void> getSharedPreferenceObject() async {
     prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('ID') == null) {
+    if (prefs.getInt('Type') == null) {
       print('no data');
+    } else if (prefs.getInt('Type') == 3){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RoomScheduleTable(
+            type: prefs.getInt('Type'),
+            Id: prefs.getString('Room_ID'),
+            Name: prefs.getString('Room_Name'),
+            body: prefs.getString('Body'),
+          ),
+        ),
+      );
     } else {
       Navigator.push(
         context,

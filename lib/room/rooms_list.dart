@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../schedule_table.dart';
 
 class RoomsList extends StatefulWidget {
   @override
@@ -21,6 +21,15 @@ class _RoomsListState extends State<RoomsList> {
   String body = '';
   String room_id;
   String room_name;
+
+
+  Future<void> _saveRoomID() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('Type', 3);
+    await prefs.setString('Room_ID', room_id);
+    await prefs.setString('Room_Name', room_name);
+    await prefs.setString('Body', body);
+  }
 
   @override
   initState() {
@@ -46,19 +55,8 @@ class _RoomsListState extends State<RoomsList> {
       buildingsList.add(room.text);
       buildingsId.add(numberletID);
     }
-    print(buildingsList);
     buildingMap = Map.fromIterables(buildingsId, buildingsList);
   }
-
-
-  Future<void> _saveRoomID() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('Type', 1);
-    await prefs.setString('ID', room_id);
-    await prefs.setString('Name', room_name);
-    await prefs.setString('Body', body);
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -170,19 +168,21 @@ class _RoomsListState extends State<RoomsList> {
                     // check the status code for the result
                     // int statusCode = response.statusCode;
                     setState(() {
-                      isLoading = false;
-                    });
-                    setState(() {
                       body = response.body;
                       room_id = roomMap.keys.toList()[index];
                       room_name = roomMap.values.toList()[index];
                     });
+                    print('room id $room_id');
+                    print('room name $room_name');
                     _saveRoomID();
+                    setState(() {
+                      isLoading = false;
+                    });
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return ScheduleTable(
+                          return RoomScheduleTable(
                             type: 3,
                             Id: roomMap.keys.toList()[index],
                             Name: roomMap.values.toList()[index],

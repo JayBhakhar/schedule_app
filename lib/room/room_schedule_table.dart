@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'utility/ProgressIndicatorLoader.dart';
 
-class ScheduleTable extends StatefulWidget {
+class RoomScheduleTable extends StatefulWidget {
   static String id = 'schedule_table';
   final String Id;
   final String Name;
   final int type;
   var body;
 
-  ScheduleTable({this.Id, this.Name, this.body, this.type});
+  RoomScheduleTable({this.Id, this.Name, this.body, this.type});
 
   @override
-  _ScheduleTableState createState() => _ScheduleTableState();
+  _RoomScheduleTableState createState() => _RoomScheduleTableState();
 }
 
-class _ScheduleTableState extends State<ScheduleTable> {
+class _RoomScheduleTableState extends State<RoomScheduleTable> {
   List<String> dayList = ['', '', '', '', '', ''];
   List<String> LecNoList = [];
   List<String> LecNoList2 = []; // for to set range of lecture
@@ -25,7 +25,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
   List<String> LecCabList = [];
   List<String> LecTimeList = [];
   List<String> LecNameList = [];
+  List<String> TeacherNameAndGroupList = [];
   List<String> TeacherNameList = [];
+  List<String> GroupList = [];
   List<String> Day1Lec = [];
   List<String> Day2Lec = [];
   List<String> Day3Lec = [];
@@ -40,7 +42,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
   int week = 0;
   bool isLoading = false;
 
-
   @override
   void initState() {
     _getSchedule();
@@ -49,8 +50,8 @@ class _ScheduleTableState extends State<ScheduleTable> {
   Future<void> _cleanData() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('Type');
-    await prefs.remove('ID');
-    await prefs.remove('Name');
+    await prefs.remove('Room_ID');
+    await prefs.remove('Room_Name');
     await prefs.remove('Body');
   }
 
@@ -75,7 +76,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
       LecCabList = [];
       LecTimeList = [];
       LecNameList = [];
+      TeacherNameAndGroupList = [];
       TeacherNameList = [];
+      GroupList = [];
       Day1Lec = [];
       Day2Lec = [];
       Day3Lec = [];
@@ -93,46 +96,47 @@ class _ScheduleTableState extends State<ScheduleTable> {
     }
     // end for loop for day
     // start loop for lecture number
-    var getLecNo = document.getElementsByClassName('number');
-    for (var number in getLecNo) {
-      if (number.text != ' ') {
-        LecNoList.add(number.text);
+    var getLec = document.getElementsByClassName('lesson');
+    for (var number in getLec) {
+      if (number.text != '') {
+        LecNoList.add(number.text[0] + number.text[1]);
       }
       LecNoList2.add(number.text);
     }
+
     var day1 = LecNoList2.getRange(0, 8);
     for (var i in day1) {
-      if (i != ' ') {
+      if (i != '') {
         Day1Lec.add(i);
       }
     }
     var day2 = LecNoList2.getRange(8, 16);
     for (var i in day2) {
-      if (i != ' ') {
+      if (i != '') {
         Day2Lec.add(i);
       }
     }
     var day3 = LecNoList2.getRange(16, 24);
     for (var i in day3) {
-      if (i != ' ') {
+      if (i != '') {
         Day3Lec.add(i);
       }
     }
     var day4 = LecNoList2.getRange(24, 32);
     for (var i in day4) {
-      if (i != ' ') {
+      if (i != '') {
         Day4Lec.add(i);
       }
     }
     var day5 = LecNoList2.getRange(32, 40);
     for (var i in day5) {
-      if (i != ' ') {
+      if (i != '') {
         Day5Lec.add(i);
       }
     }
     var day6 = LecNoList2.getRange(40, 48);
     for (var i in day6) {
-      if (i != ' ') {
+      if (i != '') {
         Day6Lec.add(i);
       }
     }
@@ -167,10 +171,20 @@ class _ScheduleTableState extends State<ScheduleTable> {
     var getTeacherName = document.getElementsByClassName('prep');
     for (var teacherdiv in getTeacherName) {
       var teacherli = teacherdiv.getElementsByTagName('li');
-        for(var teacher in teacherli){
-          TeacherNameList.add(teacher.text);
-        }
+      for (var teacher in teacherli) {
+        TeacherNameAndGroupList.add(teacher.text);
+      }
     }
+
+    var number = 0;
+    for (var i = number; i < TeacherNameAndGroupList.length; i++) {
+      if (i % 2 == 0) {
+        TeacherNameList.add(TeacherNameAndGroupList[i]);
+      } else {
+        GroupList.add(TeacherNameAndGroupList[i]);
+      }
+    }
+
     forday2 = Day1Lec.length;
     forday3 = Day1Lec.length + Day2Lec.length;
     forday4 = Day1Lec.length + Day2Lec.length + Day3Lec.length;
@@ -288,38 +302,38 @@ class _ScheduleTableState extends State<ScheduleTable> {
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: theme.primaryColor,
-                                          width: 0.6,
-                                        ),
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: theme.primaryColor,
+                                        width: 0.6,
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                    '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
-                                                // №. пара комната №
-                                                Text('${LecTimeList[index]}'),
-                                                // время
-                                              ],
-                                            ),
-                                            Text('${LecNameList[index]}'),
-                                            // subject name
-                                            Text('${TeacherNameList[index]}'),
-                                            // teacher name
-                                          ],
-                                        ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            children: [
+                                              Text(
+                                                  '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
+                                              // №. пара комната №
+                                              Text('${LecTimeList[index]}'),
+                                              // время
+                                            ],
+                                          ),
+                                          Text('${LecNameList[index]}'),
+                                          // subject name
+                                          Text('${TeacherNameList[index]}${GroupList[index]}'),
+                                          // teacher name
+                                        ],
                                       ),
-                                    );
+                                    ),
+                                  );
                                 });
                               }),
                         ],
@@ -365,7 +379,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}'),
@@ -379,7 +393,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                               '${LecNameList[forday2 + index]}'),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday2 + index]}'),
+                                              '${TeacherNameList[forday2 + index]}${GroupList[forday2 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -431,7 +445,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}'),
@@ -445,7 +459,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                               '${LecNameList[forday3 + index]}'),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday3 + index]}'),
+                                              '${TeacherNameList[forday3 + index]}${GroupList[forday3 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -498,7 +512,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}'),
@@ -512,7 +526,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                               '${LecNameList[forday4 + index]}'),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday4 + index]}'),
+                                              '${TeacherNameList[forday4 + index]}${GroupList[forday4 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -563,7 +577,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}'),
@@ -577,7 +591,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                               '${LecNameList[forday5 + index]}'),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday5 + index]}'),
+                                              '${TeacherNameList[forday5 + index]}${GroupList[forday5 + index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -628,7 +642,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}'),
@@ -642,7 +656,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                               '${LecNameList[forday6 + index]}'),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday6 + index]}'),
+                                              '${TeacherNameList[forday6 + index]}${GroupList[forday6 + index]}'),
                                           // teacher name
                                         ],
                                       ),
