@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:schedule_app/home.dart';
 import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,6 +61,14 @@ class _RoomsListState extends State<RoomsList> {
 
   @override
   Widget build(BuildContext context) {
+    // print('rooom :-------- ${Home.of(context).scrollController.position.maxScrollExtent}');
+    if (Home.of(context).scrollController.hasClients) {
+      Home.of(context).scrollController.animateTo(
+        Home.of(context).scrollController.position.maxScrollExtent == 1.409090909090878 ? 550 : Home.of(context).scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+      );
+    }
     bool isLoading = false;
     return Container(
       margin: EdgeInsets.only(left: 6.0, right: 6.0),

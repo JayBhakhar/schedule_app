@@ -16,6 +16,9 @@ import 'schedule_table.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
+
+  static _HomeState of(BuildContext context) =>
+      context.findAncestorStateOfType<_HomeState>();
 }
 
 class _HomeState extends State<Home> {
@@ -29,6 +32,7 @@ class _HomeState extends State<Home> {
   bool isLoading = false;
   bool isDark = false;
   SharedPreferences prefs;
+  final ScrollController scrollController = ScrollController();
 
   @override
   initState() {
@@ -39,7 +43,7 @@ class _HomeState extends State<Home> {
     prefs = await SharedPreferences.getInstance();
     if (prefs.getInt('Type') == null) {
       print('no data');
-    } else if (prefs.getInt('Type') == 3){
+    } else if (prefs.getInt('Type') == 3) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -78,6 +82,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    if (scrollController.hasClients) {
+      // print('home :-------- ${scrollController.position.maxScrollExtent}');
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent == 0.0 ? 350 : scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeInExpo,
+      );
+    }
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -118,6 +130,7 @@ class _HomeState extends State<Home> {
       body: Stack(
         children: [
           SingleChildScrollView(
+            controller: scrollController,
             child: Column(
               children: [
                 ListView.builder(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:schedule_app/home.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../schedule_table.dart';
@@ -60,6 +61,14 @@ class _TeachersListState extends State<TeachersList> {
   }
 
   Widget build(BuildContext context) {
+    // print('techear :-------- ${Home.of(context).scrollController.position.maxScrollExtent}');
+    if (Home.of(context).scrollController.hasClients) {
+      Home.of(context).scrollController.animateTo(
+        Home.of(context).scrollController.position.maxScrollExtent == 0.0 ? 550 : Home.of(context).scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+      );
+    }
     return Container(
       margin: EdgeInsets.only(left: 6.0, right: 6.0),
       child: Stack(children: [
