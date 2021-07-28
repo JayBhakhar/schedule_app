@@ -14,7 +14,6 @@ class _GroupsListState extends State<GroupsList> {
   String body = '';
   String group_id;
   String group_name;
-  final _controller = ScrollController();
 
   Future<void> _saveGroupData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -27,9 +26,8 @@ class _GroupsListState extends State<GroupsList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 6.0,right: 6.0),
+      margin: EdgeInsets.only(left: 6.0, right: 6.0),
       child: GridView.builder(
-        controller: _controller,
         physics: ScrollPhysics(),
         shrinkWrap: true,
         itemCount: widget.groupMap.length,
@@ -41,21 +39,23 @@ class _GroupsListState extends State<GroupsList> {
         ),
         itemBuilder: (BuildContext context, index) {
           return Padding(
-            padding:  EdgeInsets.all(1.0),
+            padding: EdgeInsets.all(0.5),
             child: Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black87,
-                  )
+                border: Border.all(
+                  color: Colors.black87,
+                ),
+                borderRadius: BorderRadius.circular(5),
               ),
               child: GestureDetector(
                 onTap: () async {
-                  _controller.animateTo(
-                    _controller.position.maxScrollExtent,
-                    duration: Duration(seconds: 1),
-                    curve: Curves.fastOutSlowIn,
-                  );
-                  final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-                  var json = {'type': '2', 'id': widget.groupMap.keys.toList()[index], 'week': '0'};
+                  final url =
+                      Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
+                  var json = {
+                    'type': '2',
+                    'id': widget.groupMap.keys.toList()[index],
+                    'week': '0'
+                  };
                   // type = 1 for teacher
                   // type = 2 for student
                   // type = 3 for room no
@@ -74,9 +74,9 @@ class _GroupsListState extends State<GroupsList> {
                       builder: (context) {
                         return ScheduleTable(
                           type: 2,
-                          Id : widget.groupMap.keys.toList()[index],
-                          Name : widget.groupMap.values.toList()[index],
-                          body : body,
+                          Id: widget.groupMap.keys.toList()[index],
+                          Name: widget.groupMap.values.toList()[index],
+                          body: body,
                         );
                       },
                     ),

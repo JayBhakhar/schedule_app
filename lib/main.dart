@@ -48,6 +48,7 @@ class _AppState extends State<App> {
       defaultBrightness: isDark ? Brightness.dark : Brightness.light,
       data: (brightness) => _buildTheme(brightness),
       themedWidgetBuilder: (context, theme) => MaterialApp(
+        title: 'Расписание СФ БашГУ',
         debugShowCheckedModeBanner: false,
         theme: theme,
         home: LoadingScreen(),
@@ -63,11 +64,12 @@ class _AppState extends State<App> {
   ThemeData _buildTheme(Brightness brightness) {
     return brightness == Brightness.dark
         ? ThemeData.dark().copyWith(
-            // textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'open-sens'),
+            // textTheme:
+            // ThemeData.dark().textTheme.apply(fontFamily: 'open-sens'),
             primaryColor: AppColors.PrimaryColorDark,
             backgroundColor: AppColors.WHITECOLOR,
             scaffoldBackgroundColor: AppColors.WHITECOLOR,
-            cardColor: AppColors.Primarygreen1,
+            cardColor: AppColors.PrimaryCardColorDark,
             primaryTextTheme: Typography().white,
             textTheme: Typography().black,
             pageTransitionsTheme: PageTransitionsTheme(builders: {
@@ -76,11 +78,11 @@ class _AppState extends State<App> {
             }),
           )
         : ThemeData.light().copyWith(
-            // textTheme: ThemeData.light().textTheme.apply(fontFamily: 'open-sens'),
+            textTheme:
+                ThemeData.light().textTheme.apply(fontFamily: 'open-sens'),
             primaryColor: AppColors.PrimaryColorLight,
             scaffoldBackgroundColor: AppColors.WHITECOLOR,
-            cardColor: Colors.blueGrey[100],
-            // scaffoldBackgroundColor: AppColors.WHITECOLOR,
+            cardColor: AppColors.PrimaryCardColorLight,
           );
   }
 }

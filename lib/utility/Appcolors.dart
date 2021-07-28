@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
   static const Color PrimaryColorDark = Color(0xFF8595B6);
+  // static const Color PrimaryColorDark = Color(0xFF8595B6);
   static const Color PrimaryColorLight = Colors.blueGrey;
-  static const Color Primarygreen1= Color(0xFFDEEDCE);
-  static const Color Primarygreen2= Color(0x80DEEDCE);
+  // static const Color PrimaryColorLight = Colors.blueGrey;
+  static const Color PrimaryCardColorDark = Color(0xFFDEEDCE);
+  static const Color PrimaryCardColorLight = Color(0x80DEEDCE);
+
+  
   static const Color DIVIDER_COLOR = Color(0xFF243253);
   static const Color HINT_TEXT_COLOR = Color(0xFF68728C);
   static const Color BUTTON_TEXT_COLOR = Color(0xFFB4BDD4);
@@ -120,5 +123,4 @@ class AppColors {
   static const Color greenButtonBorder = const Color(0xFF007A1C);
   static const Color darkBlueTop = const Color(0xFF1C5AC5);
   static const Color lightBlueBottom = const Color(0xFF2E8AC9);
-
 }

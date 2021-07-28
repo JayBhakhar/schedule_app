@@ -6,7 +6,6 @@ import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class RoomsList extends StatefulWidget {
   @override
   _RoomsListState createState() => _RoomsListState();
@@ -22,7 +21,6 @@ class _RoomsListState extends State<RoomsList> {
   String body = '';
   String room_id;
   String room_name;
-
 
   Future<void> _saveRoomID() async {
     final prefs = await SharedPreferences.getInstance();
@@ -64,10 +62,13 @@ class _RoomsListState extends State<RoomsList> {
     // print('rooom :-------- ${Home.of(context).scrollController.position.maxScrollExtent}');
     if (Home.of(context).scrollController.hasClients) {
       Home.of(context).scrollController.animateTo(
-        Home.of(context).scrollController.position.maxScrollExtent == 1.409090909090878 ? 550 : Home.of(context).scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-      );
+            Home.of(context).scrollController.position.maxScrollExtent ==
+                    1.409090909090878
+                ? 550
+                : Home.of(context).scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+          );
     }
     bool isLoading = false;
     return Container(
@@ -111,21 +112,22 @@ class _RoomsListState extends State<RoomsList> {
                       for (var roomNumber in roomNumbers) {
                         var roomNumberIDAttribute =
                             roomNumber.attributes['onclick'];
-                        var teaNameIDstr =
-                            roomNumberIDAttribute.replaceAll(RegExp('[^0-9]'), '');
+                        var teaNameIDstr = roomNumberIDAttribute.replaceAll(
+                            RegExp('[^0-9]'), '');
                         var teaNameID =
                             teaNameIDstr.substring(2, teaNameIDstr.length - 1);
                         roomsList.add(roomNumber.text);
                         roomsId.add(teaNameID);
                       } // end for loop for teacherName
-                      roomMap =
-                          Map.fromIterables(roomsId, roomsList);
+                      roomMap = Map.fromIterables(roomsId, roomsList);
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          border: Border.all(
-                        color: Colors.black87,
-                      )),
+                        border: Border.all(
+                          color: Colors.black87,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       margin: EdgeInsets.only(top: 1.5),
                       child: Padding(
                         padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
@@ -164,7 +166,7 @@ class _RoomsListState extends State<RoomsList> {
                       isLoading = true;
                     });
                     final url =
-                    Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
+                        Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
                     var json = {
                       'type': '3',
                       'id': roomMap.keys.toList()[index],
@@ -203,9 +205,11 @@ class _RoomsListState extends State<RoomsList> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black87,
-                        )),
+                      border: Border.all(
+                        color: Colors.black87,
+                      ),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     margin: EdgeInsets.only(top: 1.5),
                     child: Padding(
                       padding: EdgeInsets.only(top: 1.0, bottom: 1.0),

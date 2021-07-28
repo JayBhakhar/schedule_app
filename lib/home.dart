@@ -34,8 +34,7 @@ class _HomeState extends State<Home> {
   SharedPreferences prefs;
   final ScrollController scrollController = ScrollController();
 
-  @override
-  initState() {
+  void initState() {
     getSharedPreferenceObject();
   }
 
@@ -85,7 +84,9 @@ class _HomeState extends State<Home> {
     if (scrollController.hasClients) {
       // print('home :-------- ${scrollController.position.maxScrollExtent}');
       scrollController.animateTo(
-        scrollController.position.maxScrollExtent == 0.0 ? 350 : scrollController.position.maxScrollExtent,
+        scrollController.position.maxScrollExtent == 0.0
+            ? 350
+            : scrollController.position.maxScrollExtent,
         duration: Duration(milliseconds: 200),
         curve: Curves.easeInExpo,
       );
@@ -224,9 +225,11 @@ class _HomeState extends State<Home> {
                           groupMap = Map.fromIterables(groupId, groupList);
                         },
                         child: Container(
+                          decoration: BoxDecoration(
+                            color: theme.cardColor,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                           margin: EdgeInsets.only(top: 1.5),
-                          // color: index%2==0?theme.cardColor:Colors.black12,
-                          color: theme.cardColor,
                           child: Padding(
                             padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                             child: Text(
