@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/room/rooms_list.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
+import 'package:schedule_app/utility/choose_colors/choose_colors_screen.dart';
 import 'package:schedule_app/utility/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> {
 
   Future<void> changeTheme() async {
     await DynamicTheme.of(context)
-        .setBrightness(!isDark ? Brightness.dark : Brightness.light);
+        .setBrightness(!isDark ? Brightness.light : Brightness.dark);
     isDark = !isDark;
     prefs.setBool("isDark", isDark);
   }
@@ -91,7 +92,6 @@ class _HomeState extends State<Home> {
         curve: Curves.easeInExpo,
       );
     }
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Расписание СФ БашГУ')),
@@ -99,7 +99,13 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              changeTheme();
+              // changeTheme();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChooseColors(),
+                ),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
@@ -108,7 +114,7 @@ class _HomeState extends State<Home> {
               ),
               child: Icon(
                 Icons.brush,
-                color: theme.primaryColor,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),
@@ -226,7 +232,11 @@ class _HomeState extends State<Home> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: theme.cardColor,
+                            // color: index % 12 == 0
+                            //     ? theme.cardColor
+                            //     : Colors.amberAccent,
+                            // color: theme.cardColor,
+                            color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           margin: EdgeInsets.only(top: 1.5),
@@ -235,10 +245,7 @@ class _HomeState extends State<Home> {
                             child: Text(
                               faculty[index],
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 13,
-                              ),
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ),
                         ),

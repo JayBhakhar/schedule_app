@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:schedule_app/schedule_table.dart';
+import 'package:schedule_app/utility/Appcolors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GroupsList extends StatefulWidget {
@@ -42,8 +43,9 @@ class _GroupsListState extends State<GroupsList> {
             padding: EdgeInsets.all(0.5),
             child: Container(
               decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
                 border: Border.all(
-                  color: Colors.black87,
+                  color: Theme.of(context).cardColor,
                 ),
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -86,9 +88,7 @@ class _GroupsListState extends State<GroupsList> {
                   child: Center(
                     child: Text(
                       widget.groupMap.values.toList()[index],
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),

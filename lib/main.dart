@@ -1,4 +1,3 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
@@ -34,55 +33,20 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //   title: 'Time Table',
-    //   theme: ThemeData(
-    //     primarySwatch: Colors.blueGrey,
-    //   ),
-    //   home: LoadingScreen(),
-    //   routes: {
-    //     ScheduleTable.id: (context) => ScheduleTable()
-    //   },
-    // );
-    return DynamicTheme(
-      defaultBrightness: isDark ? Brightness.dark : Brightness.light,
-      data: (brightness) => _buildTheme(brightness),
-      themedWidgetBuilder: (context, theme) => MaterialApp(
-        title: 'Расписание СФ БашГУ',
-        debugShowCheckedModeBanner: false,
-        theme: theme,
-        home: LoadingScreen(),
-        routes: {
-          ScheduleTable.id: (context) => ScheduleTable(),
-          LoadingScreen.id: (context) => LoadingScreen(),
-        },
-        // home: SyncLinkDashView(),
+    return MaterialApp(
+      title: 'Time Table',
+      theme: ThemeData(
+        primaryColor: AppColors.DIVIDER_COLOR1,
+        cardColor: AppColors.DIVIDER_COLOR2,
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+            color: AppColors.DIVIDER_COLOR3,
+            // color: Colors.red,
+          ),
+        ),
       ),
+      home: LoadingScreen(),
+      routes: {ScheduleTable.id: (context) => ScheduleTable()},
     );
-  }
-
-  ThemeData _buildTheme(Brightness brightness) {
-    return brightness == Brightness.dark
-        ? ThemeData.dark().copyWith(
-            // textTheme:
-            // ThemeData.dark().textTheme.apply(fontFamily: 'open-sens'),
-            primaryColor: AppColors.PrimaryColorDark,
-            backgroundColor: AppColors.WHITECOLOR,
-            scaffoldBackgroundColor: AppColors.WHITECOLOR,
-            cardColor: AppColors.PrimaryCardColorDark,
-            primaryTextTheme: Typography().white,
-            textTheme: Typography().black,
-            pageTransitionsTheme: PageTransitionsTheme(builders: {
-              TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
-              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-            }),
-          )
-        : ThemeData.light().copyWith(
-            textTheme:
-                ThemeData.light().textTheme.apply(fontFamily: 'open-sens'),
-            primaryColor: AppColors.PrimaryColorLight,
-            scaffoldBackgroundColor: AppColors.WHITECOLOR,
-            cardColor: AppColors.PrimaryCardColorLight,
-          );
   }
 }

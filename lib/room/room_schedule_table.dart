@@ -197,7 +197,6 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
   }
 
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -209,6 +208,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
         ),
         title: Text(
           widget.Name,
+          // style: Theme.of(context).textTheme.bodyText1,
         ),
       ),
       body: Stack(
@@ -227,16 +227,14 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        color: theme.primaryColor,
+                        color: Theme.of(context).primaryColor,
                         // color: Colors.red,
                       ),
                       child: TextButton(
                           child: Container(
                             child: Text(
                               'Пред. неделя',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ),
                           onPressed: () {
@@ -249,14 +247,12 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        color: theme.primaryColor,
+                        color: Theme.of(context).primaryColor,
                       ),
                       child: TextButton(
                           child: Text(
                             'След. неделя',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                           onPressed: () {
                             setState(() {
@@ -279,18 +275,17 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.cardColor,
+                              color: Theme.of(context).cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor, width: 0.6),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[0]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -306,7 +301,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                        color: theme.primaryColor,
+                                        color: Theme.of(context).primaryColor,
                                         width: 0.6,
                                       ),
                                     ),
@@ -316,8 +311,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
@@ -328,7 +322,8 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                           ),
                                           Text('${LecNameList[index]}'),
                                           // subject name
-                                          Text('${TeacherNameList[index]}${GroupList[index]}'),
+                                          Text(
+                                              '${TeacherNameList[index]}${GroupList[index]}'),
                                           // teacher name
                                         ],
                                       ),
@@ -342,18 +337,17 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.cardColor,
+                              color: Theme.of(context).cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor, width: 0.6),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[1]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -369,7 +363,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                        color: theme.primaryColor,
+                                        color: Theme.of(context).primaryColor,
                                         width: 0.6,
                                       ),
                                     ),
@@ -379,7 +373,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}'),
@@ -407,18 +401,17 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.cardColor,
+                              color: Theme.of(context).cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor, width: 0.6),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[2]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -434,7 +427,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                        color: theme.primaryColor,
+                                        color: Theme.of(context).primaryColor,
                                         width: 0.6,
                                       ),
                                     ),
@@ -445,7 +438,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}'),
@@ -473,9 +466,9 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.cardColor,
+                              color: Theme.of(context).cardColor,
                               border: Border.all(
-                                color: theme.primaryColor,
+                                color: Theme.of(context).primaryColor,
                                 width: 0.6,
                               ),
                             ),
@@ -484,9 +477,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[3]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -502,7 +493,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                        color: theme.primaryColor,
+                                        color: Theme.of(context).primaryColor,
                                         width: 0.6,
                                       ),
                                     ),
@@ -512,7 +503,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}'),
@@ -540,18 +531,17 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.cardColor,
+                              color: Theme.of(context).cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor, width: 0.6),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[4]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -567,7 +557,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                        color: theme.primaryColor,
+                                        color: Theme.of(context).primaryColor,
                                         width: 0.6,
                                       ),
                                     ),
@@ -577,7 +567,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}'),
@@ -605,18 +595,17 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.cardColor,
+                              color: Theme.of(context).cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor, width: 0.6),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[5]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -632,7 +621,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                        color: theme.primaryColor,
+                                        color: Theme.of(context).primaryColor,
                                         width: 0.6,
                                       ),
                                     ),
@@ -642,7 +631,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                   '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}'),

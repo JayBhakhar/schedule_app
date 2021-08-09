@@ -126,8 +126,9 @@ class _TeachersListState extends State<TeachersList> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
                         border: Border.all(
-                          color: Colors.black87,
+                          color: Theme.of(context).cardColor,
                         ),
                         borderRadius: BorderRadius.circular(5),
                       ),
@@ -138,10 +139,7 @@ class _TeachersListState extends State<TeachersList> {
                           child: Text(
                             lettersList[index],
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 13,
-                            ),
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ),
                       ),
@@ -206,8 +204,9 @@ class _TeachersListState extends State<TeachersList> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
                       border: Border.all(
-                        color: Colors.black87,
+                        color: Theme.of(context).primaryColor,
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -218,10 +217,7 @@ class _TeachersListState extends State<TeachersList> {
                         child: Text(
                           teacherNameList[index],
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
-                          ),
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                     ),

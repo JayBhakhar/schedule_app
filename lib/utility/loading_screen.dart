@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:schedule_app/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class LoadingScreen extends StatefulWidget {
   static String id = 'loading_screen';
   @override
@@ -16,9 +15,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void _makePath() async {
+    Future.delayed(
+      Duration(seconds: 1),
+    );
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool("isDark", false);
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => Home(),
@@ -27,7 +29,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Center(
         child: Image.asset("assets/images/logo.png",
