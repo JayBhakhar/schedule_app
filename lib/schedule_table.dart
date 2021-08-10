@@ -40,7 +40,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
   int week = 0;
   bool isLoading = false;
 
-
   @override
   void initState() {
     _getSchedule();
@@ -167,9 +166,9 @@ class _ScheduleTableState extends State<ScheduleTable> {
     var getTeacherName = document.getElementsByClassName('prep');
     for (var teacherdiv in getTeacherName) {
       var teacherli = teacherdiv.getElementsByTagName('li');
-        for(var teacher in teacherli){
-          TeacherNameList.add(teacher.text);
-        }
+      for (var teacher in teacherli) {
+        TeacherNameList.add(teacher.text);
+      }
     }
     forday2 = Day1Lec.length;
     forday3 = Day1Lec.length + Day2Lec.length;
@@ -274,9 +273,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[0]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: theme.textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -288,38 +285,50 @@ class _ScheduleTableState extends State<ScheduleTable> {
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: theme.primaryColor,
-                                          width: 0.6,
-                                        ),
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: theme.primaryColor,
+                                        width: 0.6,
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                    '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
-                                                // №. пара комната №
-                                                Text('${LecTimeList[index]}'),
-                                                // время
-                                              ],
-                                            ),
-                                            Text('${LecNameList[index]}'),
-                                            // subject name
-                                            Text('${TeacherNameList[index]}'),
-                                            // teacher name
-                                          ],
-                                        ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
+                                              // №. пара комната №
+                                              Text(
+                                                '${LecTimeList[index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
+                                              // время
+                                            ],
+                                          ),
+                                          Text(
+                                            '${LecNameList[index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
+                                          // subject name
+                                          Text(
+                                            '${TeacherNameList[index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
+                                          // teacher name
+                                        ],
                                       ),
-                                    );
+                                    ),
+                                  );
                                 });
                               }),
                         ],
@@ -337,9 +346,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[1]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: theme.textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -368,18 +375,28 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                  '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}'),
+                                                '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // №. пара комната №
                                               Text(
-                                                  '${LecTimeList[forday2 + index]}'),
+                                                '${LecTimeList[forday2 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                              '${LecNameList[forday2 + index]}'),
+                                            '${LecNameList[forday2 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday2 + index]}'),
+                                            '${TeacherNameList[forday2 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // teacher name
                                         ],
                                       ),
@@ -402,9 +419,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[2]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: theme.textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -434,18 +449,28 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                  '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}'),
+                                                '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // №. пара комната №
                                               Text(
-                                                  '${LecTimeList[forday3 + index]}'),
+                                                '${LecTimeList[forday3 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                              '${LecNameList[forday3 + index]}'),
+                                            '${LecNameList[forday3 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday3 + index]}'),
+                                            '${TeacherNameList[forday3 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // teacher name
                                         ],
                                       ),
@@ -470,9 +495,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[3]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: theme.textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -501,18 +524,28 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                  '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}'),
+                                                '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // №. пара комната №
                                               Text(
-                                                  '${LecTimeList[forday4 + index]}'),
+                                                '${LecTimeList[forday4 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                              '${LecNameList[forday4 + index]}'),
+                                            '${LecNameList[forday4 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday4 + index]}'),
+                                            '${TeacherNameList[forday4 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // teacher name
                                         ],
                                       ),
@@ -535,9 +568,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[4]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: theme.textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -566,18 +597,28 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                  '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}'),
+                                                '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // №. пара комната №
                                               Text(
-                                                  '${LecTimeList[forday5 + index]}'),
+                                                '${LecTimeList[forday5 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                              '${LecNameList[forday5 + index]}'),
+                                            '${LecNameList[forday5 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday5 + index]}'),
+                                            '${TeacherNameList[forday5 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // teacher name
                                         ],
                                       ),
@@ -600,9 +641,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                 padding: EdgeInsets.all(4.0),
                                 child: Text(
                                   '${dayList[5]}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: theme.textTheme.bodyText1,
                                 ),
                               ),
                             ),
@@ -631,18 +670,28 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                  '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}'),
+                                                '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // №. пара комната №
                                               Text(
-                                                  '${LecTimeList[forday6 + index]}'),
+                                                '${LecTimeList[forday6 + index]}',
+                                                style:
+                                                    theme.textTheme.bodyText1,
+                                              ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                              '${LecNameList[forday6 + index]}'),
+                                            '${LecNameList[forday6 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // subject name
                                           Text(
-                                              '${TeacherNameList[forday6 + index]}'),
+                                            '${TeacherNameList[forday6 + index]}',
+                                            style: theme.textTheme.bodyText1,
+                                          ),
                                           // teacher name
                                         ],
                                       ),

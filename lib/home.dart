@@ -94,7 +94,11 @@ class _HomeState extends State<Home> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Расписание СФ БашГУ')),
+        title: Center(
+            child: Text(
+          'Расписание СФ БашГУ',
+          style: Theme.of(context).textTheme.bodyText2,
+        )),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(

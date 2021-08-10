@@ -34,14 +34,16 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Time Table',
+      title: 'Расписание СФ БашГУ',
       theme: ThemeData(
-        primaryColor: AppColors.DIVIDER_COLOR1,
-        cardColor: AppColors.DIVIDER_COLOR2,
+        primaryColor: AppColors.PRIMARY_COLOR,
+        cardColor: AppColors.CARD_COLOR,
         textTheme: TextTheme(
           bodyText1: TextStyle(
-            color: AppColors.DIVIDER_COLOR3,
-            // color: Colors.red,
+            color: AppColors.TEXT_PRIMARY_COLOR,
+          ),
+          bodyText2: TextStyle(
+            color: AppColors.TEXT_CARD_COLOR,
           ),
         ),
       ),

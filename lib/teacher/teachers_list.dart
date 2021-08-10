@@ -139,7 +139,7 @@ class _TeachersListState extends State<TeachersList> {
                           child: Text(
                             lettersList[index],
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
-import 'package:schedule_app/home.dart';
+import 'package:schedule_app/main.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
 
 class CardColor extends StatefulWidget {
@@ -22,16 +22,16 @@ class _CardColorState extends State<CardColor> {
               Container(
                 height: 100,
                 width: 360,
-                color: AppColors.DIVIDER_COLOR2,
+                color: AppColors.CARD_COLOR,
               ),
               SizedBox(
                 height: 5,
               ),
               ColorPicker(
-                color: AppColors.DIVIDER_COLOR2,
+                color: AppColors.CARD_COLOR,
                 onChanged: (value) {
                   setState(() {
-                    AppColors.DIVIDER_COLOR2 = value;
+                    AppColors.CARD_COLOR = value;
                   });
                 },
                 initialPicker: Picker.paletteHue,
@@ -43,30 +43,56 @@ class _CardColorState extends State<CardColor> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
-                      onPressed: () {
-                        setState(() {
-                          AppColors.DIVIDER_COLOR2 = Color(0xFFDEEDCE);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Home();
-                              },
-                            ),
-                          );
-                        });
-                      },
-                      child: Text('defult')),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
+                    onPressed: () {
+                      setState(() {
+                        AppColors.CARD_COLOR = Color(0xFFDEEDCE);
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => Home(),
+                            builder: (context) {
+                              return App();
+                            },
                           ),
                         );
-                      },
-                      child: Text('select')),
+                      });
+                    },
+                    child: Container(
+                      color: Color(0xFFDEEDCE),
+                      width: 100,
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          'Default',
+                          style: TextStyle(
+                            color: AppColors.TEXT_PRIMARY_COLOR,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => App(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      color: AppColors.CARD_COLOR,
+                      width: 100,
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          'Select',
+                          style: TextStyle(
+                            color: AppColors.TEXT_PRIMARY_COLOR,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               )
             ],

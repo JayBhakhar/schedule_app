@@ -136,7 +136,7 @@ class _RoomsListState extends State<RoomsList> {
                           child: Text(
                             buildingsList[index],
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
