@@ -46,7 +46,7 @@ class _TextCardColorState extends State<TextCardColor> {
                     onPressed: () {
                       setState(() {
                         AppColors.TEXT_PRIMARY_COLOR = Colors.white;
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) {

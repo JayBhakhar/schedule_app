@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:schedule_app/main.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PrimaryColor extends StatefulWidget {
   @override
@@ -28,10 +29,11 @@ class _PrimaryColorState extends State<PrimaryColor> {
                 height: 5,
               ),
               ColorPicker(
-                color: AppColors.PRIMARY_COLOR,
-                onChanged: (value) {
+                color: Color(AppColors.PRIMARY_COLOR1),
+                onChanged: (value) async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setInt("primayColor", value.value);
                   setState(() {
-                    print(value);
                     AppColors.PRIMARY_COLOR = value;
                   });
                 },

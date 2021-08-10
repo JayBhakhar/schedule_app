@@ -104,10 +104,10 @@ class _HomeState extends State<Home> {
           child: InkWell(
             onTap: () {
               // changeTheme();
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ChooseColors(),
+                  builder: (context) => ChooseColorsScreen(),
                 ),
               );
             },

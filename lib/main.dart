@@ -17,6 +17,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   bool isDark = false;
+  int primaryColor = AppColors.PRIMARY_COLOR1;
 
   @override
   initState() {
@@ -28,15 +29,20 @@ class _AppState extends State<App> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       isDark = prefs.getBool("isDark");
+      primaryColor = prefs.getInt("primayColor");
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // print(Color(primaryColor));
+    print('sadsad ===  $primaryColor');
+    // print(AppColors.PRIMARY_COLOR);
     return MaterialApp(
       title: 'Расписание СФ БашГУ',
       theme: ThemeData(
         primaryColor: AppColors.PRIMARY_COLOR,
+        // primaryColor: Color(primaryColor),
         cardColor: AppColors.CARD_COLOR,
         textTheme: TextTheme(
           bodyText1: TextStyle(

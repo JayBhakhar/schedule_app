@@ -181,8 +181,8 @@ class _RoomsListState extends State<RoomsList> {
                       room_id = roomMap.keys.toList()[index];
                       room_name = roomMap.values.toList()[index];
                     });
-                    print('room id $room_id');
-                    print('room name $room_name');
+                    // print('room id $room_id');
+                    // print('room name $room_name');
                     _saveRoomID();
                     setState(() {
                       isLoading = false;

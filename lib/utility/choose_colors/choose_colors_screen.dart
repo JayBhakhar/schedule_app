@@ -6,12 +6,12 @@ import 'package:schedule_app/utility/choose_colors/primary_color.dart';
 import 'package:schedule_app/utility/choose_colors/text_card_color.dart';
 import 'package:schedule_app/utility/choose_colors/text_primary_color.dart';
 
-class ChooseColors extends StatefulWidget {
+class ChooseColorsScreen extends StatefulWidget {
   @override
-  _ChooseColorsState createState() => _ChooseColorsState();
+  _ChooseColorsScreenState createState() => _ChooseColorsScreenState();
 }
 
-class _ChooseColorsState extends State<ChooseColors> {
+class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
   @override
   void initState() {
     super.initState();
@@ -56,7 +56,7 @@ class _ChooseColorsState extends State<ChooseColors> {
                 ),
                 trailing: Icon(Icons.arrow_right),
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
@@ -77,7 +77,7 @@ class _ChooseColorsState extends State<ChooseColors> {
                 ),
                 trailing: Icon(Icons.arrow_right),
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
@@ -98,7 +98,7 @@ class _ChooseColorsState extends State<ChooseColors> {
                 ),
                 trailing: Icon(Icons.arrow_right),
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
