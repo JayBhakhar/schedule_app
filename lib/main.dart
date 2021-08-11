@@ -16,40 +16,61 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  bool isDark = false;
-  int primaryColor = AppColors.PRIMARY_COLOR1;
+  // int primaryColor = AppColors.PRIMARY_COLOR;
+  int primaryColor;
+  int cardColor;
+  int textPrimaryColor;
+  int textCardColor;
 
   @override
   initState() {
+    // _remove_all_color();
     getSharedPreferenceObject();
     super.initState();
+  }
+
+  _remove_all_color() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("primaryColor");
+    prefs.remove("cardColor");
+    prefs.remove("textPrimrayColor");
+    prefs.remove("textCardColor");
   }
 
   Future<void> getSharedPreferenceObject() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      isDark = prefs.getBool("isDark");
-      primaryColor = prefs.getInt("primayColor");
+      primaryColor = prefs.getInt("primaryColor");
+      cardColor = prefs.getInt("cardColor");
+      textPrimaryColor = prefs.getInt("textPrimaryColor");
+      textCardColor = prefs.getInt("textCardColor");
     });
+    print('primary $primaryColor');
+    print('card $cardColor');
+    print('text primary $textPrimaryColor');
+    print('text card $textCardColor');
   }
 
   @override
   Widget build(BuildContext context) {
-    // print(Color(primaryColor));
-    print('sadsad ===  $primaryColor');
-    // print(AppColors.PRIMARY_COLOR);
+    // print('built primary ${Color(primaryColor)}');
+    // print('built card ${Color(cardColor)}');
+    // print('built text primary ${Color(textPrimaryColor)}');
+    // print('built text card ${Color(textCardColor)}');
     return MaterialApp(
       title: 'Расписание СФ БашГУ',
       theme: ThemeData(
-        primaryColor: AppColors.PRIMARY_COLOR,
-        // primaryColor: Color(primaryColor),
-        cardColor: AppColors.CARD_COLOR,
+        primaryColor:
+            primaryColor == null ? Color(0xFF2a5abe) : Color(primaryColor),
+        cardColor: cardColor == null ? Color(0xFFDEEDCE) : Color(cardColor),
         textTheme: TextTheme(
           bodyText1: TextStyle(
-            color: AppColors.TEXT_PRIMARY_COLOR,
+            color: textPrimaryColor == null
+                ? Colors.black
+                : Color(textPrimaryColor),
           ),
           bodyText2: TextStyle(
-            color: AppColors.TEXT_CARD_COLOR,
+            color: textCardColor == null ? Colors.white : Color(textCardColor),
           ),
         ),
       ),

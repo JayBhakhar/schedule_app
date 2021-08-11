@@ -2,13 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:schedule_app/main.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TextPrimaryColor extends StatefulWidget {
+class TextCardColor extends StatefulWidget {
   @override
-  _TextPrimaryColorState createState() => _TextPrimaryColorState();
+  _TextCardColorState createState() => _TextCardColorState();
 }
 
-class _TextPrimaryColorState extends State<TextPrimaryColor> {
+class _TextCardColorState extends State<TextCardColor> {
+  int textPrimaryColor;
+  int cardColor;
+
+  @override
+  initState() {
+    getSharedPreferenceObject();
+    super.initState();
+  }
+
+  Future<void> getSharedPreferenceObject() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      textPrimaryColor = prefs.getInt("textPrimaryColor");
+      cardColor = prefs.getInt("cardColor");
+    });
+  }
+
+  _selectedValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt("textCardColor", AppColors.TEXT_CARD_COLOR1.value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,16 +45,16 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
               Container(
                 height: 100,
                 width: 360,
-                color: AppColors.TEXT_CARD_COLOR,
+                color: AppColors.TEXT_PRIMARY_COLOR1,
               ),
               SizedBox(
                 height: 5,
               ),
               ColorPicker(
-                color: AppColors.TEXT_CARD_COLOR,
+                color: AppColors.TEXT_PRIMARY_COLOR1,
                 onChanged: (value) {
                   setState(() {
-                    AppColors.TEXT_CARD_COLOR = value;
+                    AppColors.TEXT_PRIMARY_COLOR1 = value;
                   });
                 },
                 initialPicker: Picker.paletteHue,
@@ -43,35 +66,37 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      setState(() {
-                        AppColors.TEXT_CARD_COLOR = Colors.black;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return App();
-                            },
-                          ),
-                        );
-                      });
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.remove("textCardColor");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return App();
+                          },
+                        ),
+                      );
                     },
                     child: Container(
-                      color: AppColors.CARD_COLOR,
+                      color: AppColors.TEXT_PRIMARY_COLOR1,
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Default',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: cardColor == null
+                                ? Color(0xFFDEEDCE)
+                                : Color(cardColor),
                           ),
                         ),
                       ),
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      _selectedValue();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -80,14 +105,16 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
                       );
                     },
                     child: Container(
-                      color: AppColors.CARD_COLOR,
+                      color: AppColors.TEXT_PRIMARY_COLOR1,
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Select',
                           style: TextStyle(
-                            color: AppColors.TEXT_CARD_COLOR,
+                            color: textPrimaryColor == null
+                                ? Colors.black
+                                : Color(textPrimaryColor),
                           ),
                         ),
                       ),

@@ -10,6 +10,25 @@ class PrimaryColor extends StatefulWidget {
 }
 
 class _PrimaryColorState extends State<PrimaryColor> {
+  int textCardColor;
+  @override
+  void initState() {
+    _getSharedObject();
+    super.initState();
+  }
+
+  _getSharedObject() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      textCardColor = prefs.getInt("textCardColor");
+    });
+  }
+
+  _selectedValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt("primaryColor", AppColors.PRIMARY_COLOR1.value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,18 +42,16 @@ class _PrimaryColorState extends State<PrimaryColor> {
               Container(
                 height: 100,
                 width: 360,
-                color: AppColors.PRIMARY_COLOR,
+                color: AppColors.PRIMARY_COLOR1,
               ),
               SizedBox(
                 height: 5,
               ),
               ColorPicker(
-                color: Color(AppColors.PRIMARY_COLOR1),
-                onChanged: (value) async {
-                  final prefs = await SharedPreferences.getInstance();
-                  prefs.setInt("primayColor", value.value);
+                color: AppColors.PRIMARY_COLOR1,
+                onChanged: (value) {
                   setState(() {
-                    AppColors.PRIMARY_COLOR = value;
+                    AppColors.PRIMARY_COLOR1 = value;
                   });
                 },
                 initialPicker: Picker.paletteHue,
@@ -46,12 +63,11 @@ class _PrimaryColorState extends State<PrimaryColor> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      setState(() {
-                        AppColors.PRIMARY_COLOR = Color(0xFF2a5abe);
-                        // AppColors.DIVIDER_COLOR1 =
-                        //     Color.fromRGBO(0, 120, 250, 0.76);
-                      });
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.remove("primaryColor");
+                      // AppColors.DIVIDER_COLOR1 =
+                      //     Color.fromRGBO(0, 120, 250, 0.76);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -67,7 +83,9 @@ class _PrimaryColorState extends State<PrimaryColor> {
                         child: Text(
                           'Default',
                           style: TextStyle(
-                            color: AppColors.TEXT_CARD_COLOR,
+                            color: textCardColor == null
+                                ? Colors.black
+                                : Color(textCardColor),
                           ),
                         ),
                       ),
@@ -75,6 +93,7 @@ class _PrimaryColorState extends State<PrimaryColor> {
                   ),
                   TextButton(
                     onPressed: () {
+                      _selectedValue();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -83,14 +102,16 @@ class _PrimaryColorState extends State<PrimaryColor> {
                       );
                     },
                     child: Container(
-                      color: AppColors.PRIMARY_COLOR,
+                      color: AppColors.PRIMARY_COLOR1,
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Select',
                           style: TextStyle(
-                            color: AppColors.TEXT_CARD_COLOR,
+                            color: textCardColor == null
+                                ? Colors.black
+                                : Color(textCardColor),
                           ),
                         ),
                       ),

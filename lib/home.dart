@@ -83,7 +83,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     if (scrollController.hasClients) {
-      // print('home :-------- ${scrollController.position.maxScrollExtent}');
       scrollController.animateTo(
         scrollController.position.maxScrollExtent == 0.0
             ? 350

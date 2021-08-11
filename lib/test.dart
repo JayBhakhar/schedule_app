@@ -49,8 +49,7 @@ class _TestState extends State<Test> {
                     lettersId.add(numberletID);
                   } // end for loop for day
                   letterMap = Map.fromIterables(lettersId, lettersList);
-                  // print(lettersId);
-                  // print(lettersList);
+                
                 },
                 child: Text('Test'),
               ),

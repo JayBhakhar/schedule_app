@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:schedule_app/main.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CardColor extends StatefulWidget {
   @override
@@ -9,6 +10,26 @@ class CardColor extends StatefulWidget {
 }
 
 class _CardColorState extends State<CardColor> {
+  int textPrimaryColor = AppColors.CARD_COLOR;
+
+  @override
+  initState() {
+    getSharedPreferenceObject();
+    super.initState();
+  }
+
+  Future<void> getSharedPreferenceObject() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      textPrimaryColor = prefs.getInt("textPrimaryColor");
+    });
+  }
+
+  _selectedValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt("cardColor", AppColors.CARD_COLOR1.value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,16 +43,16 @@ class _CardColorState extends State<CardColor> {
               Container(
                 height: 100,
                 width: 360,
-                color: AppColors.CARD_COLOR,
+                color: AppColors.CARD_COLOR1,
               ),
               SizedBox(
                 height: 5,
               ),
               ColorPicker(
-                color: AppColors.CARD_COLOR,
+                color: AppColors.CARD_COLOR1,
                 onChanged: (value) {
                   setState(() {
-                    AppColors.CARD_COLOR = value;
+                    AppColors.CARD_COLOR1 = value;
                   });
                 },
                 initialPicker: Picker.paletteHue,
@@ -44,8 +65,9 @@ class _CardColorState extends State<CardColor> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      setState(() {
-                        AppColors.CARD_COLOR = Color(0xFFDEEDCE);
+                      setState(() async {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.remove("cardColor");
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -64,7 +86,9 @@ class _CardColorState extends State<CardColor> {
                         child: Text(
                           'Default',
                           style: TextStyle(
-                            color: AppColors.TEXT_PRIMARY_COLOR,
+                            color: textPrimaryColor == null
+                                ? Colors.black
+                                : Color(textPrimaryColor),
                           ),
                         ),
                       ),
@@ -72,6 +96,7 @@ class _CardColorState extends State<CardColor> {
                   ),
                   TextButton(
                     onPressed: () {
+                      _selectedValue();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -80,14 +105,16 @@ class _CardColorState extends State<CardColor> {
                       );
                     },
                     child: Container(
-                      color: AppColors.CARD_COLOR,
+                      color: AppColors.CARD_COLOR1,
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Select',
                           style: TextStyle(
-                            color: AppColors.TEXT_PRIMARY_COLOR,
+                            color: textPrimaryColor == null
+                                ? Colors.black
+                                : Color(textPrimaryColor),
                           ),
                         ),
                       ),

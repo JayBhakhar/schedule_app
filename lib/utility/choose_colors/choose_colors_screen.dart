@@ -3,8 +3,9 @@ import 'package:schedule_app/main.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
 import 'package:schedule_app/utility/choose_colors/card_color.dart';
 import 'package:schedule_app/utility/choose_colors/primary_color.dart';
-import 'package:schedule_app/utility/choose_colors/text_card_color.dart';
 import 'package:schedule_app/utility/choose_colors/text_primary_color.dart';
+import 'package:schedule_app/utility/choose_colors/text_card_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChooseColorsScreen extends StatefulWidget {
   @override
@@ -12,9 +13,31 @@ class ChooseColorsScreen extends StatefulWidget {
 }
 
 class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
+  int primaryColor = AppColors.PRIMARY_COLOR;
+  int cardColor = AppColors.CARD_COLOR;
+  int textPrimaryColor = AppColors.CARD_COLOR;
+  int textCardColor = AppColors.CARD_COLOR;
+
   @override
-  void initState() {
+  initState() {
+    getSharedPreferenceObject();
     super.initState();
+  }
+
+  Future<void> getSharedPreferenceObject() async {
+    final prefs = await SharedPreferences.getInstance();
+    primaryColor = prefs.getInt("primaryColor");
+    cardColor = prefs.getInt("cardColor");
+    textPrimaryColor = prefs.getInt("textPrimaryColor");
+    textCardColor = prefs.getInt("textCardColor");
+  }
+
+  _all_default_colors() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("primaryColor");
+    prefs.remove("cardColor");
+    prefs.remove("textPrimaryColor");
+    prefs.remove("textCardColor");
   }
 
   @override
@@ -28,7 +51,9 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor: AppColors.PRIMARY_COLOR,
+                tileColor: primaryColor == null
+                    ? Color(0xFF2a5abe)
+                    : Color(primaryColor),
                 title: Text(
                   'Choose Primary Color',
                   style: Theme.of(context).textTheme.bodyText2,
@@ -49,7 +74,8 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor: AppColors.CARD_COLOR,
+                tileColor:
+                    cardColor == null ? Color(0xFFDEEDCE) : Color(cardColor),
                 title: Text(
                   'Choose Card Color',
                   style: Theme.of(context).textTheme.bodyText1,
@@ -70,7 +96,9 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor: AppColors.PRIMARY_COLOR,
+                tileColor: primaryColor == null
+                    ? Color(0xFF2a5abe)
+                    : Color(primaryColor),
                 title: Text(
                   'Choose Primary Text Color',
                   style: Theme.of(context).textTheme.bodyText2,
@@ -91,7 +119,8 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor: AppColors.CARD_COLOR,
+                tileColor:
+                    cardColor == null ? Color(0xFFDEEDCE) : Color(cardColor),
                 title: Text(
                   'Choose Card Text Color',
                   style: Theme.of(context).textTheme.bodyText1,
@@ -116,12 +145,7 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      setState(() {
-                        AppColors.PRIMARY_COLOR = Color(0xFF2a5abe);
-                        AppColors.CARD_COLOR = Color(0xFFDEEDCE);
-                        AppColors.TEXT_CARD_COLOR = Colors.white;
-                        AppColors.TEXT_PRIMARY_COLOR = Colors.black;
-                      });
+                      _all_default_colors();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

@@ -2,13 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:schedule_app/main.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TextCardColor extends StatefulWidget {
+class TextPrimaryColor extends StatefulWidget {
   @override
-  _TextCardColorState createState() => _TextCardColorState();
+  _TextPrimaryColorState createState() => _TextPrimaryColorState();
 }
 
-class _TextCardColorState extends State<TextCardColor> {
+class _TextPrimaryColorState extends State<TextPrimaryColor> {
+  int cardColor = AppColors.CARD_COLOR;
+
+  @override
+  initState() {
+    getSharedPreferenceObject();
+    super.initState();
+  }
+
+  Future<void> getSharedPreferenceObject() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      cardColor = prefs.getInt("cardColor");
+    });
+  }
+
+  _selectedValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt("textPrimaryColor", AppColors.TEXT_PRIMARY_COLOR1.value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,16 +43,16 @@ class _TextCardColorState extends State<TextCardColor> {
               Container(
                 height: 100,
                 width: 360,
-                color: AppColors.TEXT_PRIMARY_COLOR,
+                color: AppColors.TEXT_CARD_COLOR1,
               ),
               SizedBox(
                 height: 5,
               ),
               ColorPicker(
-                color: AppColors.TEXT_PRIMARY_COLOR,
+                color: AppColors.TEXT_CARD_COLOR1,
                 onChanged: (value) {
                   setState(() {
-                    AppColors.TEXT_PRIMARY_COLOR = value;
+                    AppColors.TEXT_CARD_COLOR1 = value;
                   });
                 },
                 initialPicker: Picker.paletteHue,
@@ -43,10 +64,11 @@ class _TextCardColorState extends State<TextCardColor> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.remove("textPrimaryColor");
                       setState(() {
-                        AppColors.TEXT_PRIMARY_COLOR = Colors.white;
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) {
@@ -57,14 +79,16 @@ class _TextCardColorState extends State<TextCardColor> {
                       });
                     },
                     child: Container(
-                      color: AppColors.CARD_COLOR,
+                      color: cardColor == null
+                          ? Color(0xFFDEEDCE)
+                          : Color(cardColor),
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Default',
                           style: TextStyle(
-                            color: AppColors.TEXT_CARD_COLOR,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -72,6 +96,7 @@ class _TextCardColorState extends State<TextCardColor> {
                   ),
                   TextButton(
                     onPressed: () {
+                      _selectedValue();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -80,14 +105,16 @@ class _TextCardColorState extends State<TextCardColor> {
                       );
                     },
                     child: Container(
-                      color: AppColors.CARD_COLOR,
+                      color: cardColor == null
+                          ? Color(0xFFDEEDCE)
+                          : Color(cardColor),
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Select',
                           style: TextStyle(
-                            color: AppColors.TEXT_PRIMARY_COLOR,
+                            color: AppColors.TEXT_CARD_COLOR1,
                           ),
                         ),
                       ),

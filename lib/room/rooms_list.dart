@@ -59,7 +59,6 @@ class _RoomsListState extends State<RoomsList> {
 
   @override
   Widget build(BuildContext context) {
-    // print('rooom :-------- ${Home.of(context).scrollController.position.maxScrollExtent}');
     if (Home.of(context).scrollController.hasClients) {
       Home.of(context).scrollController.animateTo(
             Home.of(context).scrollController.position.maxScrollExtent ==
@@ -181,8 +180,6 @@ class _RoomsListState extends State<RoomsList> {
                       room_id = roomMap.keys.toList()[index];
                       room_name = roomMap.values.toList()[index];
                     });
-                    // print('room id $room_id');
-                    // print('room name $room_name');
                     _saveRoomID();
                     setState(() {
                       isLoading = false;

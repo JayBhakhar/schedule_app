@@ -56,13 +56,9 @@ class _TeachersListState extends State<TeachersList> {
       lettersId.add(numberletID);
     }
     letterMap = Map.fromIterables(lettersId, lettersList);
-    // print(lettersId);
-    // print(lettersList);
   }
 
   Widget build(BuildContext context) {
-    print(
-        'techear :-------- ${Home.of(context).scrollController.position.maxScrollExtent}');
     if (Home.of(context).scrollController.hasClients) {
       Home.of(context).scrollController.animateTo(
             Home.of(context).scrollController.position.maxScrollExtent ==
