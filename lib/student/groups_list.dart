@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:schedule_app/schedule_table.dart';
-import 'package:schedule_app/utility/Appcolors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class GroupsList extends StatefulWidget {
   Map<String, String> groupMap = Map();
   GroupsList({this.groupMap});

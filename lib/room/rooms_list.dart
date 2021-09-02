@@ -32,6 +32,7 @@ class _RoomsListState extends State<RoomsList> {
 
   @override
   initState() {
+    super.initState();
     _getbuilding();
   }
 

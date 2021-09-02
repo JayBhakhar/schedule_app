@@ -25,6 +25,7 @@ class _TeachersListState extends State<TeachersList> {
 
   @override
   initState() {
+    super.initState();
     _getLetter();
   }
 

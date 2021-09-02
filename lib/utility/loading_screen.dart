@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:schedule_app/home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingScreen extends StatefulWidget {
   static String id = 'loading_screen';
@@ -12,14 +11,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     _makePath();
+    super.initState();
   }
 
   void _makePath() async {
     Future.delayed(
       Duration(seconds: 1),
     );
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isDark", false);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

@@ -1,4 +1,3 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule_app/room/room_schedule_table.dart';
@@ -31,12 +30,12 @@ class _HomeState extends State<Home> {
   List<String> groupId = [];
   Map<String, String> groupMap = Map();
   bool isLoading = false;
-  bool isDark = false;
   SharedPreferences prefs;
   final ScrollController scrollController = ScrollController();
 
   void initState() {
     getSharedPreferenceObject();
+    super.initState();
   }
 
   Future<void> getSharedPreferenceObject() async {
@@ -68,20 +67,11 @@ class _HomeState extends State<Home> {
         ),
       );
     }
-    setState(() {
-      isDark = prefs.getBool("isDark");
-    });
-  }
-
-  Future<void> changeTheme() async {
-    await DynamicTheme.of(context)
-        .setBrightness(!isDark ? Brightness.light : Brightness.dark);
-    isDark = !isDark;
-    prefs.setBool("isDark", isDark);
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     if (scrollController.hasClients) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent == 0.0
@@ -94,15 +84,18 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-            child: Text(
-          'Расписание СФ БашГУ',
-          style: Theme.of(context).textTheme.bodyText2,
-        )),
+          child: Text(
+            'Расписание СФ БашГУ',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              // changeTheme();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -117,7 +110,7 @@ class _HomeState extends State<Home> {
               ),
               child: Icon(
                 Icons.brush,
-                color: Theme.of(context).primaryColor,
+                color: theme.primaryColor,
               ),
             ),
           ),
@@ -139,6 +132,34 @@ class _HomeState extends State<Home> {
       ),
       body: Stack(
         children: [
+          Container(
+            height: 100,
+            width: 100,
+            color: theme.primaryColor,
+          ),
+          Container(
+            height: 100,
+            width: 100,
+            color: theme.cardColor,
+          ),
+          Container(
+            height: 100,
+            width: 100,
+            color: theme.primaryColor,
+            child: Text(
+              'primary Color',
+              style: theme.textTheme.bodyText1,
+            ),
+          ),
+          Container(
+            height: 100,
+            width: 100,
+            color: theme.cardColor,
+            child: Text(
+              'primary Color',
+              style: theme.textTheme.bodyText2,
+            ),
+          ),
           SingleChildScrollView(
             controller: scrollController,
             child: Column(
@@ -235,10 +256,6 @@ class _HomeState extends State<Home> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            // color: index % 12 == 0
-                            //     ? theme.cardColor
-                            //     : Colors.amberAccent,
-                            // color: theme.cardColor,
                             color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -248,7 +265,7 @@ class _HomeState extends State<Home> {
                             child: Text(
                               faculty[index],
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: theme.textTheme.bodyText1,
                             ),
                           ),
                         ),
@@ -258,9 +275,9 @@ class _HomeState extends State<Home> {
                   height: 8.0,
                 ),
                 Builder(builder: (context) {
-                  if (facultyIndex == 0)
+                  if (facultyIndex == 0) {
                     return GroupsList(groupMap: groupMap);
-                  else if (facultyIndex == 1)
+                  } else if (facultyIndex == 1)
                     return GroupsList(groupMap: groupMap);
                   else if (facultyIndex == 2)
                     return GroupsList(groupMap: groupMap);

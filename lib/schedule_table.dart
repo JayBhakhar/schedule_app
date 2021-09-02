@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utility/ProgressIndicatorLoader.dart';
 
+// ignore: must_be_immutable
 class ScheduleTable extends StatefulWidget {
   static String id = 'schedule_table';
   final String Id;
@@ -42,6 +43,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
 
   @override
   void initState() {
+    super.initState();
     _getSchedule();
   }
 
