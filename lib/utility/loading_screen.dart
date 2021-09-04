@@ -10,20 +10,19 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
-    _makePath();
     super.initState();
+    _makePath();
   }
 
   void _makePath() async {
-    Future.delayed(
-      Duration(seconds: 1),
-    );
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Home(),
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    });
   }
 
   Widget build(BuildContext context) {

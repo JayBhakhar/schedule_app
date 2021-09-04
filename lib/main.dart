@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule_app/utility/loading_screen.dart';
-import 'package:schedule_app/schedule_table.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'test.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
-  // MobileAds.instance.initialize(); 
+  // MobileAds.instance.initialize();
   runApp(App());
 }
 
@@ -27,7 +26,7 @@ class _AppState extends State<App> {
   initState() {
     // _remove_all_color();
     super.initState();
-    // getSharedPreferenceObject();
+    getSharedPreferenceObject();
   }
 
   // _remove_all_color() async {
@@ -59,16 +58,17 @@ class _AppState extends State<App> {
         textTheme: TextTheme(
           bodyText1: TextStyle(
             color: textPrimaryColor == null
-                ? Colors.black
+                ? Colors.white
                 : Color(textPrimaryColor),
+            fontWeight: FontWeight.bold,
           ),
           bodyText2: TextStyle(
-            color: textCardColor == null ? Colors.white : Color(textCardColor),
+            color: textCardColor == null ? Colors.black : Color(textCardColor),
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
       home: LoadingScreen(),
-      routes: {ScheduleTable.id: (context) => ScheduleTable()},
     );
   }
 }

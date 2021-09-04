@@ -10,7 +10,7 @@ class TextCardColor extends StatefulWidget {
 }
 
 class _TextCardColorState extends State<TextCardColor> {
-  int textPrimaryColor;
+  int textCardColor;
   int cardColor;
 
   @override
@@ -22,8 +22,8 @@ class _TextCardColorState extends State<TextCardColor> {
   Future<void> getSharedPreferenceObject() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      textPrimaryColor = prefs.getInt("textPrimaryColor");
-      cardColor = prefs.getInt("cardColor");
+      textCardColor = prefs.getInt("textCardColor");
+      cardColor = prefs.getInt("CardColor");
     });
   }
 
@@ -34,6 +34,7 @@ class _TextCardColorState extends State<TextCardColor> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -45,16 +46,16 @@ class _TextCardColorState extends State<TextCardColor> {
               Container(
                 height: 100,
                 width: 360,
-                color: AppColors.TEXT_PRIMARY_COLOR1,
+                color: AppColors.TEXT_CARD_COLOR1,
               ),
               SizedBox(
                 height: 5,
               ),
               ColorPicker(
-                color: AppColors.TEXT_PRIMARY_COLOR1,
+                color: AppColors.TEXT_CARD_COLOR1,
                 onChanged: (value) {
                   setState(() {
-                    AppColors.TEXT_PRIMARY_COLOR1 = value;
+                    AppColors.TEXT_CARD_COLOR1 = value;
                   });
                 },
                 initialPicker: Picker.paletteHue,
@@ -79,22 +80,31 @@ class _TextCardColorState extends State<TextCardColor> {
                       );
                     },
                     child: Container(
-                      color: AppColors.TEXT_PRIMARY_COLOR1,
+                      color: theme.cardColor,
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Default',
-                          style: TextStyle(
-                            color: cardColor == null
-                                ? Color(0xFFDEEDCE)
-                                : Color(cardColor),
-                          ),
+                          style: theme.textTheme.bodyText2,
                         ),
                       ),
                     ),
                   ),
                   TextButton(
+                    child: Container(
+                      color: theme.cardColor,
+                      width: 100,
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          'Select',
+                          style: TextStyle(
+                            color: AppColors.TEXT_CARD_COLOR1,
+                          ),
+                        ),
+                      ),
+                    ),
                     onPressed: () async {
                       _selectedValue();
                       Navigator.pushReplacement(
@@ -104,21 +114,6 @@ class _TextCardColorState extends State<TextCardColor> {
                         ),
                       );
                     },
-                    child: Container(
-                      color: AppColors.TEXT_PRIMARY_COLOR1,
-                      width: 100,
-                      height: 40,
-                      child: Center(
-                        child: Text(
-                          'Select',
-                          style: TextStyle(
-                            color: textPrimaryColor == null
-                                ? Colors.black
-                                : Color(textPrimaryColor),
-                          ),
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               )

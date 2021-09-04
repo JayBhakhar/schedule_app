@@ -13,8 +13,8 @@ class _PrimaryColorState extends State<PrimaryColor> {
   int textCardColor;
   @override
   void initState() {
-    _getSharedObject();
     super.initState();
+    _getSharedObject();
   }
 
   _getSharedObject() async {
@@ -66,8 +66,6 @@ class _PrimaryColorState extends State<PrimaryColor> {
                     onPressed: () async {
                       final prefs = await SharedPreferences.getInstance();
                       prefs.remove("primaryColor");
-                      // AppColors.DIVIDER_COLOR1 =
-                      //     Color.fromRGBO(0, 120, 250, 0.76);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

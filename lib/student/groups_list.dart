@@ -88,7 +88,7 @@ class _GroupsListState extends State<GroupsList> {
                   child: Center(
                     child: Text(
                       widget.groupMap.values.toList()[index],
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),

@@ -95,8 +95,11 @@ class _HomeState extends State<Home> {
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
+            onDoubleTap: () {
+              print('hey');
+            }, // Todo: make a page developer
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ChooseColorsScreen(),
@@ -132,34 +135,6 @@ class _HomeState extends State<Home> {
       ),
       body: Stack(
         children: [
-          Container(
-            height: 100,
-            width: 100,
-            color: theme.primaryColor,
-          ),
-          Container(
-            height: 100,
-            width: 100,
-            color: theme.cardColor,
-          ),
-          Container(
-            height: 100,
-            width: 100,
-            color: theme.primaryColor,
-            child: Text(
-              'primary Color',
-              style: theme.textTheme.bodyText1,
-            ),
-          ),
-          Container(
-            height: 100,
-            width: 100,
-            color: theme.cardColor,
-            child: Text(
-              'primary Color',
-              style: theme.textTheme.bodyText2,
-            ),
-          ),
           SingleChildScrollView(
             controller: scrollController,
             child: Column(
@@ -256,7 +231,7 @@ class _HomeState extends State<Home> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor,
+                            color: theme.cardColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           margin: EdgeInsets.only(top: 1.5),
@@ -265,7 +240,7 @@ class _HomeState extends State<Home> {
                             child: Text(
                               faculty[index],
                               textAlign: TextAlign.center,
-                              style: theme.textTheme.bodyText1,
+                              style: theme.textTheme.bodyText2,
                             ),
                           ),
                         ),

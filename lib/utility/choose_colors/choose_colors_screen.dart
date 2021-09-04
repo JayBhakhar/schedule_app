@@ -42,6 +42,7 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -51,16 +52,14 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor: primaryColor == null
-                    ? Color(0xFF2a5abe)
-                    : Color(primaryColor),
+                tileColor: theme.primaryColor,
                 title: Text(
                   'Choose Primary Color',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: theme.textTheme.bodyText1,
                 ),
                 trailing: Icon(Icons.arrow_right),
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
@@ -74,15 +73,14 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor:
-                    cardColor == null ? Color(0xFFDEEDCE) : Color(cardColor),
+                tileColor: theme.cardColor,
                 title: Text(
                   'Choose Card Color',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: theme.textTheme.bodyText2,
                 ),
                 trailing: Icon(Icons.arrow_right),
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
@@ -96,16 +94,14 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor: primaryColor == null
-                    ? Color(0xFF2a5abe)
-                    : Color(primaryColor),
+                tileColor: theme.primaryColor,
                 title: Text(
                   'Choose Primary Text Color',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: theme.textTheme.bodyText1,
                 ),
                 trailing: Icon(Icons.arrow_right),
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
@@ -119,15 +115,14 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 height: 2,
               ),
               ListTile(
-                tileColor:
-                    cardColor == null ? Color(0xFFDEEDCE) : Color(cardColor),
+                tileColor: theme.cardColor,
                 title: Text(
                   'Choose Card Text Color',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: theme.textTheme.bodyText2,
                 ),
                 trailing: Icon(Icons.arrow_right),
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {

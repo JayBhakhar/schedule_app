@@ -21,7 +21,7 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
   Future<void> getSharedPreferenceObject() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      cardColor = prefs.getInt("cardColor");
+      cardColor = prefs.getInt("textCardColor");
     });
   }
 
@@ -32,6 +32,7 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -43,16 +44,16 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
               Container(
                 height: 100,
                 width: 360,
-                color: AppColors.TEXT_CARD_COLOR1,
+                color: AppColors.TEXT_PRIMARY_COLOR1,
               ),
               SizedBox(
                 height: 5,
               ),
               ColorPicker(
-                color: AppColors.TEXT_CARD_COLOR1,
+                color: AppColors.TEXT_PRIMARY_COLOR1,
                 onChanged: (value) {
                   setState(() {
-                    AppColors.TEXT_CARD_COLOR1 = value;
+                    AppColors.TEXT_PRIMARY_COLOR1 = value;
                   });
                 },
                 initialPicker: Picker.paletteHue,
@@ -79,17 +80,13 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
                       });
                     },
                     child: Container(
-                      color: cardColor == null
-                          ? Color(0xFFDEEDCE)
-                          : Color(cardColor),
+                      color: theme.primaryColor,
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Default',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: theme.textTheme.bodyText1,
                         ),
                       ),
                     ),
@@ -105,16 +102,14 @@ class _TextPrimaryColorState extends State<TextPrimaryColor> {
                       );
                     },
                     child: Container(
-                      color: cardColor == null
-                          ? Color(0xFFDEEDCE)
-                          : Color(cardColor),
+                      color: theme.primaryColor,
                       width: 100,
                       height: 40,
                       child: Center(
                         child: Text(
                           'Select',
                           style: TextStyle(
-                            color: AppColors.TEXT_CARD_COLOR1,
+                            color: AppColors.TEXT_PRIMARY_COLOR1,
                           ),
                         ),
                       ),
