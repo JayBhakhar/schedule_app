@@ -1,13 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import 'package:schedule_app/ads/ad_state.dart';
 import 'package:schedule_app/utility/loading_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'test.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // MobileAds.instance.initialize();
-  runApp(App());
+  WidgetsFlutterBinding.ensureInitialized();
+  final initFuture = MobileAds.instance.initialize();
+  final adState = AdState(initFuture);
+  runApp(
+    Provider.value(
+      value: adState,
+      builder: (context, child) => App(),
+    ),
+  );
 }
 
 class App extends StatefulWidget {

@@ -138,7 +138,7 @@ packages:
       name: flutter_math_fork
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.3+1"
+    version: "0.4.0+1"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -163,6 +163,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  google_mobile_ads:
+    dependency: "direct main"
+    description:
+      name: google_mobile_ads
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
   html:
     dependency: "direct main"
     description:
@@ -262,12 +269,12 @@ packages:
     source: hosted
     version: "1.0.3"
   provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "6.0.0"
   quiver:
     dependency: transitive
     description:

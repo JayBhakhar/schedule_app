@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+import 'package:schedule_app/ads/ad_state.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,6 +22,22 @@ class RoomScheduleTable extends StatefulWidget {
 }
 
 class _RoomScheduleTableState extends State<RoomScheduleTable> {
+  BannerAd banner;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      banner = BannerAd(
+        adUnitId: adState.bannerAdUnitId,
+        size: AdSize.banner,
+        request: AdRequest(),
+        listener: adState.listener,
+      )..load();
+    });
+  }
+
   List<String> dayList = ['', '', '', '', '', ''];
   List<String> LecNoList = [];
   List<String> LecNoList2 = []; // for to set range of lecture
@@ -279,8 +298,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                             decoration: BoxDecoration(
                               color: theme.cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor,
-                                  width: 0.6),
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -347,8 +365,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                             decoration: BoxDecoration(
                               color: theme.cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor,
-                                  width: 0.6),
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -415,8 +432,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                             decoration: BoxDecoration(
                               color: theme.cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor,
-                                  width: 0.6),
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -553,8 +569,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                             decoration: BoxDecoration(
                               color: theme.cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor,
-                                  width: 0.6),
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -621,8 +636,7 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                             decoration: BoxDecoration(
                               color: theme.cardColor,
                               border: Border.all(
-                                  color: theme.primaryColor,
-                                  width: 0.6),
+                                  color: theme.primaryColor, width: 0.6),
                             ),
                             child: Center(
                               child: Padding(
@@ -686,7 +700,16 @@ class _RoomScheduleTableState extends State<RoomScheduleTable> {
                     ],
                   ),
                 ),
-              )
+              ),
+              if (banner == null)
+                SizedBox(height: 50)
+              else
+                Container(
+                  height: 55,
+                  child: AdWidget(
+                    ad: banner,
+                  ),
+                )
             ],
           ),
           ProgressIndicatorLoader(Colors.white, isLoading)

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:schedule_app/main.dart';
 import 'package:schedule_app/utility/Appcolors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:schedule_app/ads/ad_state.dart';
 
 class CardColor extends StatefulWidget {
   @override
@@ -10,6 +13,22 @@ class CardColor extends StatefulWidget {
 }
 
 class _CardColorState extends State<CardColor> {
+  BannerAd banner;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      banner = BannerAd(
+        adUnitId: adState.bannerAdUnitId,
+        size: AdSize.banner,
+        request: AdRequest(),
+        listener: adState.listener,
+      )..load();
+    });
+  }
+
   int textPrimaryColor = AppColors.CARD_COLOR;
 
   @override
@@ -84,7 +103,7 @@ class _CardColorState extends State<CardColor> {
                       height: 40,
                       child: Center(
                         child: Text(
-                          'Default',
+                          'Сбросить цвет',
                           style: TextStyle(
                             color: textPrimaryColor == null
                                 ? Colors.black
@@ -110,7 +129,7 @@ class _CardColorState extends State<CardColor> {
                       height: 40,
                       child: Center(
                         child: Text(
-                          'Select',
+                          'Выбрать',
                           style: TextStyle(
                             color: textPrimaryColor == null
                                 ? Colors.black
@@ -121,7 +140,19 @@ class _CardColorState extends State<CardColor> {
                     ),
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              if (banner == null)
+                SizedBox(height: 50)
+              else
+                Container(
+                  height: 55,
+                  child: AdWidget(
+                    ad: banner,
+                  ),
+                )
             ],
           ),
         ),

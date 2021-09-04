@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'ads/ad_state.dart';
 import 'utility/ProgressIndicatorLoader.dart';
 
 // ignore: must_be_immutable
@@ -19,6 +22,22 @@ class ScheduleTable extends StatefulWidget {
 }
 
 class _ScheduleTableState extends State<ScheduleTable> {
+  BannerAd banner;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      banner = BannerAd(
+        adUnitId: adState.bannerAdUnitId,
+        size: AdSize.banner,
+        request: AdRequest(),
+        listener: adState.listener,
+      )..load();
+    });
+  }
+
   List<String> dayList = ['', '', '', '', '', ''];
   List<String> LecNoList = [];
   List<String> LecNoList2 = []; // for to set range of lecture
@@ -659,7 +678,16 @@ class _ScheduleTableState extends State<ScheduleTable> {
                     ],
                   ),
                 ),
-              )
+              ),
+              if (banner == null)
+                SizedBox(height: 50)
+              else
+                Container(
+                  height: 55,
+                  child: AdWidget(
+                    ad: banner,
+                  ),
+                )
             ],
           ),
           ProgressIndicatorLoader(Colors.white, isLoading)

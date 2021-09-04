@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+import 'package:schedule_app/ads/ad_state.dart';
+import 'package:schedule_app/devloper_page.dart';
 import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/room/rooms_list.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
@@ -22,6 +26,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  BannerAd banner;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      banner = BannerAd(
+        adUnitId: adState.bannerAdUnitId,
+        size: AdSize.banner,
+        request: AdRequest(),
+        listener: adState.listener,
+      )..load();
+    });
+  }
+
   int facultyId;
   int facultyIndex;
   int groupIndex;
@@ -96,7 +116,12 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onDoubleTap: () {
-              print('hey');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DevloperPage(),
+                ),
+              );
             }, // Todo: make a page developer
             onTap: () {
               Navigator.push(
@@ -282,6 +307,15 @@ class _HomeState extends State<Home> {
                       height: 0,
                     );
                 }),
+                // if (banner == null)
+                //   SizedBox(height: 50)
+                // else
+                //   Container(
+                //     height: 55,
+                //     child: AdWidget(
+                //       ad: banner,
+                //     ),
+                //   )
               ],
             ),
           ),
