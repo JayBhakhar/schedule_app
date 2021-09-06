@@ -26,22 +26,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  BannerAd banner;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final adState = Provider.of<AdState>(context);
-    adState.initialization.then((status) {
-      banner = BannerAd(
-        adUnitId: adState.bannerAdUnitId,
-        size: AdSize.banner,
-        request: AdRequest(),
-        listener: adState.listener,
-      )..load();
-    });
-  }
-
   int facultyId;
   int facultyIndex;
   int groupIndex;
@@ -307,15 +291,6 @@ class _HomeState extends State<Home> {
                       height: 0,
                     );
                 }),
-                // if (banner == null)
-                //   SizedBox(height: 50)
-                // else
-                //   Container(
-                //     height: 55,
-                //     child: AdWidget(
-                //       ad: banner,
-                //     ),
-                //   )
               ],
             ),
           ),
