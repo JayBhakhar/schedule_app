@@ -6,6 +6,8 @@
     <application
         android:label="Расписание СФ БашГУ"
         android:usesCleartextTraffic="true"
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

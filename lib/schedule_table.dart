@@ -82,6 +82,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
     var json = {'type': '${widget.type}', 'id': widget.Id, 'week': '$week'};
     Response response = await post(url, body: json);
     setState(() {
+      print('$url $json');
       isLoading = false;
     });
     // check the status code for the result
@@ -679,9 +680,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                   ),
                 ),
               ),
-              if (banner == null)
-                SizedBox(height: 50)
-              else
+              if (banner != null)
                 Container(
                   height: 55,
                   child: AdWidget(
