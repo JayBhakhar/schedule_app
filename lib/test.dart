@@ -16,8 +16,8 @@ class _TestState extends State<Test> {
   Map<String, String> letterMap = Map();
   Map<String, String> teacherNameMap = Map();
   String body = '';
-  String group_id;
-  String group_name;
+  String groupId;
+  String groupName;
 
   @override
   Widget build(BuildContext context) {
@@ -141,8 +141,8 @@ class _TestState extends State<Test> {
                           // int statusCode = response.statusCode;
                           setState(() {
                             body = response.body;
-                            group_id = teacherNameMap.keys.toList()[index];
-                            group_name = teacherNameMap.values.toList()[index];
+                            groupId = teacherNameMap.keys.toList()[index];
+                            groupName = teacherNameMap.values.toList()[index];
                           });
                           // _saveGroupID();
                           Navigator.push(
@@ -151,8 +151,8 @@ class _TestState extends State<Test> {
                               builder: (context) {
                                 return ScheduleTable(
                                   type: 1,
-                                  Id : teacherNameMap.keys.toList()[index],
-                                  Name : teacherNameMap.values.toList()[index],
+                                  id : teacherNameMap.keys.toList()[index],
+                                  name : teacherNameMap.values.toList()[index],
                                   body : body,
                                 );
                               },

@@ -49,8 +49,8 @@ class _HomeState extends State<Home> {
         MaterialPageRoute(
           builder: (context) => RoomScheduleTable(
             type: prefs.getInt('Type'),
-            Id: prefs.getString('Room_ID'),
-            Name: prefs.getString('Room_Name'),
+            id: prefs.getString('Room_ID'),
+            name: prefs.getString('Room_Name'),
             body: prefs.getString('Body'),
           ),
         ),
@@ -61,8 +61,8 @@ class _HomeState extends State<Home> {
         MaterialPageRoute(
           builder: (context) => ScheduleTable(
             type: prefs.getInt('Type'),
-            Id: prefs.getString('ID'),
-            Name: prefs.getString('Name'),
+            id: prefs.getString('ID'),
+            name: prefs.getString('Name'),
             body: prefs.getString('Body'),
           ),
         ),

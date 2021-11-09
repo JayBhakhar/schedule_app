@@ -13,14 +13,14 @@ class GroupsList extends StatefulWidget {
 
 class _GroupsListState extends State<GroupsList> {
   String body = '';
-  String group_id;
-  String group_name;
+  String groupId;
+  String groupName;
 
   Future<void> _saveGroupData() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('Type', 2);
-    await prefs.setString('ID', group_id);
-    await prefs.setString('Name', group_name);
+    await prefs.setString('ID', groupId);
+    await prefs.setString('Name', groupName);
     await prefs.setString('Body', body);
   }
 
@@ -66,8 +66,8 @@ class _GroupsListState extends State<GroupsList> {
                   // int statusCode = response.statusCode;
                   setState(() {
                     body = response.body;
-                    group_id = widget.groupMap.keys.toList()[index];
-                    group_name = widget.groupMap.values.toList()[index];
+                    groupId = widget.groupMap.keys.toList()[index];
+                    groupName = widget.groupMap.values.toList()[index];
                   });
                   _saveGroupData();
                   Navigator.push(
@@ -76,8 +76,8 @@ class _GroupsListState extends State<GroupsList> {
                       builder: (context) {
                         return ScheduleTable(
                           type: 2,
-                          Id: widget.groupMap.keys.toList()[index],
-                          Name: widget.groupMap.values.toList()[index],
+                          id: widget.groupMap.keys.toList()[index],
+                          name: widget.groupMap.values.toList()[index],
                           body: body,
                         );
                       },

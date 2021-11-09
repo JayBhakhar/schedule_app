@@ -51,7 +51,7 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
     textCardColor = prefs.getInt("textCardColor");
   }
 
-  _all_default_colors() async {
+  _allDefaultColors() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("primaryColor");
     prefs.remove("cardColor");
@@ -161,7 +161,7 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        _all_default_colors();
+                        _allDefaultColors();
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

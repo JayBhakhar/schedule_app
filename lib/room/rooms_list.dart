@@ -19,14 +19,14 @@ class _RoomsListState extends State<RoomsList> {
   List<String> roomsId = [];
   Map<String, String> roomMap = Map();
   String body = '';
-  String room_id;
-  String room_name;
+  String roomId;
+  String roomName;
 
   Future<void> _saveRoomID() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('Type', 3);
-    await prefs.setString('Room_ID', room_id);
-    await prefs.setString('Room_Name', room_name);
+    await prefs.setString('Room_ID', roomId);
+    await prefs.setString('Room_Name', roomName);
     await prefs.setString('Body', body);
   }
 
@@ -178,8 +178,8 @@ class _RoomsListState extends State<RoomsList> {
                     // int statusCode = response.statusCode;
                     setState(() {
                       body = response.body;
-                      room_id = roomMap.keys.toList()[index];
-                      room_name = roomMap.values.toList()[index];
+                      roomId = roomMap.keys.toList()[index];
+                      roomName = roomMap.values.toList()[index];
                     });
                     _saveRoomID();
                     setState(() {
@@ -191,8 +191,8 @@ class _RoomsListState extends State<RoomsList> {
                         builder: (context) {
                           return RoomScheduleTable(
                             type: 3,
-                            Id: roomMap.keys.toList()[index],
-                            Name: roomMap.values.toList()[index],
+                            id: roomMap.keys.toList()[index],
+                            name: roomMap.values.toList()[index],
                             body: body,
                           );
                         },

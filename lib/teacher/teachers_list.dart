@@ -19,8 +19,8 @@ class _TeachersListState extends State<TeachersList> {
   List<String> teacherNameId = [];
   Map<String, String> teacherNameMap = Map();
   String body = '';
-  String teacher_id;
-  String teacher_name;
+  String teacherId;
+  String teacherName;
   bool isLoading = false;
 
   @override
@@ -32,8 +32,8 @@ class _TeachersListState extends State<TeachersList> {
   Future<void> _saveTeacherID() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('Type', 1);
-    await prefs.setString('ID', teacher_id);
-    await prefs.setString('Name', teacher_name);
+    await prefs.setString('ID', teacherId);
+    await prefs.setString('Name', teacherName);
     await prefs.setString('Body', body);
   }
 
@@ -181,8 +181,8 @@ class _TeachersListState extends State<TeachersList> {
                     });
                     setState(() {
                       body = response.body;
-                      teacher_id = teacherNameMap.keys.toList()[index];
-                      teacher_name = teacherNameMap.values.toList()[index];
+                      teacherId = teacherNameMap.keys.toList()[index];
+                      teacherName = teacherNameMap.values.toList()[index];
                     });
                     _saveTeacherID();
                     Navigator.push(
@@ -191,8 +191,8 @@ class _TeachersListState extends State<TeachersList> {
                         builder: (context) {
                           return ScheduleTable(
                             type: 1,
-                            Id: teacherNameMap.keys.toList()[index],
-                            Name: teacherNameMap.values.toList()[index],
+                            id: teacherNameMap.keys.toList()[index],
+                            name: teacherNameMap.values.toList()[index],
                             body: body,
                           );
                         },

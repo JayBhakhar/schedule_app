@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// ignore_for_file: non_constant_identifier_names
+
 class AppColors {
   static Color PRIMARY_COLOR1 = Color(0xFF2a5abe);
   static Color CARD_COLOR1 = Color(0xFFDEEDCE);

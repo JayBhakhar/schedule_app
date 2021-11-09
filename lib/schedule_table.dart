@@ -9,13 +9,12 @@ import 'utility/ProgressIndicatorLoader.dart';
 
 // ignore: must_be_immutable
 class ScheduleTable extends StatefulWidget {
-  static String id = 'schedule_table';
-  final String Id;
-  final String Name;
+  final String id;
+  final String name;
   final int type;
   var body;
 
-  ScheduleTable({this.Id, this.Name, this.body, this.type});
+  ScheduleTable({this.id, this.name, this.body, this.type});
 
   @override
   _ScheduleTableState createState() => _ScheduleTableState();
@@ -39,19 +38,19 @@ class _ScheduleTableState extends State<ScheduleTable> {
   }
 
   List<String> dayList = ['', '', '', '', '', ''];
-  List<String> LecNoList = [];
-  List<String> LecNoList2 = []; // for to set range of lecture
-  List<String> LecTypeList = [];
-  List<String> LecCabList = [];
-  List<String> LecTimeList = [];
-  List<String> LecNameList = [];
-  List<String> TeacherNameList = [];
-  List<String> Day1Lec = [];
-  List<String> Day2Lec = [];
-  List<String> Day3Lec = [];
-  List<String> Day4Lec = [];
-  List<String> Day5Lec = [];
-  List<String> Day6Lec = [];
+  List<String> lecNoList = [];
+  List<String> lecNoList2 = []; // for to set range of lecture
+  List<String> lecTypeList = [];
+  List<String> lecCabList = [];
+  List<String> lecTimeList = [];
+  List<String> lecNameList = [];
+  List<String> teacherNameList = [];
+  List<String> day1Lec = [];
+  List<String> day2Lec = [];
+  List<String> day3Lec = [];
+  List<String> day4Lec = [];
+  List<String> day5Lec = [];
+  List<String> day6Lec = [];
   int forday2;
   int forday3;
   int forday4;
@@ -98,7 +97,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
       isLoading = true;
     });
     final url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
-    var json = {'type': '${widget.type}', 'id': widget.Id, 'week': '$week'};
+    var json = {'type': '${widget.type}', 'id': widget.id, 'week': '$week'};
     Response response = await post(url, body: json);
     setState(() {
       isLoading = false;
@@ -110,23 +109,23 @@ class _ScheduleTableState extends State<ScheduleTable> {
     final theme = Theme.of(context);
     setState(() {
       dayList = [];
-      LecNoList = [];
-      LecNoList2 = [];
-      LecTypeList = [];
-      LecCabList = [];
-      LecTimeList = [];
-      LecNameList = [];
-      TeacherNameList = [];
-      Day1Lec = [];
-      Day2Lec = [];
-      Day3Lec = [];
-      Day4Lec = [];
-      Day5Lec = [];
-      Day6Lec = [];
+      lecNoList = [];
+      lecNoList2 = [];
+      lecTypeList = [];
+      lecCabList = [];
+      lecTimeList = [];
+      lecNameList = [];
+      teacherNameList = [];
+      day1Lec = [];
+      day2Lec = [];
+      day3Lec = [];
+      day4Lec = [];
+      day5Lec = [];
+      day6Lec = [];
     });
     // start for loop day and date
-    var getDay = document.getElementsByClassName('day');
-    for (var days in getDay) {
+    var getday = document.getElementsByClassName('day');
+    for (var days in getday) {
       var daylist = days.getElementsByTagName('h2');
       for (var day in daylist) {
         dayList.add(day.innerHtml);
@@ -137,71 +136,71 @@ class _ScheduleTableState extends State<ScheduleTable> {
     var getLecNo = document.getElementsByClassName('number');
     for (var number in getLecNo) {
       if (number.text != ' ') {
-        LecNoList.add(number.text);
+        lecNoList.add(number.text);
       }
-      LecNoList2.add(number.text);
+      lecNoList2.add(number.text);
     }
-    var day1 = LecNoList2.getRange(0, 8);
+    var day1 = lecNoList2.getRange(0, 8);
     for (var i in day1) {
       if (i != ' ') {
-        Day1Lec.add(i);
+        day1Lec.add(i);
       }
     }
-    var day2 = LecNoList2.getRange(8, 16);
+    var day2 = lecNoList2.getRange(8, 16);
     for (var i in day2) {
       if (i != ' ') {
-        Day2Lec.add(i);
+        day2Lec.add(i);
       }
     }
-    var day3 = LecNoList2.getRange(16, 24);
+    var day3 = lecNoList2.getRange(16, 24);
     for (var i in day3) {
       if (i != ' ') {
-        Day3Lec.add(i);
+        day3Lec.add(i);
       }
     }
-    var day4 = LecNoList2.getRange(24, 32);
+    var day4 = lecNoList2.getRange(24, 32);
     for (var i in day4) {
       if (i != ' ') {
-        Day4Lec.add(i);
+        day4Lec.add(i);
       }
     }
-    var day5 = LecNoList2.getRange(32, 40);
+    var day5 = lecNoList2.getRange(32, 40);
     for (var i in day5) {
       if (i != ' ') {
-        Day5Lec.add(i);
+        day5Lec.add(i);
       }
     }
-    var day6 = LecNoList2.getRange(40, 48);
+    var day6 = lecNoList2.getRange(40, 48);
     for (var i in day6) {
       if (i != ' ') {
-        Day6Lec.add(i);
+        day6Lec.add(i);
       }
     }
     // end loop for lecture number
     // start loop for lecture type
     var getLecType = document.getElementsByClassName('type');
     for (var div1 in getLecType) {
-      String LecType = div1.text;
-      List a = LecType.split(RegExp(r"[0-9]"));
-      LecTypeList.add(a.last);
+      String lecType = div1.text;
+      List a = lecType.split(RegExp(r"[0-9]"));
+      lecTypeList.add(a.last);
     }
     // end loop for lecture type
     // start loop for lecture cabinate
     var getLecCab = document.getElementsByClassName('cab');
     for (var cab in getLecCab) {
-      LecCabList.add(cab.text);
+      lecCabList.add(cab.text);
     }
     // end loop for lecture cabinate
     // start loop for lecture time
     var getLecTime = document.getElementsByClassName('time');
     for (var time in getLecTime) {
-      LecTimeList.add(time.text);
+      lecTimeList.add(time.text);
     }
     // end loop for lecture time
     // start loop for lecture name
     var getLecName = document.getElementsByClassName('name');
     for (var name in getLecName) {
-      LecNameList.add(name.text);
+      lecNameList.add(name.text);
     }
     // end loop for lecture name
     // start loop for techer name
@@ -209,18 +208,18 @@ class _ScheduleTableState extends State<ScheduleTable> {
     for (var teacherdiv in getTeacherName) {
       var teacherli = teacherdiv.getElementsByTagName('li');
       for (var teacher in teacherli) {
-        TeacherNameList.add(teacher.text);
+        teacherNameList.add(teacher.text);
       }
     }
-    forday2 = Day1Lec.length;
-    forday3 = Day1Lec.length + Day2Lec.length;
-    forday4 = Day1Lec.length + Day2Lec.length + Day3Lec.length;
-    forday5 = Day1Lec.length + Day2Lec.length + Day3Lec.length + Day4Lec.length;
-    forday6 = Day1Lec.length +
-        Day2Lec.length +
-        Day3Lec.length +
-        Day4Lec.length +
-        Day5Lec.length;
+    forday2 = day1Lec.length;
+    forday3 = day1Lec.length + day2Lec.length;
+    forday4 = day1Lec.length + day2Lec.length + day3Lec.length;
+    forday5 = day1Lec.length + day2Lec.length + day3Lec.length + day4Lec.length;
+    forday6 = day1Lec.length +
+        day2Lec.length +
+        day3Lec.length +
+        day4Lec.length +
+        day5Lec.length;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -231,7 +230,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
           },
         ),
         title: Text(
-          widget.Name,
+          widget.name,
         ),
       ),
       body: Stack(
@@ -314,7 +313,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           ListView.builder(
                               physics: ScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: Day1Lec.length,
+                              itemCount: day1Lec.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
@@ -335,20 +334,20 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                  '${LecNoList[index]} ${LecTypeList[index]} ${LecCabList[index]}'),
+                                                  '${lecNoList[index]} ${lecTypeList[index]} ${lecCabList[index]}'),
                                               // №. пара комната №
                                               Text(
-                                                '${LecTimeList[index]}',
+                                                '${lecTimeList[index]}',
                                               ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                            '${LecNameList[index]}',
+                                            '${lecNameList[index]}',
                                           ),
                                           // subject name
                                           Text(
-                                            '${TeacherNameList[index]}',
+                                            '${teacherNameList[index]}',
                                           ),
                                           // teacher name
                                         ],
@@ -379,7 +378,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           ListView.builder(
                               physics: ScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: Day2Lec.length,
+                              itemCount: day2Lec.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
@@ -400,21 +399,21 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '${LecNoList[forday2 + index]} ${LecTypeList[forday2 + index]} ${LecCabList[forday2 + index]}',
+                                                '${lecNoList[forday2 + index]} ${lecTypeList[forday2 + index]} ${lecCabList[forday2 + index]}',
                                               ),
                                               // №. пара комната №
                                               Text(
-                                                '${LecTimeList[forday2 + index]}',
+                                                '${lecTimeList[forday2 + index]}',
                                               ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                            '${LecNameList[forday2 + index]}',
+                                            '${lecNameList[forday2 + index]}',
                                           ),
                                           // subject name
                                           Text(
-                                            '${TeacherNameList[forday2 + index]}',
+                                            '${teacherNameList[forday2 + index]}',
                                           ),
                                           // teacher name
                                         ],
@@ -445,7 +444,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           ListView.builder(
                               physics: ScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: Day3Lec.length,
+                              itemCount: day3Lec.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
@@ -467,21 +466,21 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '${LecNoList[forday3 + index]} ${LecTypeList[forday3 + index]} ${LecCabList[forday3 + index]}',
+                                                '${lecNoList[forday3 + index]} ${lecTypeList[forday3 + index]} ${lecCabList[forday3 + index]}',
                                               ),
                                               // №. пара комната №
                                               Text(
-                                                '${LecTimeList[forday3 + index]}',
+                                                '${lecTimeList[forday3 + index]}',
                                               ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                            '${LecNameList[forday3 + index]}',
+                                            '${lecNameList[forday3 + index]}',
                                           ),
                                           // subject name
                                           Text(
-                                            '${TeacherNameList[forday3 + index]}',
+                                            '${teacherNameList[forday3 + index]}',
                                           ),
                                           // teacher name
                                         ],
@@ -514,7 +513,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           ListView.builder(
                               physics: ScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: Day4Lec.length,
+                              itemCount: day4Lec.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
@@ -535,21 +534,21 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '${LecNoList[forday4 + index]} ${LecTypeList[forday4 + index]} ${LecCabList[forday4 + index]}',
+                                                '${lecNoList[forday4 + index]} ${lecTypeList[forday4 + index]} ${lecCabList[forday4 + index]}',
                                               ),
                                               // №. пара комната №
                                               Text(
-                                                '${LecTimeList[forday4 + index]}',
+                                                '${lecTimeList[forday4 + index]}',
                                               ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                            '${LecNameList[forday4 + index]}',
+                                            '${lecNameList[forday4 + index]}',
                                           ),
                                           // subject name
                                           Text(
-                                            '${TeacherNameList[forday4 + index]}',
+                                            '${teacherNameList[forday4 + index]}',
                                           ),
                                           // teacher name
                                         ],
@@ -580,7 +579,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           ListView.builder(
                               physics: ScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: Day5Lec.length,
+                              itemCount: day5Lec.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
@@ -601,21 +600,21 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '${LecNoList[forday5 + index]} ${LecTypeList[forday5 + index]} ${LecCabList[forday5 + index]}',
+                                                '${lecNoList[forday5 + index]} ${lecTypeList[forday5 + index]} ${lecCabList[forday5 + index]}',
                                               ),
                                               // №. пара комната №
                                               Text(
-                                                '${LecTimeList[forday5 + index]}',
+                                                '${lecTimeList[forday5 + index]}',
                                               ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                            '${LecNameList[forday5 + index]}',
+                                            '${lecNameList[forday5 + index]}',
                                           ),
                                           // subject name
                                           Text(
-                                            '${TeacherNameList[forday5 + index]}',
+                                            '${teacherNameList[forday5 + index]}',
                                           ),
                                           // teacher name
                                         ],
@@ -646,7 +645,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           ListView.builder(
                               physics: ScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: Day6Lec.length,
+                              itemCount: day6Lec.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 return Builder(builder: (context) {
@@ -667,21 +666,21 @@ class _ScheduleTableState extends State<ScheduleTable> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '${LecNoList[forday6 + index]} ${LecTypeList[forday6 + index]} ${LecCabList[forday6 + index]}',
+                                                '${lecNoList[forday6 + index]} ${lecTypeList[forday6 + index]} ${lecCabList[forday6 + index]}',
                                               ),
                                               // №. пара комната №
                                               Text(
-                                                '${LecTimeList[forday6 + index]}',
+                                                '${lecTimeList[forday6 + index]}',
                                               ),
                                               // время
                                             ],
                                           ),
                                           Text(
-                                            '${LecNameList[forday6 + index]}',
+                                            '${lecNameList[forday6 + index]}',
                                           ),
                                           // subject name
                                           Text(
-                                            '${TeacherNameList[forday6 + index]}',
+                                            '${teacherNameList[forday6 + index]}',
                                           ),
                                           // teacher name
                                         ],
