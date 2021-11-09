@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
-import 'package:schedule_app/ads/ad_state.dart';
 import 'package:schedule_app/devloper_page.dart';
 import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/room/rooms_list.dart';
@@ -44,9 +41,9 @@ class _HomeState extends State<Home> {
 
   Future<void> getSharedPreferenceObject() async {
     prefs = await SharedPreferences.getInstance();
-    if (prefs.getInt('Type') == null) {
+    if (prefs.getInt('Type') == null) {      
       print('no data');
-    } else if (prefs.getInt('Type') == 3) {
+    } else if (prefs.getInt('Type') == 3) { 
       Navigator.push(
         context,
         MaterialPageRoute(

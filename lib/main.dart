@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:schedule_app/ads/ad_state.dart';
-import 'package:schedule_app/utility/loading_screen.dart';
+import 'package:schedule_app/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'test.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +24,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  // int primaryColor = AppColors.PRIMARY_COLOR;
   int primaryColor;
   int cardColor;
   int textPrimaryColor;
@@ -33,18 +31,9 @@ class _AppState extends State<App> {
 
   @override
   initState() {
-    // _remove_all_color();
     super.initState();
     getSharedPreferenceObject();
   }
-
-  // _remove_all_color() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.remove("primaryColor");
-  //   prefs.remove("cardColor");
-  //   prefs.remove("textPrimrayColor");
-  //   prefs.remove("textCardColor");
-  // }
 
   Future<void> getSharedPreferenceObject() async {
     final prefs = await SharedPreferences.getInstance();
@@ -77,7 +66,7 @@ class _AppState extends State<App> {
           ),
         ),
       ),
-      home: LoadingScreen(),
+      home: Home(),
     );
   }
 }

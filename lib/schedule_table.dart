@@ -59,11 +59,30 @@ class _ScheduleTableState extends State<ScheduleTable> {
   int forday6;
   int week = 0;
   bool isLoading = false;
+  SharedPreferences prefs;
+  var document;
 
   @override
   void initState() {
     super.initState();
-    _getSchedule();
+    _checkNull();
+  }
+
+  _checkNull() async {
+    prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt('Type') == null || week != 0) {
+      _getSchedule().then(
+        (value) {
+          setState(() {
+            document = parse(value.body);
+          });
+        },
+      );
+    } else {
+      setState(() {
+        document = parse(widget.body);
+      });
+    }
   }
 
   Future<void> _cleanData() async {
@@ -74,7 +93,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
     await prefs.remove('Body');
   }
 
-  void _getSchedule() async {
+  Future<Response> _getSchedule() async {
     setState(() {
       isLoading = true;
     });
@@ -82,12 +101,13 @@ class _ScheduleTableState extends State<ScheduleTable> {
     var json = {'type': '${widget.type}', 'id': widget.Id, 'week': '$week'};
     Response response = await post(url, body: json);
     setState(() {
-      print('$url $json');
       isLoading = false;
     });
-    // check the status code for the result
-    // int statusCode = response.statusCode;
-    var document = parse(response.body);
+    return response;
+  }
+
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     setState(() {
       dayList = [];
       LecNoList = [];
@@ -201,10 +221,6 @@ class _ScheduleTableState extends State<ScheduleTable> {
         Day3Lec.length +
         Day4Lec.length +
         Day5Lec.length;
-  }
-
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -246,7 +262,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           onPressed: () {
                             setState(() {
                               week--;
-                              _getSchedule();
+                              _checkNull();
                             });
                           }),
                     ),
@@ -263,7 +279,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
                           onPressed: () {
                             setState(() {
                               week++;
-                              _getSchedule();
+                              _checkNull();
                             });
                           }),
                     ),
