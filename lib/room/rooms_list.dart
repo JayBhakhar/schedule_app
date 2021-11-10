@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
 import 'package:schedule_app/home.dart';
-import 'package:schedule_app/room/room_schedule_table.dart';
+import 'package:schedule_app/schedule_table.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,8 +25,8 @@ class _RoomsListState extends State<RoomsList> {
   Future<void> _saveRoomID() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('Type', 3);
-    await prefs.setString('Room_ID', roomId);
-    await prefs.setString('Room_Name', roomName);
+    await prefs.setString('ID', roomId);
+    await prefs.setString('Name', roomName);
     await prefs.setString('Body', body);
   }
 
@@ -189,7 +189,7 @@ class _RoomsListState extends State<RoomsList> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return RoomScheduleTable(
+                          return ScheduleTable(
                             type: 3,
                             id: roomMap.keys.toList()[index],
                             name: roomMap.values.toList()[index],

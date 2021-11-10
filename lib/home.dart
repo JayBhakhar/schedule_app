@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:schedule_app/devloper_page.dart';
-import 'package:schedule_app/room/room_schedule_table.dart';
 import 'package:schedule_app/room/rooms_list.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
 import 'package:schedule_app/utility/choose_colors/choose_colors_screen.dart';
@@ -41,21 +40,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getSharedPreferenceObject() async {
     prefs = await SharedPreferences.getInstance();
-    if (prefs.getInt('Type') == null) {      
-      print('no data');
-    } else if (prefs.getInt('Type') == 3) { 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => RoomScheduleTable(
-            type: prefs.getInt('Type'),
-            id: prefs.getString('Room_ID'),
-            name: prefs.getString('Room_Name'),
-            body: prefs.getString('Body'),
-          ),
-        ),
-      );
-    } else {
+    if (prefs.getInt('Type') != null) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -222,11 +207,12 @@ class _HomeState extends State<Home> {
                             });
                           }
                           for (var ullist in ul) {
-                            var divlist = ullist.getElementsByTagName('div');
+                            var divlist =
+                                ullist.getElementsByTagName('div');
                             for (var atext in divlist) {
                               groupId.add(atext.innerHtml);
                             }
-                          }
+                          }                          
                           for (var ullist in ul) {
                             var alist = ullist.getElementsByTagName('a');
                             for (var atext in alist) {
