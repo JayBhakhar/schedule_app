@@ -152,7 +152,7 @@ class _TeachersListState extends State<TeachersList> {
               shrinkWrap: true,
               itemCount: teacherNameMap.length,
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 130.0,
+                maxCrossAxisExtent: 200.0,
                 mainAxisExtent: 30,
                 crossAxisSpacing: 4.0,
                 mainAxisSpacing: 4.0,
@@ -184,20 +184,23 @@ class _TeachersListState extends State<TeachersList> {
                       teacherId = teacherNameMap.keys.toList()[index];
                       teacherName = teacherNameMap.values.toList()[index];
                     });
+                    print(teacherNameMap.keys.toString());
                     _saveTeacherID();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ScheduleTable(
-                            type: 1,
-                            id: teacherNameMap.keys.toList()[index],
-                            name: teacherNameMap.values.toList()[index],
-                            body: body,
-                          );
-                        },
-                      ),
-                    );
+                    if (teacherNameMap.keys.toString() != '()') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ScheduleTable(
+                              type: 1,
+                              id: teacherNameMap.keys.toList()[index],
+                              name: teacherNameMap.values.toList()[index],
+                              body: body,
+                            );
+                          },
+                        ),
+                      );
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(

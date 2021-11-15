@@ -62,6 +62,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
   bool isLoading = false;
   SharedPreferences prefs;
   var document;
+  bool isLike = false;
 
   @override
   void initState() {
@@ -69,7 +70,7 @@ class _ScheduleTableState extends State<ScheduleTable> {
     _checkNull();
   }
 
-  _checkNull() async {
+  void _checkNull() async {
     prefs = await SharedPreferences.getInstance();
     if (prefs.getInt('Type') == null || week != 0) {
       _getSchedule().then(

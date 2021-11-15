@@ -24,14 +24,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int facultyId;
   int facultyIndex;
-  int groupIndex;
-  var body = '';
-  List<String> groupList = [];
-  List<String> groupId = [];
-  Map<String, String> groupMap = Map();
   bool isLoading = false;
   SharedPreferences prefs;
   final ScrollController scrollController = ScrollController();
+  List groupList = [];
 
   void initState() {
     getSharedPreferenceObject();
@@ -60,9 +56,8 @@ class _HomeState extends State<Home> {
     final theme = Theme.of(context);
     if (scrollController.hasClients) {
       scrollController.animateTo(
-        scrollController.position.maxScrollExtent == 0.0
-            ? 350
-            : scrollController.position.maxScrollExtent,
+        scrollController.position.maxScrollExtent == 0.0 ? 350 : 550,
+        // : scrollController.position.maxScrollExtent,
         duration: Duration(milliseconds: 200),
         curve: Curves.easeInExpo,
       );
@@ -201,25 +196,27 @@ class _HomeState extends State<Home> {
                           var ul = document.getElementsByTagName('ul');
                           if (groupList.isNotEmpty) {
                             setState(() {
-                              groupId = [];
                               groupList = [];
-                              groupMap = Map();
                             });
                           }
-                          for (var ullist in ul) {
-                            var divlist =
-                                ullist.getElementsByTagName('div');
-                            for (var atext in divlist) {
-                              groupId.add(atext.innerHtml);
+                          List gruId = [];
+                          List gruName = [];
+                          for (var a in ul) {
+                            List _id = [];
+                            List _name = [];
+                            gruId.add(_id);
+                            gruName.add(_name);
+                            var id = a.getElementsByTagName('ul div');
+                            var name = a.getElementsByTagName('ul a');
+                            for (var _ in id) {
+                              _id.add(_.innerHtml);
                             }
-                          }                          
-                          for (var ullist in ul) {
-                            var alist = ullist.getElementsByTagName('a');
-                            for (var atext in alist) {
-                              groupList.add(atext.innerHtml);
+                            for (var _ in name) {
+                              _name.add(_.innerHtml);
                             }
+                            Map grpMap = Map.fromIterables(_id, _name);
+                            groupList.add(grpMap);
                           }
-                          groupMap = Map.fromIterables(groupId, groupList);
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -243,27 +240,27 @@ class _HomeState extends State<Home> {
                 ),
                 Builder(builder: (context) {
                   if (facultyIndex == 0) {
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   } else if (facultyIndex == 1)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 2)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 3)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 4)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 5)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 6)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 7)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 8)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 9)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 10)
-                    return GroupsList(groupMap: groupMap);
+                    return GroupsList(groupMapList: groupList);
                   else if (facultyIndex == 11)
                     return TeachersList();
                   else if (facultyIndex == 12)

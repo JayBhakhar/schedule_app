@@ -198,9 +198,7 @@ class _ChooseColorsScreenState extends State<ChooseColorsScreen> {
                 SizedBox(
                   height: 385,
                 ),
-                if (banner == null)
-                  SizedBox(height: 50)
-                else
+                if (banner != null)              
                   Container(
                     height: 55,
                     child: AdWidget(
