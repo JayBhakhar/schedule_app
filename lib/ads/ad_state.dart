@@ -8,8 +8,8 @@ class AdState {
   AdState(this.initialization);
 
   String get bannerAdUnitId => Platform.isAndroid
-      // ? 'ca-app-pub-3940256099942544/6300978111' // test id
-      ? 'ca-app-pub-6361427235342992/8538954786'
+      ? 'ca-app-pub-3940256099942544/6300978111' // test id
+      // ? 'ca-app-pub-6361427235342992/8538954786'
       : 'ca-app-pub-6361427235342992/4642752432';
 
   final BannerAdListener listener = BannerAdListener(
