@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:schedule_app/consts/consts.dart';
 import 'package:schedule_app/devloper_page.dart';
 import 'package:schedule_app/room/rooms_list.dart';
 import 'package:schedule_app/utility/ProgressIndicatorLoader.dart';
-import 'package:schedule_app/utility/choose_colors/choose_colors_screen.dart';
-import 'package:schedule_app/utility/lists.dart';
 import 'package:http/http.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/teacher/teachers_list.dart';
+import 'package:schedule_app/utility/choose_colors/choose_colors_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'student/groups_list.dart';
