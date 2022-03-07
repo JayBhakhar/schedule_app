@@ -21,12 +21,8 @@ void main() async {
   );
 }
 
-class App extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+class App extends StatelessWidget {
 
-class _MyAppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -50,3 +46,4 @@ class _MyAppState extends State<App> {
     );
   }
 }
+

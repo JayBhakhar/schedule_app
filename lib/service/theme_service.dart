@@ -3,7 +3,6 @@ import 'package:get_storage/get_storage.dart';
 
 class ThemeService {
   final _box = GetStorage();
-
   get primaryColor => _box.read("primaryColor") == null
       ? Color(0xFF2a5abe)
       : Color(_box.read("primaryColor"));
