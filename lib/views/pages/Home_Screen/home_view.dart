@@ -91,13 +91,19 @@ class HomeView extends GetView<HomeController> {
             ),
             GetBuilder<HomeController>(builder: (controller) {
               if (controller.index <= 10) {
-                return groupsList(controller.groupsList);
+                return controller.isLoading
+                    ? CircularProgressIndicator()
+                    : groupsList();
                 // ignore: unrelated_type_equality_checks
               } else if (controller.index == 11) {
-                return lettersList(controller.lettersList);
+                return controller.isLoading
+                    ? CircularProgressIndicator()
+                    : lettersList();
                 // ignore: unrelated_type_equality_checks
               } else if (controller.index == 12) {
-                return buildingsList(controller.buildingsList);
+                return controller.isLoading
+                    ? CircularProgressIndicator()
+                    : buildingsList();
               } else {
                 return Container();
               }

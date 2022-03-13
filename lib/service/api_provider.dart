@@ -77,4 +77,51 @@ class ApiProvider extends GetConnect {
       return buildingsMapList;
     }
   }
+
+  Future<List<dynamic>> getTeachersList(String letterId) async {
+    final response = await get('${apiBaseUrl}letter=$letterId');
+    if (response.status.hasError) {
+      return Future.error(response.statusText);
+    } else {
+      List _teachers = [];
+      List _teachersId = [];
+      List teachersMapList = [];
+      var document = parse(response.body);
+      var teacherNames = document.getElementsByClassName('prep_name');
+      for (var teacherName in teacherNames) {
+        var teaNameIDAttribute = teacherName.attributes['onclick'];
+        var teaNameIDstr = teaNameIDAttribute.replaceAll(RegExp('[^0-9]'), '');
+        var teaNameID = teaNameIDstr.substring(2, teaNameIDstr.length - 1);
+        _teachers.add(teacherName.text);
+        _teachersId.add(teaNameID);
+      }
+      Map teachersMap = Map.fromIterables(_teachersId, _teachers);
+      teachersMapList.add(teachersMap);
+      return teachersMapList;
+    }
+  }
+
+  Future<List<dynamic>> getRoomsList(String roomId) async {
+    final response = await get('${apiBaseUrl}korpus=$roomId');
+    if (response.status.hasError) {
+      return Future.error(response.statusText);
+    } else {
+      List _roomsId = [];
+      List _roomsList = [];
+      List roomsMapList = [];
+      var document = parse(response.body);
+      var roomNumbers = document.getElementsByClassName('prep_name');
+      for (var roomNumber in roomNumbers) {
+        var roomNumberIDAttribute = roomNumber.attributes['onclick'];
+        var teaNameIDstr =
+            roomNumberIDAttribute.replaceAll(RegExp('[^0-9]'), '');
+        var teaNameID = teaNameIDstr.substring(2, teaNameIDstr.length - 1);
+        _roomsList.add(roomNumber.text);
+        _roomsId.add(teaNameID);
+      }
+      Map roomMap = Map.fromIterables(_roomsId, _roomsList);
+      roomsMapList.add(roomMap);
+      return roomsMapList;
+    }
+  }
 }
