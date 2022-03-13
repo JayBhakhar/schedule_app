@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:schedule_app/consts/consts.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/pages/Home_Screen/home_controller.dart';
+import 'package:schedule_app/views/widgets/buildings_list.dart';
 import 'package:schedule_app/views/widgets/groups_list.dart';
 import 'package:schedule_app/views/widgets/home_appbar.dart';
+import 'package:schedule_app/views/widgets/letters_list.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
@@ -57,7 +59,11 @@ class HomeView extends GetView<HomeController> {
                     } else if (index == 10) {
                       controller.facultyId = 127.obs;
                       controller.getGroupsList();
-                    } else if (index == 11) {}
+                    } else if (index == 11) {
+                      controller.getLettersList();
+                    } else if (index == 12) {
+                      controller.getBuildingsList();
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -83,24 +89,19 @@ class HomeView extends GetView<HomeController> {
             SizedBox(
               height: 8.0,
             ),
-            if (controller.index < 10)
-              controller.obx(
-                (state) => groupsList(state),
-                onEmpty: Container(),
-              )
-
-            // ignore: unrelated_type_equality_checks
-            else if (controller.index == 11)
-              controller.obx(
-                (state) => groupsList(state), // todo: teacherlist
-                onEmpty: Container(),
-              )
-            // ignore: unrelated_type_equality_checks
-            else if (controller.index == 12)
-              controller.obx(
-                (state) => groupsList(state), // todo: roomlist
-                onEmpty: Container(),
-              )
+            GetBuilder<HomeController>(builder: (controller) {
+              if (controller.index <= 10) {
+                return groupsList(controller.groupsList);
+                // ignore: unrelated_type_equality_checks
+              } else if (controller.index == 11) {
+                return lettersList(controller.lettersList);
+                // ignore: unrelated_type_equality_checks
+              } else if (controller.index == 12) {
+                return buildingsList(controller.buildingsList);
+              } else {
+                return Container();
+              }
+            }),
           ],
         ),
       ),

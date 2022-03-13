@@ -3,19 +3,13 @@ import 'package:get/get.dart';
 import 'package:schedule_app/service/api_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeController extends GetxController with StateMixin<List<dynamic>> {
+class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
+  var groupsList = List.empty().obs;
+  var lettersList = List.empty().obs;
+  var buildingsList = List.empty().obs;
   RxInt facultyId = 0.obs;
   RxInt index = 0.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    change(
-      [],
-      status: RxStatus.success(),
-    );
-  }
 
   void _scontroller() {
     if (scrollController.hasClients) {
@@ -27,21 +21,31 @@ class HomeController extends GetxController with StateMixin<List<dynamic>> {
     }
   }
 
-  void getGroupsList() {
-    ApiProvider().getGroupsList().then((data) {
-      change(
-        data,
-        status: RxStatus.success(),
-      );
-      _scontroller();
-    }, onError: (err) {
-      change(
-        null,
-        status: RxStatus.error(
-          err.toString(),
-        ),
-      );
-    });
+  void getGroupsList() async {
+    var groups = await ApiProvider().getGroupsList();
+    if (groups != null) {
+      groupsList.value = groups;
+    }
+    _scontroller();
+    update();
+  }
+
+  void getLettersList() async {
+    var letters = await ApiProvider().getLettersList();
+    if (letters != null) {
+      lettersList.value = letters;
+    }
+    _scontroller();
+    update();
+  }
+
+  void getBuildingsList() async {
+    var buildings = await ApiProvider().getBuildingsList();
+    if (buildings != null) {
+      buildingsList.value = buildings;
+    }
+    _scontroller();
+    update();
   }
 
   Future<void> launchInBrowser(String url) async {

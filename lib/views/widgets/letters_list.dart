@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:schedule_app/service/theme_service.dart';
 
-Widget groupsList(List groupsList) {
-  return SingleChildScrollView(
-    child: ListView.builder(
+Widget lettersList(List lettersList) {
+  return ListView.builder(
       physics: ScrollPhysics(),
       shrinkWrap: true,
-      itemCount: groupsList.length,
-      itemBuilder: (context, int index1) {
+      itemCount: lettersList.length,
+      itemBuilder: (context, index1) {
         return Container(
           margin: EdgeInsets.only(left: 3.0, right: 3.0, bottom: 1.0),
           child: GridView.builder(
               physics: ScrollPhysics(),
               shrinkWrap: true,
-              itemCount: groupsList[index1].length,
+              itemCount: lettersList[index1].length,
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 100.0,
                 mainAxisExtent: 40,
@@ -36,7 +35,7 @@ Widget groupsList(List groupsList) {
                       child: Container(
                         child: Center(
                           child: Text(
-                            groupsList[index1].values.toList()[index],
+                            lettersList[index1].values.toList()[index],
                             style: TextStyle(
                               color: ThemeService().bodyText1,
                             ),
@@ -44,14 +43,12 @@ Widget groupsList(List groupsList) {
                         ),
                       ),
                       onTap: () {
-                        // todo : get.tonamed
+                        // todo : another list
                       },
                     ),
                   ),
                 );
               }),
         );
-      },
-    ),
-  );
+      });
 }

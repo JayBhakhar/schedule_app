@@ -1,4 +1,5 @@
-final lunchUrl = "https://strbsu.ru/";
+const lunchUrl = "https://strbsu.ru/";
+const apiBaseUrl = "http://edu.strbsu.ru/php/getList.php?";
 final List faculty = [
   'Филологический факультет',
   'Факультет башкирской и тюркской филологии',
