@@ -5,6 +5,7 @@ import 'package:schedule_app/views/pages/Schedule/schedule_controller.dart';
 import 'package:schedule_app/views/widgets/schedule_table.dart';
 
 class ScheduleView extends GetView<ScheduleController> {
+  // final ScheduleController _schedulecontroller = Get.put(ScheduleController());
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
@@ -37,7 +38,7 @@ class ScheduleView extends GetView<ScheduleController> {
                               )),
                         ),
                         onPressed: () {
-                          scheduleController.weekDecrease();
+                          controller.weekDecrease();
                         }),
                   ),
                   Container(
@@ -53,18 +54,17 @@ class ScheduleView extends GetView<ScheduleController> {
                               )),
                         ),
                         onPressed: () {
-                          scheduleController.weekIncrease();
+                          controller.weekIncrease();
                         }),
                   ),
                 ],
               ),
             ),
-            GetBuilder<ScheduleController>(builder: (controller) {
-              return controller.isLoading
+            GetBuilder<ScheduleController>(
+              builder: (controller) => controller.isLoading
                   ? CircularProgressIndicator()
-                  : scheduleTable();
-            }),
-            
+                  : scheduleTable(),
+            )
           ],
         ),
       ),

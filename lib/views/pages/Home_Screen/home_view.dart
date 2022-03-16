@@ -25,39 +25,39 @@ class HomeView extends GetView<HomeController> {
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {
-                    controller.index = index.obs;
+                    controller.index = index;
                     if (index == 0) {
-                      controller.facultyId = 4.obs;
+                      controller.facultyId = 4;
                       controller.getGroupsList();
                     } else if (index == 1) {
-                      controller.facultyId = 5.obs;
+                      controller.facultyId = 5;
                       controller.getGroupsList();
                     } else if (index == 2) {
-                      controller.facultyId = 6.obs;
+                      controller.facultyId = 6;
                       controller.getGroupsList();
                     } else if (index == 3) {
-                      controller.facultyId = 7.obs;
+                      controller.facultyId = 7;
                       controller.getGroupsList();
                     } else if (index == 4) {
-                      controller.facultyId = 8.obs;
+                      controller.facultyId = 8;
                       controller.getGroupsList();
                     } else if (index == 5) {
-                      controller.facultyId = 9.obs;
+                      controller.facultyId = 9;
                       controller.getGroupsList();
                     } else if (index == 6) {
-                      controller.facultyId = 10.obs;
+                      controller.facultyId = 10;
                       controller.getGroupsList();
                     } else if (index == 7) {
-                      controller.facultyId = 18.obs;
+                      controller.facultyId = 18;
                       controller.getGroupsList();
                     } else if (index == 8) {
-                      controller.facultyId = 26.obs;
+                      controller.facultyId = 26;
                       controller.getGroupsList();
                     } else if (index == 9) {
-                      controller.facultyId = 27.obs;
+                      controller.facultyId = 27;
                       controller.getGroupsList();
                     } else if (index == 10) {
-                      controller.facultyId = 127.obs;
+                      controller.facultyId = 127;
                       controller.getGroupsList();
                     } else if (index == 11) {
                       controller.getLettersList();

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/pages/Home_Screen/home_controller.dart';
-import 'package:schedule_app/views/widgets/home_appbar.dart';
 
 Widget buildingsList() {
+  final HomeController controller = Get.find();
   return Column(
     children: [
       ListView.builder(

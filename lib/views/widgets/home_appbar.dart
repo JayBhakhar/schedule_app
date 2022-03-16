@@ -4,9 +4,8 @@ import 'package:schedule_app/consts/consts.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/pages/Home_Screen/home_controller.dart';
 
-HomeController controller = Get.find();
-
 Widget homeAppBar() {
+  final HomeController controller = Get.find();
   return AppBar(
       title: Center(
         child: Text(

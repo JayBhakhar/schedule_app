@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/consts/consts.dart';
-import 'package:schedule_app/views/widgets/home_appbar.dart';
 import 'package:http/http.dart' as https;
+import 'package:schedule_app/views/pages/Home_Screen/home_controller.dart';
 
 class ApiProvider extends GetConnect {
   Future<List<dynamic>> getGroupsList() async {
+    final HomeController controller = Get.find();
     final response = await get('${apiBaseUrl}faculty=${controller.facultyId}');
     if (response.status.hasError) {
       return Future.error(response.statusText);

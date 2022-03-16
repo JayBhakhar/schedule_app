@@ -1,30 +1,27 @@
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/service/api_provider.dart';
-
-ScheduleController scheduleController = Get.find<ScheduleController>();
-
 class ScheduleController extends GetxController {
   bool isLoading = false;
   dynamic data = Get.arguments;
   int week = 0;
   String schedule = '';
-  RxList<dynamic> dayList = [].obs;
-  RxList<dynamic> lecNoList = [].obs;
-  RxList<dynamic> lecNoList2 = [].obs; // for to set range of lecture
-  RxList<dynamic> lecTypeList = [].obs;
-  RxList<dynamic> lecCabList = [].obs;
-  RxList lecTimeList = [].obs;
-  RxList<dynamic> lecNameList = [].obs;
-  RxList<dynamic> teacherNameAndGroupList = [].obs;
-  RxList<dynamic> teacherNameList = [].obs;
-  RxList<dynamic> groupList = [].obs;
-  RxList<dynamic> day1Lec = [].obs;
-  RxList<dynamic> day2Lec = [].obs;
-  RxList<dynamic> day3Lec = [].obs;
-  RxList<dynamic> day4Lec = [].obs;
-  RxList<dynamic> day5Lec = [].obs;
-  RxList<dynamic> day6Lec = [].obs;
+  List dayList = [];
+  List lecNoList = [];
+  List lecNoList2 = []; // for to set range of leture
+  List lecTypeList = [];
+  List lecCabList = [];
+  List lecTimeList = [];
+  List lecNameList = [];
+  List teacherNameAndGroupList = [];
+  List teacherNameList = [];
+  List groupList = [];
+  List day1Lec = [];
+  List day2Lec = [];
+  List day3Lec = [];
+  List day4Lec = [];
+  List day5Lec = [];
+  List day6Lec = [];
   int forday2;
   int forday3;
   int forday4;
@@ -79,7 +76,6 @@ class ScheduleController extends GetxController {
       schedule = body;
       // todo: save to getstorage
     }
-    clearAll();
     if (data['type'] == 3) {
       parsingData3();
     } else {
@@ -278,12 +274,9 @@ class ScheduleController extends GetxController {
     // end loop for lecture time
     // start loop for lecture name
     var getLecName = document.getElementsByClassName('name');
-    print('lecnamelist before pasing  $lecNameList');
     for (var name in getLecName) {
       lecNameList.add(name.text);
     }
-
-    print('lecnamelist after pasing $lecNameList');
     // end loop for lecture name
     // start loop for techer name
     var getTeacherName = document.getElementsByClassName('prep');

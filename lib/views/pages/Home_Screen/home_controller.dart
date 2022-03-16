@@ -5,13 +5,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
-  var groupsList = List.empty();
-  var lettersList = List.empty();
-  var buildingsList = List.empty();
-  var teachersList = List.empty();
-  var roomsList = List.empty();
-  RxInt facultyId = 0.obs;
-  RxInt index = 0.obs;
+  List groupsList = List.empty();
+  List lettersList = List.empty();
+  List buildingsList = List.empty();
+  List teachersList = List.empty();
+  List roomsList = List.empty();
+  int facultyId = 0;
+  int index = 0;
   bool isLoading = false;
   
   void _scontroller() {
