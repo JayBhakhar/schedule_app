@@ -5,15 +5,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
-  var groupsList = List.empty().obs;
-  var lettersList = List.empty().obs;
-  var buildingsList = List.empty().obs;
-  var teachersList = List.empty().obs;
-  var roomsList = List.empty().obs;
+  var groupsList = List.empty();
+  var lettersList = List.empty();
+  var buildingsList = List.empty();
+  var teachersList = List.empty();
+  var roomsList = List.empty();
   RxInt facultyId = 0.obs;
   RxInt index = 0.obs;
   bool isLoading = false;
-
+  
   void _scontroller() {
     if (scrollController.hasClients) {
       scrollController.animateTo(
@@ -29,7 +29,7 @@ class HomeController extends GetxController {
     update();
     var groups = await ApiProvider().getGroupsList();
     if (groups != null) {
-      groupsList.value = groups;
+      groupsList = groups;
     }
     _scontroller();
     isLoading = false;
@@ -41,7 +41,7 @@ class HomeController extends GetxController {
     update();
     var letters = await ApiProvider().getLettersList();
     if (letters != null) {
-      lettersList.value = letters;
+      lettersList = letters;
     }
     _scontroller();
     isLoading = false;
@@ -53,7 +53,7 @@ class HomeController extends GetxController {
     update();
     var buildings = await ApiProvider().getBuildingsList();
     if (buildings != null) {
-      buildingsList.value = buildings;
+      buildingsList = buildings;
     }
     _scontroller();
     isLoading = false;
@@ -65,7 +65,7 @@ class HomeController extends GetxController {
     update();
     var teachers = await ApiProvider().getTeachersList(letterId);
     if (teachers != null) {
-      teachersList.value = teachers;
+      teachersList = teachers;
     }
     _scontroller();
     isLoading = false;
@@ -77,7 +77,7 @@ class HomeController extends GetxController {
     update();
     var rooms = await ApiProvider().getRoomsList(roomId);
     if (rooms != null) {
-      roomsList.value = rooms;
+      roomsList = rooms;
     }
     _scontroller();
     isLoading = false;

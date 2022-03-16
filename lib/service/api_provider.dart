@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/consts/consts.dart';
 import 'package:schedule_app/views/widgets/home_appbar.dart';
+import 'package:http/http.dart' as https;
 
 class ApiProvider extends GetConnect {
   Future<List<dynamic>> getGroupsList() async {
@@ -122,6 +123,19 @@ class ApiProvider extends GetConnect {
       Map roomMap = Map.fromIterables(_roomsId, _roomsList);
       roomsMapList.add(roomMap);
       return roomsMapList;
+    }
+  }
+
+  Future<String> getSchedule(String type, String id, int week) async {
+    final _url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
+    var _json = {'type': type, 'id': id, 'week': '$week'};
+    print(_json);
+    final response = await https.post(_url, body: _json);
+    if (response.statusCode == 200) {
+      String body = response.body;
+      return body;
+    } else {
+      return Future.error(response.statusCode);
     }
   }
 }

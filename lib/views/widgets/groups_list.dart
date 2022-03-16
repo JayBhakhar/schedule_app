@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/widgets/home_appbar.dart';
 
@@ -37,7 +38,8 @@ Widget groupsList() {
                       child: Container(
                         child: Center(
                           child: Text(
-                            controller.groupsList[index1].values.toList()[index],
+                            controller.groupsList[index1].values
+                                .toList()[index],
                             style: TextStyle(
                               color: ThemeService().bodyText1,
                             ),
@@ -45,7 +47,13 @@ Widget groupsList() {
                         ),
                       ),
                       onTap: () {
-                        // todo : get.tonamed
+                        Get.toNamed('/schedule', arguments: {
+                          'type': '2',
+                          'id':
+                              '${controller.groupsList[index1].keys.toList()[index]}',
+                          'name':
+                              '${controller.groupsList[index1].values.toList()[index]}'
+                        });
                       },
                     ),
                   ),
