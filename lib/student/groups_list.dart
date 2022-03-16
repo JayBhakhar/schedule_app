@@ -28,7 +28,6 @@ class _GroupsListState extends State<GroupsList> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.groupMapList.length);
     final theme = Theme.of(context);
     return SingleChildScrollView(
       child: ListView.builder(
@@ -70,9 +69,6 @@ class _GroupsListState extends State<GroupsList> {
                         ),
                       ),
                       onTap: () async {
-                        print(widget.groupMapList[index1].keys.toList()[index]);
-                        print(
-                            widget.groupMapList[index1].values.toList()[index]);
                         final url = Uri.parse(
                             'http://edu.strbsu.ru/php/getShedule.php');
                         var json = {

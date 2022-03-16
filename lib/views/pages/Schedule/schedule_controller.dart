@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/service/api_provider.dart';
+
 class ScheduleController extends GetxController {
   bool isLoading = false;
   dynamic data = Get.arguments;
@@ -39,33 +40,31 @@ class ScheduleController extends GetxController {
     week++;
     clearAll();
     getSchedule(data['type'], data['id'], week);
-    update();
   }
 
   void weekDecrease() {
     week--;
     clearAll();
     getSchedule(data['type'], data['id'], week);
-    update();
   }
 
   void clearAll() {
-    dayList = [].obs;
-    lecNoList = [].obs;
-    lecNoList2 = [].obs;
-    lecTypeList = [].obs;
-    lecCabList = [].obs;
-    lecTimeList = [].obs;
-    lecNameList = [].obs;
-    teacherNameAndGroupList = [].obs;
-    teacherNameList = [].obs;
-    groupList = [].obs;
-    day1Lec = [].obs;
-    day2Lec = [].obs;
-    day3Lec = [].obs;
-    day4Lec = [].obs;
-    day5Lec = [].obs;
-    day6Lec = [].obs;
+    dayList = [];
+    lecNoList = [];
+    lecNoList2 = [];
+    lecTypeList = [];
+    lecCabList = [];
+    lecTimeList = [];
+    lecNameList = [];
+    teacherNameAndGroupList = [];
+    teacherNameList = [];
+    groupList = [];
+    day1Lec = [];
+    day2Lec = [];
+    day3Lec = [];
+    day4Lec = [];
+    day5Lec = [];
+    day6Lec = [];
   }
 
   void getSchedule(String type, String id, int week) async {
@@ -76,7 +75,7 @@ class ScheduleController extends GetxController {
       schedule = body;
       // todo: save to getstorage
     }
-    if (data['type'] == 3) {
+    if (data['type'] == '3') {
       parsingData3();
     } else {
       parsingData();
@@ -281,7 +280,7 @@ class ScheduleController extends GetxController {
     // start loop for techer name
     var getTeacherName = document.getElementsByClassName('prep');
     for (var teacherdiv in getTeacherName) {
-      var teacherli = teacherdiv.getElementsByTagName('li');
+      var teacherli = teacherdiv.getElementsByTagName('ul');
       for (var teacher in teacherli) {
         teacherNameList.add(teacher.text);
         groupList.add(''); //for range

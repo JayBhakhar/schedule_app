@@ -130,7 +130,6 @@ class ApiProvider extends GetConnect {
   Future<String> getSchedule(String type, String id, int week) async {
     final _url = Uri.parse('http://edu.strbsu.ru/php/getShedule.php');
     var _json = {'type': type, 'id': id, 'week': '$week'};
-    print(_json);
     final response = await https.post(_url, body: _json);
     if (response.statusCode == 200) {
       String body = response.body;

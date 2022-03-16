@@ -102,6 +102,13 @@ Widget lettersList() {
                               ),
                             ),
                             onTap: () {
+                              Get.toNamed('/schedule', arguments: {
+                                'type': '1',
+                                'id':
+                                    '${controller.teachersList[index1].keys.toList()[index]}',
+                                'name':
+                                    '${controller.teachersList[index1].values.toList()[index]}'
+                              });
                               // todo: get schdule
                             },
                           ),

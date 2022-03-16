@@ -102,7 +102,13 @@ Widget buildingsList() {
                               ),
                             ),
                             onTap: () {
-                              // todo : get schudule
+                              Get.toNamed('/schedule', arguments: {
+                                'type': '3',
+                                'id':
+                                    '${controller.roomsList[index1].keys.toList()[index]}',
+                                'name':
+                                    '${controller.roomsList[index1].values.toList()[index]}'
+                              });
                             },
                           ),
                         ),
