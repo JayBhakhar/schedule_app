@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/pages/Schedule/schedule_controller.dart';
 import 'package:schedule_app/views/widgets/schedule_table.dart';
 
 class ScheduleView extends GetView<ScheduleController> {
-  // final ScheduleController _schedulecontroller = Get.put(ScheduleController());
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
@@ -64,7 +64,14 @@ class ScheduleView extends GetView<ScheduleController> {
               builder: (controller) => controller.isLoading
                   ? CircularProgressIndicator()
                   : scheduleTable(),
-            )
+            ),
+            if (controller.adBanner != null)
+              Container(
+                height: 55,
+                child: AdWidget(
+                  ad: controller.adBanner,
+                ),
+              )
           ],
         ),
       ),

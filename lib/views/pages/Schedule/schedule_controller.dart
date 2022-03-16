@@ -1,8 +1,12 @@
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/service/api_provider.dart';
+import 'package:schedule_app/utils/ad_helper.dart';
 
 class ScheduleController extends GetxController {
+  BannerAd adBanner;
+  RxBool _isAdLoaded = false.obs;
   bool isLoading = false;
   dynamic data = Get.arguments;
   int week = 0;
@@ -32,8 +36,27 @@ class ScheduleController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    ad();
     getSchedule(data['type'], data['id'], week);
     update();
+  }
+
+  void ad() {
+    adBanner = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          _isAdLoaded.value = true;
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    );
+    adBanner.load();
   }
 
   void weekIncrease() {
@@ -295,5 +318,11 @@ class ScheduleController extends GetxController {
         day3Lec.length +
         day4Lec.length +
         day5Lec.length;
+  }
+
+  @override
+  void dispose() {
+    adBanner.dispose();
+    super.dispose();
   }
 }
