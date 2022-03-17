@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:schedule_app/consts/consts.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/pages/Home_Screen/home_controller.dart';
@@ -11,6 +12,7 @@ import 'package:schedule_app/views/widgets/letters_list.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
+    GetStorage box = GetStorage();
     return Scaffold(
       appBar: homeAppBar(),
       body: SingleChildScrollView(
@@ -25,6 +27,7 @@ class HomeView extends GetView<HomeController> {
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {
+                    box.write('isFMaIT', false);
                     controller.index = index;
                     if (index == 0) {
                       controller.facultyId = 4;
@@ -36,6 +39,7 @@ class HomeView extends GetView<HomeController> {
                       controller.facultyId = 6;
                       controller.getGroupsList();
                     } else if (index == 3) {
+                      box.write('isFMaIT', true);
                       controller.facultyId = 7;
                       controller.getGroupsList();
                     } else if (index == 4) {

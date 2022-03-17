@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/pages/Home_Screen/home_controller.dart';
 
 Widget buildingsList() {
   final HomeController controller = Get.find();
+  GetStorage box = GetStorage();
   return Column(
     children: [
       ListView.builder(
@@ -49,6 +51,10 @@ Widget buildingsList() {
                             ),
                           ),
                           onTap: () {
+                            box.write('isFMaIT', false);
+                            if (index == 2) {
+                              box.write('isFMaIT', true);
+                            }
                             controller.getRoomsList(controller
                                 .buildingsList[index1].keys
                                 .toList()[index]);
@@ -107,7 +113,8 @@ Widget buildingsList() {
                                 'id':
                                     '${controller.roomsList[index1].keys.toList()[index]}',
                                 'name':
-                                    '${controller.roomsList[index1].values.toList()[index]}'
+                                    '${controller.roomsList[index1].values.toList()[index]}',
+                                'week': 0
                               });
                             },
                           ),

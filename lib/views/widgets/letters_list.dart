@@ -107,9 +107,9 @@ Widget lettersList() {
                                 'id':
                                     '${controller.teachersList[index1].keys.toList()[index]}',
                                 'name':
-                                    '${controller.teachersList[index1].values.toList()[index]}'
+                                    '${controller.teachersList[index1].values.toList()[index]}',
+                                'week': 0
                               });
-                              // todo: get schdule
                             },
                           ),
                         ),
