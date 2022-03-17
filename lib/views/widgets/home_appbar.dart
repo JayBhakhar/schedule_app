@@ -19,23 +19,19 @@ Widget homeAppBar() {
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
-          onDoubleTap: () {
-            Get.toNamed('devloper');
-          },
-          onTap: () {
-            Get.toNamed('choosecolors');
-          }, //Todo: choose colors
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(6.0)),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(6.0)),
+              ),
+              child: Icon(
+                Icons.person,
+                color: ThemeService().primaryColor,
+              ),
             ),
-            child: Icon(
-              Icons.brush,
-              color: ThemeService().primaryColor,
-            ),
-          ),
-        ),
+            onTap: () {
+              Get.toNamed('devloper');
+            }),
       ),
       actions: [
         Padding(

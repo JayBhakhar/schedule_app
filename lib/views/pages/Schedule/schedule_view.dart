@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:schedule_app/service/theme_service.dart';
+import 'package:schedule_app/views/pages/Home_Screen/home_controller.dart';
 import 'package:schedule_app/views/pages/Schedule/schedule_controller.dart';
 import 'package:schedule_app/views/widgets/schedule_table.dart';
 
@@ -50,6 +51,8 @@ class ScheduleView extends GetView<ScheduleController> {
                           controller.weekDecrease();
                         }),
                   ),
+                  if (Get.find<HomeController>().facultyId == 7)
+                    Text('ФМиИТ Пушка💗'),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
