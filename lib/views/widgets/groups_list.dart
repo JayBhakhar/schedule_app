@@ -53,7 +53,8 @@ Widget groupsList() {
                           'id':
                               '${controller.groupsList[index1].keys.toList()[index]}',
                           'name':
-                              '${controller.groupsList[index1].values.toList()[index]}'
+                              '${controller.groupsList[index1].values.toList()[index]}',
+                          'week': 0
                         });
                       },
                     ),

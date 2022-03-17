@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:schedule_app/service/theme_service.dart';
 import 'package:schedule_app/views/pages/Schedule/schedule_controller.dart';
 import 'package:schedule_app/views/widgets/schedule_table.dart';
@@ -8,10 +8,19 @@ import 'package:schedule_app/views/widgets/schedule_table.dart';
 class ScheduleView extends GetView<ScheduleController> {
   @override
   Widget build(BuildContext context) {
-    var data = Get.arguments;
+    final box = GetStorage();
+    var data = box.read('data');
+    var arg = Get.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text(data['name']),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            box.remove('data');
+            Get.back();
+          },
+        ),
+        title: Text(box.hasData('data') ? data['name'] : arg['name']),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -65,13 +74,6 @@ class ScheduleView extends GetView<ScheduleController> {
                   ? CircularProgressIndicator()
                   : scheduleTable(),
             ),
-            if (controller.adBanner != null)
-              Container(
-                height: 55,
-                child: AdWidget(
-                  ad: controller.adBanner,
-                ),
-              )
           ],
         ),
       ),

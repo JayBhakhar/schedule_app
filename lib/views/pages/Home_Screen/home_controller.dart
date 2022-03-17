@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:schedule_app/service/api_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,7 +14,18 @@ class HomeController extends GetxController {
   int facultyId = 0;
   int index = 0;
   bool isLoading = false;
-  
+
+  @override
+  void onInit() {
+    super.onInit();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      GetStorage box = GetStorage();
+      if (box.hasData('data')) {
+        Get.toNamed('/schedule');
+      }
+    });
+  }
+
   void _scontroller() {
     if (scrollController.hasClients) {
       scrollController.animateTo(

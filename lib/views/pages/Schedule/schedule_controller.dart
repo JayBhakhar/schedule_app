@@ -1,15 +1,12 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:html/parser.dart';
 import 'package:schedule_app/service/api_provider.dart';
-import 'package:schedule_app/utils/ad_helper.dart';
 
 class ScheduleController extends GetxController {
-  BannerAd adBanner;
-  RxBool _isAdLoaded = false.obs;
   bool isLoading = false;
-  dynamic data = Get.arguments;
-  int week = 0;
+  dynamic arguments = Get.arguments;
   String schedule = '';
   List dayList = [];
   List lecNoList = [];
@@ -33,42 +30,39 @@ class ScheduleController extends GetxController {
   int forday5;
   int forday6;
 
+  GetStorage box = GetStorage();
+
   @override
   void onInit() {
     super.onInit();
-    ad();
-    getSchedule(data['type'], data['id'], week);
+    if (!box.hasData('data')) {
+      getSchedule(arguments['type'], arguments['id'], arguments['week']);
+    } else {
+      var data = box.read('data');
+      schedule = data['schedule'];
+      if (data['type'] == '3') {
+        parsingData3();
+      } else {
+        parsingData();
+      }
+    }
     update();
   }
 
-  void ad() {
-    adBanner = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      size: AdSize.banner,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          _isAdLoaded.value = true;
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          print('Ad load failed (code=${error.code} message=${error.message})');
-        },
-      ),
-    );
-    adBanner.load();
-  }
-
   void weekIncrease() {
-    week++;
     clearAll();
-    getSchedule(data['type'], data['id'], week);
+    if (box.hasData('data')) {
+      var data = box.read('data');
+      getSchedule(data['type'], data['id'], data['week'] + 1);
+    }
   }
 
   void weekDecrease() {
-    week--;
     clearAll();
-    getSchedule(data['type'], data['id'], week);
+    if (box.hasData('data')) {
+      var data = box.read('data');
+      getSchedule(data['type'], data['id'], data['week'] - 1);
+    }
   }
 
   void clearAll() {
@@ -96,8 +90,16 @@ class ScheduleController extends GetxController {
     var body = await ApiProvider().getSchedule(type, id, week);
     if (body != null) {
       schedule = body;
-      // todo: save to getstorage
+      var data = box.read('data');
+      box.write('data', {
+        'type': type,
+        'name': box.hasData('data') ? data['name'] : arguments['name'],
+        'id': id,
+        'week': week,
+        'schedule': schedule
+      });
     }
+    var data = box.read('data');
     if (data['type'] == '3') {
       parsingData3();
     } else {
@@ -318,11 +320,5 @@ class ScheduleController extends GetxController {
         day3Lec.length +
         day4Lec.length +
         day5Lec.length;
-  }
-
-  @override
-  void dispose() {
-    adBanner.dispose();
-    super.dispose();
   }
 }
