@@ -29,9 +29,9 @@ Widget lettersList() {
                       padding: EdgeInsets.all(1.5),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: ThemeService().primaryColor,
+                          color: ThemeService.primaryColor,
                           border: Border.all(
-                            color: ThemeService().cardColor,
+                            color: ThemeService.cardColor,
                             width: 2.5,
                           ),
                           borderRadius: BorderRadius.circular(5),
@@ -43,7 +43,7 @@ Widget lettersList() {
                                 controller.lettersList[index1].values
                                     .toList()[index],
                                 style: TextStyle(
-                                  color: ThemeService().bodyText1,
+                                  color: ThemeService.bodyText1,
                                 ),
                               ),
                             ),
@@ -82,9 +82,9 @@ Widget lettersList() {
                         padding: EdgeInsets.all(1.5),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: ThemeService().cardColor,
+                            color: ThemeService.cardColor,
                             border: Border.all(
-                              color: ThemeService().primaryColor,
+                              color: ThemeService.primaryColor,
                               width: 2.5,
                             ),
                             borderRadius: BorderRadius.circular(5),
@@ -96,7 +96,7 @@ Widget lettersList() {
                                   controller.teachersList[index1].values
                                       .toList()[index],
                                   style: TextStyle(
-                                    color: ThemeService().bodyText2,
+                                    color: ThemeService.bodyText2,
                                   ),
                                 ),
                               ),

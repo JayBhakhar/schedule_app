@@ -28,9 +28,9 @@ Widget groupsList() {
                   padding: EdgeInsets.all(1.5),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                       border: Border.all(
-                        color: ThemeService().cardColor,
+                        color: ThemeService.cardColor,
                         width: 2.5,
                       ),
                       borderRadius: BorderRadius.circular(5),
@@ -42,7 +42,7 @@ Widget groupsList() {
                             controller.groupsList[index1].values
                                 .toList()[index],
                             style: TextStyle(
-                              color: ThemeService().bodyText1,
+                              color: ThemeService.bodyText1,
                             ),
                           ),
                         ),

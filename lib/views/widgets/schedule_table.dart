@@ -12,9 +12,9 @@ Widget scheduleTable() {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ThemeService().cardColor,
+              color: ThemeService.cardColor,
               border: Border.all(
-                color: ThemeService().primaryColor,
+                color: ThemeService.primaryColor,
                 width: 0.6,
               ),
             ),
@@ -24,7 +24,7 @@ Widget scheduleTable() {
                   child: Text(
                     '${controller.dayList[0]}',
                     style: TextStyle(
-                      color: ThemeService().bodyText2,
+                      color: ThemeService.bodyText2,
                     ),
                   )),
             ),
@@ -39,7 +39,7 @@ Widget scheduleTable() {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                       width: 0.6,
                     ),
                   ),
@@ -78,9 +78,8 @@ Widget scheduleTable() {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ThemeService().cardColor,
-              border:
-                  Border.all(color: ThemeService().primaryColor, width: 0.6),
+              color: ThemeService.cardColor,
+              border: Border.all(color: ThemeService.primaryColor, width: 0.6),
             ),
             child: Center(
               child: Padding(
@@ -101,7 +100,7 @@ Widget scheduleTable() {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                       width: 0.6,
                     ),
                   ),
@@ -141,9 +140,8 @@ Widget scheduleTable() {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ThemeService().cardColor,
-              border:
-                  Border.all(color: ThemeService().primaryColor, width: 0.6),
+              color: ThemeService.cardColor,
+              border: Border.all(color: ThemeService.primaryColor, width: 0.6),
             ),
             child: Center(
               child: Padding(
@@ -164,7 +162,7 @@ Widget scheduleTable() {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                       width: 0.6,
                     ),
                   ),
@@ -205,9 +203,9 @@ Widget scheduleTable() {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ThemeService().cardColor,
+              color: ThemeService.cardColor,
               border: Border.all(
-                color: ThemeService().primaryColor,
+                color: ThemeService.primaryColor,
                 width: 0.6,
               ),
             ),
@@ -230,7 +228,7 @@ Widget scheduleTable() {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                       width: 0.6,
                     ),
                   ),
@@ -270,9 +268,8 @@ Widget scheduleTable() {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ThemeService().cardColor,
-              border:
-                  Border.all(color: ThemeService().primaryColor, width: 0.6),
+              color: ThemeService.cardColor,
+              border: Border.all(color: ThemeService.primaryColor, width: 0.6),
             ),
             child: Center(
               child: Padding(
@@ -293,7 +290,7 @@ Widget scheduleTable() {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                       width: 0.6,
                     ),
                   ),
@@ -333,9 +330,8 @@ Widget scheduleTable() {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ThemeService().cardColor,
-              border:
-                  Border.all(color: ThemeService().primaryColor, width: 0.6),
+              color: ThemeService.cardColor,
+              border: Border.all(color: ThemeService.primaryColor, width: 0.6),
             ),
             child: Center(
               child: Padding(
@@ -356,7 +352,7 @@ Widget scheduleTable() {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                       width: 0.6,
                     ),
                   ),

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_app/service/theme_service.dart';
 
 class DevloperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: ThemeService.primaryColor,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircleAvatar(
               radius: 75,
-              backgroundColor: Colors.teal,
+              backgroundColor: ThemeService.primaryColor,
               backgroundImage: NetworkImage(
                 'https://sun9-18.userapi.com/impf/A6L45MRzAdy8aImVBH8F7EPfjAZzGQg79WOUQQ/5ZDTwzkUSUc.jpg?size=864x1080&quality=96&sign=364bf394b999d9eb1326e6d67a8d62a3&type=album',
               ),

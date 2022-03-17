@@ -11,15 +11,15 @@ void main() async {
   runApp(GetMaterialApp(
     title: 'Расписание СФ БашГУ',
     theme: ThemeData(
-      primaryColor: ThemeService().primaryColor,
-      cardColor: ThemeService().cardColor,
+      primaryColor: ThemeService.primaryColor,
+      cardColor: ThemeService.cardColor,
       textTheme: TextTheme(
         bodyText1: TextStyle(
-          color: ThemeService().bodyText1,
+          color: ThemeService.bodyText1,
           fontWeight: FontWeight.bold,
         ),
         bodyText2: TextStyle(
-          color: ThemeService().bodyText2,
+          color: ThemeService.bodyText2,
           fontWeight: FontWeight.bold,
         ),
       ),

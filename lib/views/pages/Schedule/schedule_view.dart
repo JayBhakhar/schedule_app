@@ -38,13 +38,13 @@ class ScheduleView extends GetView<ScheduleController> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                     ),
                     child: TextButton(
                         child: Container(
                           child: Text('Пред. неделя',
                               style: TextStyle(
-                                color: ThemeService().bodyText1,
+                                color: ThemeService.bodyText1,
                               )),
                         ),
                         onPressed: () {
@@ -56,13 +56,13 @@ class ScheduleView extends GetView<ScheduleController> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      color: ThemeService().primaryColor,
+                      color: ThemeService.primaryColor,
                     ),
                     child: TextButton(
                         child: Container(
                           child: Text('Пред. неделя',
                               style: TextStyle(
-                                color: ThemeService().bodyText1,
+                                color: ThemeService.bodyText1,
                               )),
                         ),
                         onPressed: () {

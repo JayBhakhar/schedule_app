@@ -67,7 +67,7 @@ class HomeView extends GetView<HomeController> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: ThemeService().cardColor,
+                      color: ThemeService.cardColor,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     margin: EdgeInsets.only(top: 1.5),
@@ -77,7 +77,7 @@ class HomeView extends GetView<HomeController> {
                         faculty[index],
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: ThemeService().bodyText2,
+                          color: ThemeService.bodyText2,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

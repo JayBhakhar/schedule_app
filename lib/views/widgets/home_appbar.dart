@@ -26,7 +26,7 @@ Widget homeAppBar() {
               ),
               child: Icon(
                 Icons.person,
-                color: ThemeService().primaryColor,
+                color: ThemeService.primaryColor,
               ),
             ),
             onTap: () {
