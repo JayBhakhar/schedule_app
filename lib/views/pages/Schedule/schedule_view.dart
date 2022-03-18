@@ -22,6 +22,20 @@ class ScheduleView extends GetView<ScheduleController> {
           },
         ),
         title: Text(box.hasData('data') ? data['name'] : arg['name']),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                controller.resetButton();
+              },
+              child: Icon(
+                Icons.restart_alt,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

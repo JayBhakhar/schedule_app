@@ -9,7 +9,7 @@ class ScheduleController extends GetxController {
   String schedule = '';
   List dayList = [];
   List lecNoList = [];
-  List lecNoList2 = []; // for to set range of leture
+  List lecNoList2 = [];
   List lecTypeList = [];
   List lecCabList = [];
   List lecTimeList = [];
@@ -46,6 +46,15 @@ class ScheduleController extends GetxController {
       }
     }
     update();
+  }
+
+  void resetButton() {
+    clearAll();
+
+    if (box.hasData('data')) {
+      var data = box.read('data');
+      getSchedule(data['type'], data['id'], 0);
+    }
   }
 
   void weekIncrease() {
@@ -162,34 +171,29 @@ class ScheduleController extends GetxController {
         day6Lec.add(i);
       }
     }
-    // end loop for lecture number
-    // start loop for lecture type
+
     var getLecType = document.getElementsByClassName('type');
     for (var div1 in getLecType) {
       String lecType = div1.text;
       List a = lecType.split(RegExp(r"[0-9]"));
       lecTypeList.add(a.last);
     }
-    // end loop for lecture type
-    // start loop for lecture cabinate
+
     var getLecCab = document.getElementsByClassName('cab');
     for (var cab in getLecCab) {
       lecCabList.add(cab.text);
     }
-    // end loop for lecture cabinate
-    // start loop for lecture time
+
     var getLecTime = document.getElementsByClassName('time');
     for (var time in getLecTime) {
       lecTimeList.add(time.text);
     }
-    // end loop for lecture time
-    // start loop for lecture name
+
     var getLecName = document.getElementsByClassName('name');
     for (var name in getLecName) {
       lecNameList.add(name.text);
     }
-    // end loop for lecture name
-    // start loop for techer name
+
     var getTeacherName = document.getElementsByClassName('prep');
     for (var teacherdiv in getTeacherName) {
       var teacherli = teacherdiv.getElementsByTagName('li');
@@ -228,8 +232,6 @@ class ScheduleController extends GetxController {
       }
     }
 
-    // end for loop for day
-    // start loop for lecture number
     var getLecNo = document.getElementsByClassName('number');
     for (var number in getLecNo) {
       if (number.text != ' ') {
@@ -274,40 +276,35 @@ class ScheduleController extends GetxController {
         day6Lec.add(i);
       }
     }
-    // end loop for lecture number
-    // start loop for lecture type
+
     var getLecType = document.getElementsByClassName('type');
     for (var div1 in getLecType) {
       String lecType = div1.text;
       List a = lecType.split(RegExp(r"[0-9]"));
       lecTypeList.add(a.last);
     }
-    // end loop for lecture type
-    // start loop for lecture cabinate
+
     var getLecCab = document.getElementsByClassName('cab');
     for (var cab in getLecCab) {
       lecCabList.add(cab.text);
     }
-    // end loop for lecture cabinate
-    // start loop for lecture time
+
     var getLecTime = document.getElementsByClassName('time');
     for (var time in getLecTime) {
       lecTimeList.add(time.text);
     }
-    // end loop for lecture time
-    // start loop for lecture name
+
     var getLecName = document.getElementsByClassName('name');
     for (var name in getLecName) {
       lecNameList.add(name.text);
     }
-    // end loop for lecture name
-    // start loop for techer name
+
     var getTeacherName = document.getElementsByClassName('prep');
     for (var teacherdiv in getTeacherName) {
       var teacherli = teacherdiv.getElementsByTagName('ul');
       for (var teacher in teacherli) {
         teacherNameList.add(teacher.text);
-        groupList.add(''); //for range
+        groupList.add('');
       }
     }
     forday2 = day1Lec.length;
