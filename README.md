@@ -1,16 +1,12 @@
-# schedule_app
+# Schedule App
 
-app foe see schedule
+The Schedule App is a mobile application built with Flutter to provide users with a comprehensive scheduling tool. 
+This app offers a cross-platform solution, ensuring consistent performance on both Android and iOS devices.
 
-## Getting Started
+Key Features:
 
-This project is a starting point for a Flutter application.
+- Flutter: Ensures a consistent and responsive user interface across multiple platforms.
+- State Management: Getx(BCV Model)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Note:**
+Project moved to https://github.com/JayBhakhar/schedule_uust After 1.0.5 Version
